@@ -30,7 +30,7 @@ SCyTAG/
 │   ├── CompleteMissingFacts.py  # Completes missing facts in topology
 │   ├── ReduceTopologyWithAG.py  # Reduces topology based on attack graph
 │   └── compare_debrief.py       # Compares and analyzes debrief data
-├── FullBank/                    # Fictitious banking enterprise (88 nodes)
+├── Bank/                    # Fictitious banking enterprise (88 nodes)
 │   ├── AttackGraph/             # Generated attack graph artifacts
 │   │   ├── ARCS.CSV             # Attack graph edges
 │   │   ├── AttackGraph.dot      # GraphViz format
@@ -40,18 +40,18 @@ SCyTAG/
 │   │   ├── AttackGraph.xml      # XML format
 │   │   └── VERTICES.CSV         # Attack graph vertices
 │   ├── Facts/                   # Network facts and rules
-│   │   ├── FullBank_Facts.P     # Network state facts
-│   │   ├── FullBank_MissingFacts.p  # Identified missing facts
+│   │   ├── Bank_Facts.P     # Network state facts
+│   │   ├── Bank_MissingFacts.p  # Identified missing facts
 │   │   └── IR_Bank_Topology.p   # Interaction rules for AG
 │   ├── Images/                  # Topology visualizations
-│   │   ├── FullBank.jpg         # Full topology diagram
-│   │   └── FullBank-Reduced.jpg # Reduced cyber twin diagram
+│   │   ├── Bank.jpg         # Full topology diagram
+│   │   └── Bank-Reduced.jpg # Reduced cyber twin diagram
 │   └── Topology-Files/          # GNS3 configuration files
 │       ├── ve-config.yaml       # Virtual environment configuration
 │       ├── ve-config-reduced.yaml   # Reduced VE configuration
 │       ├── ve-topology.yaml     # Complete 88-node topology
 │       └── ve-topology-reduced.yaml # Minimal cyber twin topology
-├── HugeBank/                    # Large-scale enterprise network (1,471 nodes)
+├── Bank-XL/                    # Large-scale enterprise network (1,471 nodes)
 │   ├── AttackGraph/             # Generated attack graph artifacts
 │   │   ├── ARCS.CSV             # Attack graph edges
 │   │   ├── AttackGraph.dot      # GraphViz format
@@ -61,12 +61,12 @@ SCyTAG/
 │   │   ├── AttackGraph.xml      # XML format
 │   │   └── VERTICES.CSV         # Attack graph vertices
 │   ├── Facts/                   # Network facts and rules
-│   │   ├── HugeBank_Facts.P     # Large-scale network facts
-│   │   ├── HugeBank_IR.p        # Interaction rules
-│   │   └── HugeBank_MissingFacts.p  # Identified missing facts
+│   │   ├── Bank-XL_Facts.P     # Large-scale network facts
+│   │   ├── Bank-XL_IR.p        # Interaction rules
+│   │   └── Bank-XL_MissingFacts.p  # Identified missing facts
 │   ├── Images/                  # Topology visualizations
-│   │   ├── HugeBank.jpg         # Full topology diagram
-│   │   └── HugeBank-Reduced.jpg # Reduced cyber twin diagram
+│   │   ├── Bank-XL.jpg         # Full topology diagram
+│   │   └── Bank-XL-Reduced.jpg # Reduced cyber twin diagram
 │   └── Topology-Files/          # GNS3 configuration files
 │       ├── ve-config.yaml       # Enterprise-scale VE configuration
 │       ├── ve-config-reduced.yaml   # Reduced configuration
@@ -159,7 +159,7 @@ GNS3 virtual environment configurations:
 
 ### Caldera Attack Emulation Data
 
-The `Caldera/` directory contains MITRE Caldera attack emulation configurations for FullBank and HugeBank scenarios:
+The `Caldera/` directory contains MITRE Caldera attack emulation configurations for Bank and Bank-XL scenarios:
 
 - **`Abilitiy-1.yml`, `Ability-2.yaml`, `Ability-3.yml`**: Atomic attack techniques mapped to MITRE ATT&CK framework
   - Individual TTPs (Tactics, Techniques, and Procedures)
@@ -197,7 +197,7 @@ A real organizational office network used to validate SCyTAG's practical applica
 
 **Purpose**: Demonstrate real-world applicability and validate threat assessment accuracy.
 
-### 2. FullBank (Fictitious Banking Network - 88 Nodes)
+### 2. Bank (Fictitious Banking Network - 88 Nodes)
 A synthetic banking enterprise network designed to represent a medium-scale financial institution with:
 - 4 building floors with hierarchical network architecture
 - Core routers, L3 switches, and departmental switches
@@ -207,7 +207,7 @@ A synthetic banking enterprise network designed to represent a medium-scale fina
 
 **Purpose**: Controlled environment for measuring cyber twin reduction effectiveness and resource optimization.
 
-### 3. HugeBank (Large-Scale Enterprise - 1,471 Nodes)
+### 3. Bank-XL (Large-Scale Enterprise - 1,471 Nodes)
 A massive enterprise topology representing a large financial institution or corporate network:
 - 1,471 network nodes including switches, routers, firewalls, and endpoints
 - Complex multi-floor architecture with 43 switches per floor across 4 floors
@@ -225,7 +225,7 @@ A massive enterprise topology representing a large financial institution or corp
 
 2. **Attack Graph-Driven Reduction**: Uses attack graphs to identify only the network components necessary for emulating specific threats, dramatically reducing resource requirements.
 
-3. **Scalability**: Successfully scales from small office networks (UK-Office) to enterprise environments with 1,471+ nodes (HugeBank).
+3. **Scalability**: Successfully scales from small office networks (UK-Office) to enterprise environments with 1,471+ nodes (Bank-XL).
 
 4. **Resource Efficiency**: Achieves up to **99% reduction** in network components while maintaining attack emulation fidelity.
 
@@ -244,7 +244,7 @@ A massive enterprise topology representing a large financial institution or corp
 - **Docker**: 20.10+ (for containerized network nodes)
 - **QEMU**: 4.2+ (for router/firewall emulation)
 - **MITRE Caldera**: (Optional) For attack emulation
-- **Memory**: Minimum 32GB RAM (64GB+ recommended for HugeBank)
+- **Memory**: Minimum 32GB RAM (64GB+ recommended for Bank-XL)
 - **Storage**: 100GB+ available disk space
 
 ### Component Reduction (Table 1 from paper)
@@ -252,8 +252,8 @@ A massive enterprise topology representing a large financial institution or corp
 | Topology  | Full Nodes | Minimal Twin | Reduction | Attack Fidelity |
 |-----------|-----------|--------------|-----------|----------------|
 | UK-Office | 45        | 12           | 73.3%     | 100%           |
-| FullBank  | 88        | 13           | 85.0%     | 100%           |
-| HugeBank  | 1,471     | 13          | **99.1%** | 100%           |
+| Bank  | 88        | 13           | 85.0%     | 100%           |
+| Bank-XL  | 1,471     | 13          | **99.1%** | 100%           |
 
 
 ### Attack Emulation Fidelity
@@ -264,9 +264,9 @@ All attack scenarios successfully reproduced in minimal cyber twins with **100% 
 
 ## Attack Scenarios
 
-Attack scenarios have been tested for FullBank and HugeBank using the MITRE Caldera abilities and adversary profiles provided in the `Caldera/` directory.
+Attack scenarios have been tested for Bank and Bank-XL using the MITRE Caldera abilities and adversary profiles provided in the `Caldera/` directory.
 
-### FullBank & HugeBank Scenarios
+### Bank & Bank-XL Scenarios
 1. **Banking Trojan**: Financial malware targeting transaction systems
 2. **Multi-Stage Attack**: Coordinated attack with lateral movement
 3. **Data Exfiltration**: Sensitive data extraction from critical systems
@@ -292,7 +292,7 @@ If you use this artifact in your research, please cite our work:
 
 ## Ethical Considerations
 
-All experiments were conducted in isolated virtual environments. The UK-Office topology represents a real network but has been sanitized to remove sensitive information. FullBank and HugeBank are entirely fictitious networks designed for research purposes.
+All experiments were conducted in isolated virtual environments. The UK-Office topology represents a real network but has been sanitized to remove sensitive information. Bank and Bank-XL are entirely fictitious networks designed for research purposes.
 
 Attack scenarios are based on publicly disclosed CTI reports and do not contain any novel exploitation techniques or zero-day vulnerabilities.
 
@@ -324,7 +324,7 @@ Special thanks to the GNS3 and MITRE Caldera communities for providing the netwo
 
 ## Version History
 
-- **v1.0.0**: Initial public release with FullBank, HugeBank, and UK-Office topologies
+- **v1.0.0**: Initial public release with Bank, Bank-XL, and UK-Office topologies
 
 ---
 
