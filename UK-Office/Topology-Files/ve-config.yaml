@@ -1,0 +1,787 @@
+configuration:
+  nodes:
+    - name: VoIP-Switch
+      commands:
+        - ovs-vsctl set port eth0 trunks=138
+        - ovs-vsctl set port eth1 trunks=138
+
+    - name: Core-Switch
+      commands:
+        - ovs-vsctl set port eth0 trunks=138
+        - ovs-vsctl set port eth1 trunks=138
+
+    - name: AP-Controller
+      commands:
+        - ovs-vsctl set port eth0 trunks=138
+        - ovs-vsctl set port eth1 tag=138
+
+    - name: OpenvSwitch-Servers
+      commands:
+        - ovs-vsctl set port eth0 trunks=138
+        - ovs-vsctl set port eth1 trunks=138
+
+    - name: MainRouter
+      commands:
+        -
+        - service firewall stop
+        - service dnsmasq stop
+        - service network stop
+        -
+        - uci set system.@system[0].hostname='uk-site-router-firewall'
+        - uci commit
+        -
+        - service system restart
+        -
+        - uci set network.wan=interface
+        - uci set network.wan.device='eth1'
+        - uci set network.wan.proto='dhcp'
+        - uci commit
+        -
+        - uci set network.vlan138=interface
+        - uci set network.vlan138.device='eth2.138'
+        - uci set network.vlan138.proto='static'
+        - uci set network.vlan138.ipaddr='192.168.138.1'
+        - uci set network.vlan138.netmask='255.255.255.0'
+        - uci set network.vlan138.ip6assign='60'
+        - uci commit
+        -
+        - service network restart
+        -
+        - uci set dhcp.vlan138=dhcp
+        - uci set dhcp.vlan138.interface='vlan138'
+        - uci set dhcp.vlan138.start='10'
+        - uci set dhcp.vlan138.limit='20'
+        - uci set dhcp.vlan138.leasetime='12h'
+        - uci set dhcp.vlan138.dhcpv4='server'
+        - uci set dhcp.vlan138.dhcpv6='server'
+        - uci set dhcp.vlan138.ra='server'
+        - uci set dhcp.vlan138.ra_slaac='1'
+        - uci add_list dhcp.vlan138.dhcp_option='6,192.168.138.1'
+        - uci set dhcp.vlan138.ra_flags='managed-config' 'other-config'
+        - uci commit
+        -
+        - service dnsmasq restart
+        -
+        - uci add firewall zone
+        - uci set firewall.@zone[-1].name='vlan138'
+        - uci set firewall.@zone[-1].network='vlan138'
+        - uci set firewall.@zone[-1].input='ACCEPT'
+        - uci set firewall.@zone[-1].output='ACCEPT'
+        - uci set firewall.@zone[-1].forward='ACCEPT'
+        - uci commit
+        -
+        - uci add firewall forwarding
+        - uci set firewall.@forwarding[-1]=forwarding
+        - uci set firewall.@forwarding[-1].src='vlan138'
+        - uci set firewall.@forwarding[-1].dest='wan'
+        - uci commit
+        -
+        - service firewall restart
+
+    - name: alpine-3.18-openvpn-1
+      commands:
+        - export USER="alice"
+        - export PASSWORD="wonderland"
+        - export GROUP="office"
+        - addgroup -g 500 ${GROUP}
+        - adduser -Dh /home/${USER} -s /bin/sh -g ${GROUP} -G ${GROUP} ${USER}
+        - touch /home/${USER}/${USER}-work-files.txt
+        - echo "${USER}:${PASSWORD}" | chpasswd
+        - /gns3/bin/udhcpc
+        - |
+          cat << EOF > /etc/openvpn/client.conf      
+          client
+          dev tun
+          proto udp
+          remote intergalactic-vpn.cyber-twin 1194
+          resolv-retry infinite
+          nobind
+          persist-key
+          persist-tun
+
+          # SSL/TLS options
+          <ca>
+          -----BEGIN CERTIFICATE-----
+          MIIDXTCCAkWgAwIBAgIUAj5gsEAObrFidvJXlQLnmQbfS08wDQYJKoZIhvcNAQEL
+          BQAwHDEaMBgGA1UEAwwRaW50ZXJnYWxhY3RpYy12cG4wHhcNMjUwMzE5MTM1MDQw
+          WhcNMzUwMzE3MTM1MDQwWjAcMRowGAYDVQQDDBFpbnRlcmdhbGFjdGljLXZwbjCC
+          ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKCpOdD/kBywMfg1WkFA67IU
+          Ru3298xNIBfs++iOOg+FwJfd9b3fD0KPcCyv1noKKUppyV70GshPjVPSTEJJpt5h
+          a4hCZ+i6g89MBN2OcpIvIhAodWi03hdrjgq7z8dRTLUc3xeu8DuLoG5nitw+4fGy
+          0fYiIpXTa0AEXNptaAybF33gylmzQGdGUJq0hWlLCLZeHu7/9wo99uag47+3o9V9
+          bExu/EKC6yosaZwTx34BHycr7H/42Iuk8phDqOtHREvz6SzofoHzP8frDS1sMc4/
+          pyep/u/bOheRsQMRJMglzXG4pATftHqz9AmgczDJ8I6Cxm+xJzuaXUOHdZ+DiBMC
+          AwEAAaOBljCBkzAdBgNVHQ4EFgQUwMxj6JkwFmhw8xUy5eF/Ixy9tcIwVwYDVR0j
+          BFAwToAUwMxj6JkwFmhw8xUy5eF/Ixy9tcKhIKQeMBwxGjAYBgNVBAMMEWludGVy
+          Z2FsYWN0aWMtdnBughQCPmCwQA5usWJ28leVAueZBt9LTzAMBgNVHRMEBTADAQH/
+          MAsGA1UdDwQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAQEACsLh20dttGBgKmwCGoK5
+          Oq2IPS3f2ZhVD6OiK7lMOfHbCZ/FjiEgX6WnXSb265hTc7W9RV13T5E3aVbcvi9d
+          WLWpvnz1E4XmBqXkUEypHr1ArPnGJT3v5fesjPAmWmQC8V5K6FJ6joqwpTva6b0S
+          X+mqmmXaOQW0iQCzqROdkbQ4jlhKPmVpa4AwTSqn6etj6GsUzAzNDu+ztj5BWXMR
+          QmAbPuci7gBpT1KH7rZi5d8UatBtZF38Lr4W2nCKVNJ+ZqtGGWFAuT4efOmW9mkx
+          x8PCcXdOmko46UXaFrJGoTX67giTlYw6sVbGWr0FijtKyxCcp5g9hCerLeP+duX0
+          /g==
+          -----END CERTIFICATE-----
+          </ca>
+
+          <cert>
+          Certificate:
+              Data:
+                  Version: 3 (0x2)
+                  Serial Number:
+                      3e:50:d6:a1:74:0c:85:2e:2c:dc:ad:c3:6c:aa:b5:91
+                  Signature Algorithm: sha256WithRSAEncryption
+                  Issuer: CN=intergalactic-vpn
+                  Validity
+                      Not Before: Mar 20 12:17:39 2025 GMT
+                      Not After : Mar  4 12:17:39 2028 GMT
+                  Subject: CN=alpine-3.18-openvpn-1
+                  Subject Public Key Info:
+                      Public Key Algorithm: rsaEncryption
+                          RSA Public-Key: (2048 bit)
+                          Modulus:
+                              00:cc:c5:1e:fb:dc:11:69:68:e0:ea:5a:be:88:bb:
+                              4c:19:9e:02:bb:76:f9:4f:6f:52:de:c2:fd:41:e3:
+                              25:3f:71:cd:0f:7e:ea:82:6b:85:87:da:9a:3b:ba:
+                              12:ba:36:04:68:31:8d:20:b4:81:a9:32:21:67:fc:
+                              26:c3:81:ac:b0:16:7c:15:a8:2e:6e:4e:24:d8:af:
+                              cd:2b:12:9d:60:ab:ce:7f:47:b1:4e:24:5c:a9:53:
+                              9d:92:9d:98:61:9e:58:b9:ed:b6:d1:91:52:4f:87:
+                              aa:ea:e3:ee:fe:5e:12:5c:aa:98:29:e3:e3:e3:75:
+                              3d:91:57:68:79:95:44:11:61:44:4d:05:c1:06:e8:
+                              58:30:a9:f6:3a:b6:41:65:0b:af:3a:09:99:db:88:
+                              9b:08:8b:69:92:42:88:1c:e8:1b:71:a2:85:9d:70:
+                              d4:ec:93:c0:7d:53:d1:d9:9f:1a:fb:93:0b:b0:c9:
+                              04:7d:c3:c5:cd:cf:da:1b:4e:59:86:a2:0f:b0:fb:
+                              72:2d:04:19:96:3c:a0:8c:76:bb:42:e3:19:22:6a:
+                              ea:6e:a9:a6:38:24:69:ed:66:3c:3a:cc:d9:dd:05:
+                              22:b6:da:5c:ba:f1:1a:77:78:d7:f6:22:52:b4:95:
+                              e8:4b:93:6b:29:21:e9:44:a3:78:f1:cf:17:0c:a6:
+                              07:5d
+                          Exponent: 65537 (0x10001)
+                  X509v3 extensions:
+                      X509v3 Basic Constraints: 
+                          CA:FALSE
+                      X509v3 Subject Key Identifier: 
+                          9B:07:0B:87:73:2A:83:19:03:9A:8B:C7:1B:82:DE:EC:70:18:FC:81
+                      X509v3 Authority Key Identifier: 
+                          keyid:C0:CC:63:E8:99:30:16:68:70:F3:15:32:E5:E1:7F:23:1C:BD:B5:C2
+                          DirName:/CN=intergalactic-vpn
+                          serial:02:3E:60:B0:40:0E:6E:B1:62:76:F2:57:95:02:E7:99:06:DF:4B:4F
+
+                      X509v3 Extended Key Usage: 
+                          TLS Web Client Authentication
+                      X509v3 Key Usage: 
+                          Digital Signature
+              Signature Algorithm: sha256WithRSAEncryption
+                   94:26:f4:04:b8:ce:28:20:e6:5f:bf:79:53:67:97:bc:bd:96:
+                   bb:41:49:ec:77:11:92:c5:6a:63:30:22:55:5009:d3:69:03:2f:
+                   e8:1d:d6:4a:da:0f:74:4c:46:bd:f4:95:41:d9:41:7f:2f:9f:
+                   8f:5d:85:22:f8:10:f2:5a:af:c5:6c:ae:f4:06:6f:7c:c3:d4:
+                   0f:28:e9:3f:46:7e:4c:98:8e:fe:7c:b5:09:0d:1e:d6:b5:2c:
+                   f8:3f:72:2e:79:b3:8c:b5:b8:f6:c9:e0:6a:e3:1c:ee:09:8f:
+                   9d:0d:73:ed:c6:e1:1e:f2:ec:ab:65:50:01:27:07:50:ad:a0:
+                   34:13:4a:a1:a5:6e:79:03:c6:c0:69:91:e1:06:a8:a9:4e:f5:
+                   a1:93:7a:93:04:c2:26:86:58:dc:8c:4e:cb:c2:9b:59:9f:c3:
+                   43:39:88:67:a7:11:bf:91:46:86:fb:93:3d:b3:b4:1c:58:dd:
+                   3a:9f:b1:1a:82:f0:8d:f6:42:f8:cb:16:af:50:5f:c0:0d:72:
+                   57:ae:9a:f2:1d:ec:be:a2:e5:c8:0e:94:74:f4:19:73:ad:3c:
+                   11:c0:5a:cd:ea:21:fb:48:5009:12:fb:ff:e8:cb:cd:78:e6:2a:
+                   66:a5:7f:7e:72:28:99:7e:6d:77:75:cc:46:6a:b8:07:bd:a3:
+                   1e:3b:e1:5009
+          -----BEGIN CERTIFICATE-----
+          MIIDajCCAlKgAwIBAgIQPlDWoXQMhS4s3K3DbKq1kTANBgkqhkiG9w0BAQsFADAc
+          MRowGAYDVQQDDBFpbnRlcmdhbGFjdGljLXZwbjAeFw0yNTAzMjAxMjE3MzlaFw0y
+          ODAzMDQxMjE3MzlaMBsxGTAXBgNVBAMMEGFscGluZS1vcGVudnBuLTEwggEiMA0G
+          CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDMxR773BFpaODqWr6Iu0wZngK7dvlP
+          b1Lewv1B4yU/cc0PfuqCa4WH2po7uhK6NgRoMY0gtIGpMiFn/CbDgaywFnwVqC5u
+          TiTYr80rEp1gq85/R7FOJFypU52SnZhhnli57bbRkVJPh6rq4+7+XhJcqpgp4+Pj
+          dT2RV2h5lUQRYURNBcEG6FgwqfY6tkFlC686CZnbiJsIi2mSQogc6BtxooWdcNTs
+          k8B9U9HZnxr7kwuwyQR9w8XNz9obTlmGog+w+3ItBBmWPKCMdrtC4xkiaupuqaY4
+          JGntZjw6zNndBSK22ly68Rp3eNf2IlK0lehLk2spIelEo3jxzxcMpgddAgMBAAGj
+          gagwgaUwCQYDVR0TBAIwADAdBgNVHQ4EFgQUmwcLh3MqgxkDmovHG4Le7HAY/IEw
+          VwYDVR0jBFAwToAUwMxj6JkwFmhw8xUy5eF/Ixy9tcKhIKQeMBwxGjAYBgNVBAMM
+          EWludGVyZ2FsYWN0aWMtdnBughQCPmCwQA5usWJ28leVAueZBt9LTzATBgNVHSUE
+          DDAKBggrBgEFBQcDAjALBgNVHQ8EBAMCB4AwDQYJKoZIhvcNAQELBQADggEBAJQm
+          9AS4zigg5l+/eVNnl7y9lrtBSex3EZLFamMwIlWA02kDL+gd1kraD3RMRr30lUHZ
+          QX8vn49dhSL4EPJar8VsrvQGb3zD1A8o6T9GfkyYjv58tQkNHta1LPg/ci55s4y1
+          uPbJ4GrjHO4Jj50Nc+3G4R7y7KtlUAEnB1CtoDQTSqGlbnkDxsBpkeEGqKlO9aGT
+          epMEwiaGWNyMTsvCm1mfw0M5iGenEb+RRob7kz2ztBxY3TqfsRqC8I32QvjLFq9Q
+          X8ANcleumvId7L6i5cgOlHT0GXOtPBHAWs3qIftIgBL7/+jLzXjmKmalf35yKJl+
+          bXd1zEZquAe9ox474YA=
+          -----END CERTIFICATE-----
+          </cert>
+
+          <key>
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEAzMUe+9wRaWjg6lq+iLtMGZ4Cu3b5T29S3sL9QeMlP3HND37q
+          gmuFh9qaO7oSujYEaDGNILSBqTIhZ/wmw4GssBZ8Fagubk4k2K/NKxKdYKvOf0ex
+          TiRcqVOdkp2YYZ5Yue220ZFST4eq6uPu/l4SXKqYKePj43U9kVdoeZVEEWFETQXB
+          BuhYMKn2OrZBZQuvOgmZ24ibCItpkkKIHOgbcaKFnXDU7JPAfVPR2Z8a+5MLsMkE
+          fcPFzc/aG05ZhqIPsPtyLQQZljygjHa7QuMZImrqbqmmOCRp7WY8OszZ3QUittpc
+          uvEad3jX9iJStJXoS5NrKSHpRKN48c8XDKYHXQIDAQABAoIBAQDBGM3sAY2l0lHu
+          jZ4JQF419gxrjXjykG8cQ9IhFLsmRgFysGMik5Q7FUjGM+S/Fns3airEgZOX4v8f
+          mOdRC/K1pq5imdMXD7etYrLeAFLKO5mh6xBnOODsiD4aaWSuAW13/5ObsidlefES
+          Sdkwo7M7EWAmeJGJCCED8uJBbSHgJB/EOb4ZZxCvg3m7qjnkcA0TgR1i6M+F3Ke9
+          BJoG73BCJQ6zDzWgmLZoRxSfaNS4XQeoyL5/ABo/Q32yJeGxQ3OxHLMzlXM3aFal
+          7TD7rlI1lrAFRs0wkMYCWyL0KNyp3ZCRawJCMp6FrjhQdj5HLRXEwG9mUtQO18ZR
+          +dobxHGBAoGBAP7KBnw4H7FSQjIid1qSB8TfiuDVu+d00zGAKKYfpv0IKJ5Alk0y
+          xV7QfgKQue+Rbytzm65qkBHPAYMtkakl5Oks/huaQ9AYMF6sgWtlG30sFlbCobq+
+          gRh65jt63kXrZ5b/YYehQldZd/CIZ8V2sf2+n20Ly4ejkKW95rtm0Q09AoGBAM2+
+          PiTR8ZcQOoSxEIv0ls78qpYYLaWPjTtKaAcQpZYE8dmCoc1jXNgu21C1shkpp0ZN
+          dGvrJsYcw7CXQVsg0Fmu9NMLfS6kdAfbNjj+MCMeVEFfVAQ/t0gjkC575A2QTYsO
+          4YoU+B2dB3HcxiBgIRgv8t6TbyrfhRLprSnt0sShAoGAYrmBPcy5awoGoEp+mNeQ
+          rxY3R9tJjevUkY+pMIV/PPhWVMuN8afElnKPAQt3IH7n5pxLLJAZ9uyRF3UmxbXr
+          Nva6F5P0xsM4qtaI50YsGppkpYWRCT0b5JJqd42qZslKQFYAQn+XpyUBtnAEVZ0i
+          ZsHgIG67lHkqaS5mIyM5ybkCgYEAg+8dFqtyivajL/gDrlv4YV9xXLLAgsydOooq
+          T22DYcJl/J9idrzjCtZxWT5KqQwm8lQ09gdjY+OKMbGs/Wz7bqdc5AEYE1Lt/SO7
+          j6yg3cRTL2CcFeVt+NqlWMmlonUI5MV0KAHuYb8SyRdUDerXDhWhXs2Ymhuf0FL8
+          8khJwkECgYBPVh9gVJGfBtJ3dYvfYSqRgn7Q6eeMVrwDWiDG8ejATtxV8zwR+qG/
+          y2LRNgv1QhJMKrUeUe9UbQh6o+J+TC/3ItyVM8Bb7pZb1KOpFEcmnlBj73ituz/O
+          j2qy0SkftTpEC6VbHAKnMBpA8AkOGDwivmVKuu3PQrI/5lrkTLQIow==
+          -----END RSA PRIVATE KEY-----
+          </key>
+
+          cipher AES-256-CBC
+          auth SHA256
+          comp-lzo
+
+          verb 3
+
+          # end of file
+          EOF
+        - nohup openvpn --config /etc/openvpn/client.conf &
+
+    - name: storage-server-1
+      commands:
+        - export GROUP="office"
+        - addgroup -g 500 ${GROUP}
+
+        - export USER="alice"
+        - export PASSWORD="wonderland"
+        - adduser -Dh /home/${USER} -s /bin/sh -g ${GROUP} -G ${GROUP} ${USER}
+        - touch /home/${USER}/${USER}-personal-files.txt
+        - echo "${USER}:${PASSWORD}" | chpasswd
+
+        - /gns3/bin/udhcpc -x hostname:$HOSTNAME
+
+    - name: intergalactic-vpn
+      commands:
+        - /app/web_ui/add_user.sh "alice" "wonderland"
+        - /gns3/bin/udhcpc -x hostname:$HOSTNAME
+
+    - name: intergalactic-hacker
+      commands:
+        - /gns3/bin/udhcpc -x hostname:$HOSTNAME
+agents:
+  nodes:
+    - name: intergalactic-hacker
+      commands:
+        - while ! curl -s $CALDERA_AGENTS_URL 1>/dev/null 2>/dev/null; do echo 'Waiting for Caldera ...'; sleep 1; done
+        - curl -s -X POST -H "file:sandcat.go" -H "platform:linux" $CALDERA_AGENTS_URL/file/download > splunkd
+        - chmod +x splunkd
+        - ./splunkd -server $CALDERA_AGENTS_URL -group $CALDERA_AGENTS_GROUP_NAME -v &
+
+facts:
+  software:
+    - host: intergalactic-vpn
+      software: intergalactic-web-ui
+      version: 0.1.0rc0
+
+    - host: intergalactic-vpn
+      software: openVPN
+      version: 2.4.12
+
+    - host: alpine-3.18-openvpn-1
+      software: open-ssh
+      version: v1.0
+
+    - host: storage-server-1
+      software: sftpd
+      version: v1.0
+
+  vulnerabilities:
+    - cve_id: cve-2023-27524
+      software: intergalactic-web-ui
+      version: 0.1.0rc0
+      access_vector: network
+      loose_types: ca_loss
+      severity: critical
+
+    - cve_id: cve-zero-day-web-ui-execute-code-1337
+      software: intergalactic-web-ui
+      version: 0.1.0rc0
+      access_vector: local
+      loose_types: privilege_escalation
+      severity: critical
+
+  network_services:
+    - host: intergalactic-vpn
+      software: intergalactic-web-ui
+      protocol: http
+      port: '80'
+      account: root
+
+    - host: intergalactic-vpn
+      software: openVPN
+      protocol: udp
+      port: '1194'
+      account: root
+
+    - host: alpine-3.18-openvpn-1
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: user-account
+
+    - host: storage-server-1
+      software: sftpd
+      protocol: tcp
+      port: '22'
+      account: user-storage-server-1-account
+
+    - host: intergalactic-vpn
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: root
+
+    - host: intergalactic-hacker
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: hacker
+
+    - host: intergalactic-hacker
+      software: intergalactic-web-ui
+      protocol: udp
+      port: '1194'
+      account: hacker
+
+    - host: alpine-3.18-openvpn-1
+      software: intergalactic-web-ui
+      protocol: udp
+      port: '1194'
+      account: alice
+
+    - host: MainRouter
+      software: fwMgmtUI
+      protocol: tcp
+      port: '443'
+      account: fwAdmin
+
+    - host: Core-Switch
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: coreAdmin
+
+    - host: HP-2560A
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: hpAdmin
+
+    - host: HP-2650D1
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: hpAdmin
+
+    - host: HP-2650D
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: hpAdmin
+
+    - host: VoIP-Switch
+      software: open-ssh
+      protocol: tcp
+      port: '443'
+      account: voipAdmin
+
+    - host: AP-Controller
+      software: open-ssh
+      protocol: tcp
+      port: '80'
+      account: apcAdmin
+
+    - host: AP-Controller
+      software: open-ssh
+      protocol: tcp
+      port: '443'
+      account: apcAdmin
+
+    - host: ADMIN
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: localAdmin
+
+    - host: PAXTON
+      software: open-ssh
+      protocol: tcp
+      port: '22'
+      account: paxUser
+
+    - host: storage-server-1
+      software: sftpd
+      protocol: tcp
+      port: '22'
+      account: user-storage-server-1-account
+
+  accounts:
+    - user: root
+      host:  intergalactic-vpn
+      account: operating-system-administration-account
+
+    - user: alice
+      host:  alpine-3.18-openvpn-1
+      account: user-account
+
+    - user: alice
+      host:  storage-server-1
+      account: user-storage-server-1-account
+
+    - user: hacker
+      host:  intergalactic-hacker
+      account: user-account
+
+  access:
+    - user:
+      attack_source: intergalactic-hacker
+      host: intergalactic-vpn
+      protocol: udp
+      port: '1194'
+
+    - user:
+      attack_source: intergalactic-hacker
+      host: intergalactic-vpn
+      protocol: http
+      port: '80'
+
+    - user: alice
+      attack_source: alpine-3.18-openvpn-1
+      host: intergalactic-vpn
+      protocol: udp
+      port: '1194'
+
+  connectivity:
+    - src_host: alpine-3.18-openvpn-1
+      dst_host: intergalactic-vpn
+      protocol: udp
+      dest_port: '1194'
+
+    - src_host: intergalactic-hacker
+      dst_host: intergalactic-vpn
+      protocol: udp
+      dest_port: '1194'
+
+    - src_host: intergalactic-hacker
+      dst_host: intergalactic-vpn
+      protocol: open-ssh
+      dest_port: '22'
+
+    - src_host: MainRouter
+      dst_host: uk-site-internet
+      protocol: http
+      dest_port: '80'
+
+  network_topology:
+    - name: 'VPN network'
+      definition: |
+        dataFlow('intergalactic-vpn', 'alpine-3.18-openvpn-1').
+        dataFlow('alpine-3.18-openvpn-1', 'intergalactic-vpn').
+        isInSubnet('vpn', 'alpine-3.18-openvpn-1').
+        isInSubnet('vlan', 'storage-server-1').
+
+  goals:
+    - name: 'basic'
+      definition: |
+        attackGoal(compromisedVPNClient('intergalactic-hacker','alpine-3.18-openvpn-1')).
+
+  # Data binding facts (flow to host and path associations)
+  data_bind:
+    - flow:
+      src_host: intergalactic-vpn
+      path:
+    - flow:
+      src_host: intergalactic-hacker
+      path:
+    - flow:
+      src_host: intergalactic-vpn-internet
+      path:
+    - flow:
+      src_host: intergalactic-hacker-internet
+      path:
+    - flow:
+      src_host: uk-site-internet
+      path:
+    - flow:
+      src_host: MainRouter
+      path:
+    - flow:
+      src_host: Core-Switch
+      path:
+    - flow:
+      src_host: PAXTON
+      path:
+    - flow:
+      src_host: ADMIN
+      path:
+    - flow:
+      src_host: VoIP-Switch
+      path:
+    - flow:
+      src_host: HP-2560A
+      path:
+    - flow:
+      src_host: HP-2650D1
+      path:
+    - flow:
+      src_host: HP-2650D
+      path:
+    - flow:
+      src_host: AP-Controller
+      path:
+    - flow:
+      src_host: DEV3
+      path:
+    - flow:
+      src_host: FLE4N
+      path:
+    - flow:
+      src_host: alpine-3.18-openvpn-1
+      path:
+    - flow:
+      src_host: storage-server-1
+      path:
+
+  # Malicious interaction facts (hosts that may have malicious software)
+  malicious_interaction:
+    - host: intergalactic-vpn
+      user:
+      software: intergalactic-web-ui
+    - host: AP-Controller
+      user:
+      software:
+    - host: ADMIN
+      user:
+      software:
+    - host: PAXTON
+      user:
+      software:
+    - host: alpine-3.18-openvpn-1
+      user:
+      software:
+    - host: storage-server-1
+      user:
+      software:
+
+  # Additional configuration facts for Slough scenario
+  located:
+    - src_host: intergalactic-vpn-internet
+      src_subnet: outsideNet
+      subnet_type: External/WAN
+    - src_host: intergalactic-hacker-internet
+      src_subnet: outsideNet
+      subnet_type: External/WAN
+    - src_host: intergalactic-hacker
+      src_subnet: outsideNet
+      subnet_type: External/WAN
+    - src_host: uk-site-internet
+      src_subnet: outsideNet
+      subnet_type: External/WAN
+    - src_host: MainRouter
+      src_subnet: outsideNet
+      subnet_type: WAN-Link
+    - src_host: MainRouter
+      src_subnet: insideNet
+      subnet_type: DMZ/Perimeter
+    - src_host: Core-Switch
+      src_subnet: insideNet
+      subnet_type: LAN
+    - src_host: Core-Switch
+      src_subnet: insideNet
+      subnet_type: LAN/Core
+    - src_host: HP-2560A
+      src_subnet: hpNet
+      subnet_type: LAN/AccessEdge
+    - src_host: HP-2650D1
+      src_subnet: hpNet
+      subnet_type: LAN/AccessEdge
+    - src_host: HP-2650D
+      src_subnet: hpNet
+      subnet_type: LAN/AccessEdge
+    - src_host: VoIP-Switch
+      src_subnet: voiceNet
+      subnet_type: VoiceVLAN
+    - src_host: AP-Controller
+      src_subnet: wifiCtrlNet
+      subnet_type: WirelessControl
+    - src_host: DEV3
+      src_subnet: wifiNet
+      subnet_type: WirelessClient
+    - src_host: FLE4N
+      src_subnet: wifiNet
+      subnet_type: WirelessClient
+    - src_host: alpine-3.18-openvpn-1
+      src_subnet: labNet
+      subnet_type: LabNetwork
+    - src_host: storage-server-1
+      src_subnet: labNet
+      subnet_type: LabNetwork
+    - src_host: ADMIN
+      src_subnet: insideNet
+      subnet_type: LAN/Workstation
+    - src_host: PAXTON
+      src_subnet: insideNet
+      subnet_type: LAN/Workstation
+
+  file_owner:
+    - host: intergalactic-vpn
+      path: ./etc/shr
+      owner: root
+
+    - host: intergalactic-vpn
+      path: intergalactic-web-ui
+      owner: root
+
+    - host: intergalactic-vpn
+      path: intergalactic-web-ui
+      owner: hacker
+
+    - host: intergalactic-vpn
+      path: ./etc/shr
+      owner: hacker
+
+    - host: alpine-3.18-openvpn-1
+      path: ./etc/shr
+      owner: alice
+
+    - host: alpine-3.18-openvpn-1
+      path: ./etc/shr
+      owner: alice-storage-server-1
+
+    - host: AP-Controller
+      path:
+      owner: root
+
+    - host: ADMIN
+      path:
+      owner: root
+
+    - host: PAXTON
+      path:
+      owner: root
+
+    - host: storage-server-1
+      path:
+      owner: root
+
+  owner_accessible:
+    - host: intergalactic-vpn
+      permission: read
+      path: ./etc/shr
+
+    - host: intergalactic-vpn
+      permission: write
+      path: ./etc/shr
+
+    - host: intergalactic-vpn
+      permission: read
+      path: intergalactic-web-ui
+
+    - host: intergalactic-vpn
+      permission: write
+      path: intergalactic-web-ui
+
+    - host: intergalactic-vpn
+      permission: read
+      path: ./etc/shr
+
+    - host: alpine-3.18-openvpn-1
+      permission: read
+      path: ./etc/shr
+
+    - host: alpine-3.18-openvpn-1
+      permission: write
+      path: ./etc/shr
+
+    - host: AP-Controller
+      permission: read
+      path:
+
+    - host: ADMIN
+      permission: read
+      path:
+
+    - host: PAXTON
+      permission: read
+      path:
+
+    - host: storage-server-1
+      permission: read
+      path:
+
+  allows:
+    - host: intergalactic-vpn
+      user: hacker
+      operation:
+      url:
+      response: '200'
+    - host: intergalactic-vpn
+      user: alice
+      operation:
+      url:
+      response: '200'
+
+  setuid_program:
+    - host: intergalactic-vpn
+      software: intergalactic-web-ui
+      account:
+
+  installed:
+    - host: intergalactic-vpn
+      software: intergalactic-web-ui
+      version: 0.1.0rc0
+
+  can_invoke:
+    - software1: intergalactic-web-ui
+      software2:
+      method: keylogging
+
+  access_file:
+    - user: root
+      host: intergalactic-vpn
+      permission: write
+      path:
+
+  is_name_resolver:
+    - name_resolver:
+      fooled_host: intergalactic-vpn
+      impersonated_host: intergalactic-hacker
+    - name_resolver:
+      fooled_host: intergalactic-hacker
+      impersonated_host: intergalactic-vpn
+
+  vul_e2e_protocol:
+    - fooled_host: intergalactic-vpn
+      name_resolver:
+      attack_type: dnsCachePoisoning
+      protocol: DNSProt
+      exploit_range: remoteExploit
+      lose_types: nameresolverCachePoisoned
+
+  local_service:
+    - host: intergalactic-vpn
+      software: intergalactic-vpn
+      account:
+
+  # Device platform specifications
+  device_platforms:
+    - host: storage-server-1
+      platform: ubuntu
+
+misc:
+  enable_pcap_on_all_links: false

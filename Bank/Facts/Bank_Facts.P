@@ -1,0 +1,476 @@
+attackGoal(compromised('DVR_ssh-1')).
+
+
+dataFlow('Cloud1', 'internet', _FlowName, _Direction).
+dataFlow('Server-Room-SW', 'Floor4-L3SW', _FlowName, _Direction).
+dataFlow('Server-Room-SW', 'DVR_ssh-1', _FlowName, _Direction).
+dataFlow('Server-Room-SW', 'FileServer', _FlowName, _Direction).
+dataFlow('Admin-SW', 'Floor4-L3SW', _FlowName, _Direction).
+dataFlow('Admin-SW', 'adminPC1-ssh-1', _FlowName, _Direction).
+dataFlow('Admin-SW', 'adminPC2', _FlowName, _Direction).
+dataFlow('Admin-SW', 'adminPC3', _FlowName, _Direction).
+dataFlow('Admin-SW', 'adminPC4', _FlowName, _Direction).
+dataFlow('Admin-SW', 'adminPC5', _FlowName, _Direction).
+dataFlow('Admin-SW', 'adminPC6', _FlowName, _Direction).
+dataFlow('SwitchX(PoE)', 'Floor4-L3SW', _FlowName, _Direction).
+dataFlow('SwitchX(PoE)', 'camera_A_ssh-1', _FlowName, _Direction).
+dataFlow('SwitchX(PoE)', 'cameraB', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'Floor3-L3SW', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'LogisticPC1', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'LogisticPC2', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'LogisticPC3', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'LogisticPC4', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'LogisticPC5', _FlowName, _Direction).
+dataFlow('Logistic-SW', 'LogisticPC6', _FlowName, _Direction).
+dataFlow('Customer-SW', 'Floor3-L3SW', _FlowName, _Direction).
+dataFlow('Customer-SW', 'CustomerPC1', _FlowName, _Direction).
+dataFlow('Customer-SW', 'CustomerPC2', _FlowName, _Direction).
+dataFlow('Customer-SW', 'CustomerPC3', _FlowName, _Direction).
+dataFlow('ICT-SW', 'Floor3-L3SW', _FlowName, _Direction).
+dataFlow('ICT-SW', 'IctPC1', _FlowName, _Direction).
+dataFlow('ICT-SW', 'IctPC2', _FlowName, _Direction).
+dataFlow('ICT-SW', 'IctPC3', _FlowName, _Direction).
+dataFlow('ICT-SW', 'IctPC4', _FlowName, _Direction).
+dataFlow('ICT-SW', 'IctPC5', _FlowName, _Direction).
+dataFlow('ICT-SW', 'IctPC6', _FlowName, _Direction).
+dataFlow('HR-SW', 'Floor2-L3SW', _FlowName, _Direction).
+dataFlow('HR-SW', 'HrPC1', _FlowName, _Direction).
+dataFlow('HR-SW', 'HrPC2', _FlowName, _Direction).
+dataFlow('HR-SW', 'HrPC3', _FlowName, _Direction).
+dataFlow('HR-SW', 'HrPC4', _FlowName, _Direction).
+dataFlow('HR-SW', 'HrPC5', _FlowName, _Direction).
+dataFlow('HR-SW', 'HrPC6', _FlowName, _Direction).
+dataFlow('Management-SW', 'Floor2-L3SW', _FlowName, _Direction).
+dataFlow('Management-SW', 'ManagerPC1', _FlowName, _Direction).
+dataFlow('Management-SW', 'ManagerPC2', _FlowName, _Direction).
+dataFlow('Management-SW', 'ManagerPC3', _FlowName, _Direction).
+dataFlow('Management-SW', 'ManagerPC4', _FlowName, _Direction).
+dataFlow('Management-SW', 'ManagerPC5', _FlowName, _Direction).
+dataFlow('Management-SW', 'MangerPC6', _FlowName, _Direction).
+dataFlow('Research-SW', 'Floor2-L3SW', _FlowName, _Direction).
+dataFlow('Research-SW', 'ResearchPC1', _FlowName, _Direction).
+dataFlow('Research-SW', 'ResearchPC2', _FlowName, _Direction).
+dataFlow('Research-SW', 'ResearchPC3', _FlowName, _Direction).
+dataFlow('Research-SW', 'ResearchPC4', _FlowName, _Direction).
+dataFlow('Research-SW', 'ResearchPC5', _FlowName, _Direction).
+dataFlow('Research-SW', 'ResearchPC6', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'Floor1-L3SW', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'MarketingPC1', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'MarketingPC2', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'MarketingPC3', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'MarketingPC4', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'MarketingPC5', _FlowName, _Direction).
+dataFlow('Marketing-SW', 'MarketingPC6', _FlowName, _Direction).
+dataFlow('Accountant-SW', 'Floor1-L3SW', _FlowName, _Direction).
+dataFlow('Accountant-SW', 'AccountantPC1', _FlowName, _Direction).
+dataFlow('Accountant-SW', 'AccountantPC2', _FlowName, _Direction).
+dataFlow('Accountant-SW', 'AccountantPC3', _FlowName, _Direction).
+dataFlow('Finance-SW', 'Floor1-L3SW', _FlowName, _Direction).
+dataFlow('Finance-SW', 'FinancePC1', _FlowName, _Direction).
+dataFlow('Finance-SW', 'FinancePC2', _FlowName, _Direction).
+dataFlow('Finance-SW', 'FinancePC3', _FlowName, _Direction).
+dataFlow('Finance-SW', 'FinancePC4', _FlowName, _Direction).
+dataFlow('Finance-SW', 'FinancePC5', _FlowName, _Direction).
+dataFlow('Finance-SW', 'FinancePC6', _FlowName, _Direction).
+dataFlow('CoreRouterE', 'Floor4-FW', _FlowName, _Direction).
+dataFlow('CoreRouterE', 'CoreRouterA', _FlowName, _Direction).
+dataFlow('CoreRouterA', 'CoreRouterB', _FlowName, _Direction).
+dataFlow('CoreRouterA', 'CoreRouterC', _FlowName, _Direction).
+dataFlow('CoreRouterA', 'CoreRouterD', _FlowName, _Direction).
+dataFlow('CoreRouterA', 'Cloud1', _FlowName, _Direction).
+dataFlow('Floor1-FW', 'CoreRouterB', _FlowName, _Direction).
+dataFlow('Floor1-FW', 'Floor1-Router', _FlowName, _Direction).
+dataFlow('Floor1-L3SW', 'Floor1-Router', _FlowName, _Direction).
+dataFlow('Floor4-FW', 'Floor4-Router', _FlowName, _Direction).
+dataFlow('Floor4-L3SW', 'Floor4-Router', _FlowName, _Direction).
+dataFlow('Floor3-L3SW', 'Floor3-Router', _FlowName, _Direction).
+dataFlow('Floor2-L3SW', 'Floor2-Router', _FlowName, _Direction).
+dataFlow('Floor2-FW', 'CoreRouterC', _FlowName, _Direction).
+dataFlow('Floor2-FW', 'Floor2-Router', _FlowName, _Direction).
+dataFlow('Floor3-FW', 'CoreRouterD', _FlowName, _Direction).
+dataFlow('Floor3-FW', 'Floor3-Router', _FlowName, _Direction).
+dataFlow('Floor2-Router', 'Floor3-Router', _FlowName, _Direction).
+dataFlow('Floor2-Router', 'Floor1-Router', _FlowName, _Direction).
+dataFlow('Floor3-Router', 'Floor4-Router', _FlowName, _Direction).
+isInSubnet('Server-Room-SW', 'Floor4-L3SW').
+isInSubnet('Floor4-L3SW', 'Server-Room-SW').
+isInSubnet('Server-Room-SW', 'DVR_ssh-1').
+isInSubnet('Server-Room-SW', 'FileServer').
+isInSubnet('Admin-SW', 'Floor4-L3SW').
+isInSubnet('Floor4-L3SW', 'Admin-SW').
+isInSubnet('Admin-SW', 'adminPC1-ssh-1').
+isInSubnet('Admin-SW', 'adminPC2').
+isInSubnet('Admin-SW', 'adminPC3').
+isInSubnet('Admin-SW', 'adminPC4').
+isInSubnet('Admin-SW', 'adminPC5').
+isInSubnet('Admin-SW', 'adminPC6').
+isInSubnet('SwitchX(PoE)', 'Floor4-L3SW').
+isInSubnet('Floor4-L3SW', 'SwitchX(PoE)').
+isInSubnet('SwitchX(PoE)', 'camera_A_ssh-1').
+isInSubnet('SwitchX(PoE)', 'cameraB').
+isInSubnet('Logistic-SW', 'Floor3-L3SW').
+isInSubnet('Floor3-L3SW', 'Logistic-SW').
+isInSubnet('Logistic-SW', 'LogisticPC1').
+isInSubnet('Logistic-SW', 'LogisticPC2').
+isInSubnet('Logistic-SW', 'LogisticPC3').
+isInSubnet('Logistic-SW', 'LogisticPC4').
+isInSubnet('Logistic-SW', 'LogisticPC5').
+isInSubnet('Logistic-SW', 'LogisticPC6').
+isInSubnet('Customer-SW', 'Floor3-L3SW').
+isInSubnet('Floor3-L3SW', 'Customer-SW').
+isInSubnet('Customer-SW', 'CustomerPC1').
+isInSubnet('Customer-SW', 'CustomerPC2').
+isInSubnet('Customer-SW', 'CustomerPC3').
+isInSubnet('ICT-SW', 'Floor3-L3SW').
+isInSubnet('Floor3-L3SW', 'ICT-SW').
+isInSubnet('ICT-SW', 'IctPC1').
+isInSubnet('ICT-SW', 'IctPC2').
+isInSubnet('ICT-SW', 'IctPC3').
+isInSubnet('ICT-SW', 'IctPC4').
+isInSubnet('ICT-SW', 'IctPC5').
+isInSubnet('ICT-SW', 'IctPC6').
+isInSubnet('HR-SW', 'Floor2-L3SW').
+isInSubnet('Floor2-L3SW', 'HR-SW').
+isInSubnet('HR-SW', 'HrPC1').
+isInSubnet('HR-SW', 'HrPC2').
+isInSubnet('HR-SW', 'HrPC3').
+isInSubnet('HR-SW', 'HrPC4').
+isInSubnet('HR-SW', 'HrPC5').
+isInSubnet('HR-SW', 'HrPC6').
+isInSubnet('Management-SW', 'Floor2-L3SW').
+isInSubnet('Floor2-L3SW', 'Management-SW').
+isInSubnet('Management-SW', 'ManagerPC1').
+isInSubnet('Management-SW', 'ManagerPC2').
+isInSubnet('Management-SW', 'ManagerPC3').
+isInSubnet('Management-SW', 'ManagerPC4').
+isInSubnet('Management-SW', 'ManagerPC5').
+isInSubnet('Management-SW', 'MangerPC6').
+isInSubnet('Research-SW', 'Floor2-L3SW').
+isInSubnet('Floor2-L3SW', 'Research-SW').
+isInSubnet('Research-SW', 'ResearchPC1').
+isInSubnet('Research-SW', 'ResearchPC2').
+isInSubnet('Research-SW', 'ResearchPC3').
+isInSubnet('Research-SW', 'ResearchPC4').
+isInSubnet('Research-SW', 'ResearchPC5').
+isInSubnet('Research-SW', 'ResearchPC6').
+isInSubnet('Marketing-SW', 'Floor1-L3SW').
+isInSubnet('Floor1-L3SW', 'Marketing-SW').
+isInSubnet('Marketing-SW', 'MarketingPC1').
+isInSubnet('Marketing-SW', 'MarketingPC2').
+isInSubnet('Marketing-SW', 'MarketingPC3').
+isInSubnet('Marketing-SW', 'MarketingPC4').
+isInSubnet('Marketing-SW', 'MarketingPC5').
+isInSubnet('Marketing-SW', 'MarketingPC6').
+isInSubnet('Accountant-SW', 'Floor1-L3SW').
+isInSubnet('Floor1-L3SW', 'Accountant-SW').
+isInSubnet('Accountant-SW', 'AccountantPC1').
+isInSubnet('Accountant-SW', 'AccountantPC2').
+isInSubnet('Accountant-SW', 'AccountantPC3').
+isInSubnet('Finance-SW', 'Floor1-L3SW').
+isInSubnet('Floor1-L3SW', 'Finance-SW').
+isInSubnet('Finance-SW', 'FinancePC1').
+isInSubnet('Finance-SW', 'FinancePC2').
+isInSubnet('Finance-SW', 'FinancePC3').
+isInSubnet('Finance-SW', 'FinancePC4').
+isInSubnet('Finance-SW', 'FinancePC5').
+isInSubnet('Finance-SW', 'FinancePC6').
+isInSubnet('Floor1-L3SW', 'Floor1-Router').
+isInSubnet('Floor4-L3SW', 'Floor4-Router').
+isInSubnet('Floor3-L3SW', 'Floor3-Router').
+isInSubnet('Floor2-L3SW', 'Floor2-Router').
+isInSubnet('core', 'CoreRouterE').
+isInSubnet('core', 'CoreRouterA').
+isInSubnet('WAN', 'Cloud1').
+isInSubnet('core', 'CoreRouterB').
+isInSubnet('core', 'CoreRouterC').
+isInSubnet('core', 'CoreRouterD').
+malicious('attacker').
+malicious('hacker').
+maliciousInteraction('camera_A_ssh-1', 'attacker', 'arpd').
+maliciousInteraction('cameraB', 'attacker', _).
+maliciousInteraction('DVR_ssh-1', 'attacker', 'arpd').
+maliciousInteraction('FileServer', 'attacker', _).
+maliciousInteraction('adminPC1-ssh-1', 'attacker', 'libtasn1_6').
+maliciousInteraction('DVR_ssh-1', 'attacker', 'sshd').
+dataBind('Flow', 'camera_A_ssh-1', 'Path1').
+dataBind('Flow', 'cameraB', 'Path1').
+dataBind('Flow', 'SwitchX(PoE)', 'Path1').
+dataBind('Flow', 'Admin-SW', 'Path1').
+dataBind('Flow', 'adminPC1-ssh-1', 'Path1').
+dataBind('Flow', 'Server-Room-SW', 'Path1').
+dataBind('Flow', 'DVR_ssh-1', 'Path1').
+dataBind('Flow', 'FileServer', 'Path1').
+dataBind('Flow', 'ADServer', 'Path1').
+dataBind('Flow', 'Floor4-L3SW', 'Path1').
+dataBind('Flow', 'Floor4-Router', 'Path1').
+dataBind('Flow', 'CoreRouterC', 'Path1').
+dataBind('Flow', 'CoreRouterB', 'Path1').
+dataBind('Flow', 'fortigateWAN', 'Path1').
+dataBind('Flow', 'Cloud1', 'Path1').
+dataBind('Flow', 'CoreRouterA', 'Path1').
+dataBind('Flow', 'CoreRouterE', 'Path1').
+dataBind('Flow', 'Floor4-FW', 'Path1').
+maliciousInteraction('camera_A_ssh-1', 'attacker', 'arpd').
+maliciousInteraction('cameraB', 'attacker', '_Software').
+maliciousInteraction('DVR_ssh-1', 'attacker', 'arpd').
+maliciousInteraction('DVR_ssh-1', 'attacker', 'sshd').
+maliciousInteraction('FileServer', 'attacker', '_Software').
+maliciousInteraction('adminPC1-ssh-1', 'attacker', 'libtasn1_6').
+
+hacl('Server-Room-SW', _, _, _).
+hacl('Admin-SW', _, _, _).
+hacl('SwitchX(PoE)', _, _, _).
+hacl('Logistic-SW', _, _, _).
+hacl('Customer-SW', _, _, _).
+hacl('ICT-SW', _, _, _).
+hacl('HR-SW', _, _, _).
+hacl('Management-SW', _, _, _).
+hacl('Research-SW', _, _, _).
+hacl('Marketing-SW', _, _, _).
+hacl('Accountant-SW', _, _, _).
+hacl('Finance-SW', _, _, _).
+hacl('CoreRouterE', _, _, _).
+hacl('CoreRouterA', _, _, _).
+hacl('Floor1-FW', _, _, _).
+hacl('Floor1-L3SW', _, _, _).
+hacl('Floor4-FW', _, _, _).
+hacl('FinancePC3', _, _, _).
+hacl('Cloud1', _, _, _).
+hacl('Floor4-L3SW', _, _, _).
+hacl('Floor3-L3SW', _, _, _).
+hacl('Floor2-L3SW', _, _, _).
+hacl('CoreRouterB', _, _, _).
+hacl('Floor2-FW', _, _, _).
+hacl('Floor3-FW', _, _, _).
+hacl('CoreRouterC', _, _, _).
+hacl('CoreRouterD', _, _, _).
+hacl('Floor2-Router', _, _, _).
+hacl('Floor1-Router', _, _, _).
+hacl('Floor3-Router', _, _, _).
+hacl('Floor4-Router', _, _, _).
+hacl('adminPC1-ssh-1', _, _, _).
+hacl('camera_A_ssh-1', _, _, _).
+hacl('DVR_ssh-1', _, _, _).
+hacl('MarketingPC1', _, _, _).
+hacl('MarketingPC2', _, _, _).
+hacl('MarketingPC3', _, _, _).
+hacl('MarketingPC4', _, _, _).
+hacl('MarketingPC5', _, _, _).
+hacl('MarketingPC6', _, _, _).
+hacl('AccountantPC1', _, _, _).
+hacl('AccountantPC2', _, _, _).
+hacl('AccountantPC3', _, _, _).
+hacl('FinancePC1', _, _, _).
+hacl('FinancePC2', _, _, _).
+hacl('FinancePC4', _, _, _).
+hacl('FinancePC5', _, _, _).
+hacl('FinancePC6', _, _, _).
+hacl('ManagerPC1', _, _, _).
+hacl('ManagerPC2', _, _, _).
+hacl('ManagerPC3', _, _, _).
+hacl('ManagerPC4', _, _, _).
+hacl('ManagerPC5', _, _, _).
+hacl('MangerPC6', _, _, _).
+hacl('ResearchPC1', _, _, _).
+hacl('ResearchPC2', _, _, _).
+hacl('ResearchPC3', _, _, _).
+hacl('ResearchPC4', _, _, _).
+hacl('ResearchPC5', _, _, _).
+hacl('ResearchPC6', _, _, _).
+hacl('HrPC1', _, _, _).
+hacl('HrPC2', _, _, _).
+hacl('HrPC3', _, _, _).
+hacl('HrPC4', _, _, _).
+hacl('HrPC5', _, _, _).
+hacl('HrPC6', _, _, _).
+hacl('CustomerPC1', _, _, _).
+hacl('CustomerPC2', _, _, _).
+hacl('CustomerPC3', _, _, _).
+hacl('LogisticPC1', _, _, _).
+hacl('LogisticPC2', _, _, _).
+hacl('LogisticPC3', _, _, _).
+hacl('LogisticPC4', _, _, _).
+hacl('LogisticPC5', _, _, _).
+hacl('LogisticPC6', _, _, _).
+hacl('IctPC1', _, _, _).
+hacl('IctPC2', _, _, _).
+hacl('IctPC3', _, _, _).
+hacl('IctPC4', _, _, _).
+hacl('IctPC5', _, _, _).
+hacl('IctPC6', _, _, _).
+hacl('adminPC2', _, _, _).
+hacl('adminPC3', _, _, _).
+hacl('adminPC4', _, _, _).
+hacl('adminPC5', _, _, _).
+hacl('adminPC6', _, _, _).
+hacl('FileServer', _, _, _).
+hacl('cameraB', _, _, _).
+networkService('camera_A_ssh-1', 'arpd', 'arp', 'port', 'root').
+networkService('camera_A_ssh-1', 'arpd', 'tcp', 'port', 'root').
+networkService('adminPC1-ssh-1', 'sshd', 'tcp', '22', 'root').
+networkService('DVR_ssh-1', 'smbV1', 'tcp', 'port', 'root').
+networkService('DVR_ssh-1', 'sshd', 'tcp', '22', 'root').
+networkService('FileServer', 'sftpd', 'tcp', 'port', 'root').
+networkService('ADServer', 'windowsUAC', 'tcp', 'port', 'admin').
+hacl('camera_A_ssh-1', 'SwitchX(PoE)', 'tcp', 'port').
+hacl('SwitchX(PoE)', 'Floor4-L3SW', 'tcp', 'port').
+hacl('Server-Room-SW', 'DVR_ssh-1', 'tcp', 'port').
+hacl('Server-Room-SW', 'FileServer', 'tcp', 'port').
+hacl('Admin-SW', 'adminPC1-ssh-1', 'tcp', 'port').
+hacl('Floor4-L3SW', 'Server-Room-SW', 'tcp', 'port').
+hacl('Floor4-L3SW', 'Admin-SW', 'tcp', 'port').
+hacl('Floor4-L3SW', 'DMZ-SW', 'tcp', 'port').
+hacl('Floor4-Router', 'Floor4-L3SW', 'tcp', 'port').
+hacl('Floor4-FW', 'Floor4-Router', 'tcp', 'port').
+hacl('Floor4-FW', 'CoreRouterE', 'tcp', 'port').
+hacl('CoreRouterA', 'Cloud1', 'tcp', 'port').
+hacl('Cloud1', 'adminPC1-ssh-1', 'http', '80').
+hacl('vLan120', 'vLan110', 'http', 'port').
+hacl('vLan120', 'vLan100', 'http', 'port').
+hacl('vLan120', 'vLan100', 'smbV1', 'port').
+hacl('vLan120', 'vLan110', 'windowsUAC', 'port').
+hacl('vLan120', 'vLan110', 'sftpd', 'port').
+hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', 'port').
+hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
+hacl('adminPC1-ssh-1', 'cameraB', 'arp', 'port').
+hacl('adminPC1-ssh-1', 'cameraB', 'tcp', '22').
+hacl('adminPC1-ssh-1', 'cameraC', 'arp', 'port').
+hacl('adminPC1-ssh-1', 'cameraC', 'tcp', '22').
+hacl('adminPC1-ssh-1', 'cameraD', 'arp', 'port').
+hacl('adminPC1-ssh-1', 'cameraD', 'tcp', '22').
+hacl('adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
+hacl('camera_A_ssh-1', 'DVR_ssh-1', 'tcp', '22').
+hasAccount('victim', 'DVR_ssh-1', 'user').
+hasAccount('victim', 'camera_A_ssh-1', 'user').
+hasAccount('root', 'adminPC1-ssh-1', 'root').
+hasAccount('root', 'DVR_ssh-1', 'root').
+hasAccount('root', 'camera_A_ssh-1', 'root').
+hasAccount('root', 'FileServer', 'root').
+hasAccount('admin', 'ADServer', 'admin').
+hasAccount('attacker', 'camera_A_ssh-1', 'user').
+hasAccount('attacker', 'DVR_ssh-1', 'root').
+hasAccount('attacker', 'adminPC1-ssh-1', 'root').
+hasAccess('attacker', 'adminPC1-ssh-1', 'Floor4-Router', 'tcp', '22').
+hasAccess('', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', 'port').
+hasAccess('', 'camera_A_ssh-1', 'DVR_ssh-1', 'tcp', 'port').
+hasAccess('', 'camera_A_ssh-1', 'DVR_ssh-1', 'arp', 'port').
+hasAccess('', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
+hasAccess('', 'adminPC1-ssh-1', 'cameraB', 'arp', 'port').
+hasAccess('', 'adminPC1-ssh-1', 'cameraB', 'tcp', '22').
+hasAccess('', 'adminPC1-ssh-1', 'cameraC', 'arp', 'port').
+hasAccess('', 'adminPC1-ssh-1', 'cameraC', 'tcp', '22').
+hasAccess('', 'adminPC1-ssh-1', 'cameraD', 'arp', 'port').
+hasAccess('', 'adminPC1-ssh-1', 'cameraD', 'tcp', '22').
+hasAccess('attacker', 'adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
+deviceOnline('Server-Room-SW', _Platform).
+deviceOnline('Admin-SW', _Platform).
+deviceOnline('SwitchX(PoE)', _Platform).
+deviceOnline('Logistic-SW', _Platform).
+deviceOnline('Customer-SW', _Platform).
+deviceOnline('ICT-SW', _Platform).
+deviceOnline('HR-SW', _Platform).
+deviceOnline('Management-SW', _Platform).
+deviceOnline('Research-SW', _Platform).
+deviceOnline('Marketing-SW', _Platform).
+deviceOnline('Accountant-SW', _Platform).
+deviceOnline('Finance-SW', _Platform).
+deviceOnline('CoreRouterE', _Platform).
+deviceOnline('CoreRouterA', _Platform).
+deviceOnline('Floor1-FW', _Platform).
+deviceOnline('Floor1-L3SW', _Platform).
+deviceOnline('Floor4-FW', _Platform).
+deviceOnline('FinancePC3', _Platform).
+deviceOnline('Cloud1', _Platform).
+deviceOnline('Floor4-L3SW', _Platform).
+deviceOnline('Floor3-L3SW', _Platform).
+deviceOnline('Floor2-L3SW', _Platform).
+deviceOnline('CoreRouterB', _Platform).
+deviceOnline('Floor2-FW', _Platform).
+deviceOnline('Floor3-FW', _Platform).
+deviceOnline('CoreRouterC', _Platform).
+deviceOnline('CoreRouterD', _Platform).
+deviceOnline('Floor2-Router', _Platform).
+deviceOnline('Floor1-Router', _Platform).
+deviceOnline('Floor3-Router', _Platform).
+deviceOnline('Floor4-Router', _Platform).
+deviceOnline('adminPC1-ssh-1', _Platform).
+deviceOnline('camera_A_ssh-1', _Platform).
+deviceOnline('DVR_ssh-1', _Platform).
+deviceOnline('MarketingPC1', _Platform).
+deviceOnline('MarketingPC2', _Platform).
+deviceOnline('MarketingPC3', _Platform).
+deviceOnline('MarketingPC4', _Platform).
+deviceOnline('MarketingPC5', _Platform).
+deviceOnline('MarketingPC6', _Platform).
+deviceOnline('AccountantPC1', _Platform).
+deviceOnline('AccountantPC2', _Platform).
+deviceOnline('AccountantPC3', _Platform).
+deviceOnline('FinancePC1', _Platform).
+deviceOnline('FinancePC2', _Platform).
+deviceOnline('FinancePC4', _Platform).
+deviceOnline('FinancePC5', _Platform).
+deviceOnline('FinancePC6', _Platform).
+deviceOnline('ManagerPC1', _Platform).
+deviceOnline('ManagerPC2', _Platform).
+deviceOnline('ManagerPC3', _Platform).
+deviceOnline('ManagerPC4', _Platform).
+deviceOnline('ManagerPC5', _Platform).
+deviceOnline('MangerPC6', _Platform).
+deviceOnline('ResearchPC1', _Platform).
+deviceOnline('ResearchPC2', _Platform).
+deviceOnline('ResearchPC3', _Platform).
+deviceOnline('ResearchPC4', _Platform).
+deviceOnline('ResearchPC5', _Platform).
+deviceOnline('ResearchPC6', _Platform).
+deviceOnline('HrPC1', _Platform).
+deviceOnline('HrPC2', _Platform).
+deviceOnline('HrPC3', _Platform).
+deviceOnline('HrPC4', _Platform).
+deviceOnline('HrPC5', _Platform).
+deviceOnline('HrPC6', _Platform).
+deviceOnline('CustomerPC1', _Platform).
+deviceOnline('CustomerPC2', _Platform).
+deviceOnline('CustomerPC3', _Platform).
+deviceOnline('LogisticPC1', _Platform).
+deviceOnline('LogisticPC2', _Platform).
+deviceOnline('LogisticPC3', _Platform).
+deviceOnline('LogisticPC4', _Platform).
+deviceOnline('LogisticPC5', _Platform).
+deviceOnline('LogisticPC6', _Platform).
+deviceOnline('IctPC1', _Platform).
+deviceOnline('IctPC2', _Platform).
+deviceOnline('IctPC3', _Platform).
+deviceOnline('IctPC4', _Platform).
+deviceOnline('IctPC5', _Platform).
+deviceOnline('IctPC6', _Platform).
+deviceOnline('adminPC2', _Platform).
+deviceOnline('adminPC3', _Platform).
+deviceOnline('adminPC4', _Platform).
+deviceOnline('adminPC5', _Platform).
+deviceOnline('adminPC6', _Platform).
+deviceOnline('FileServer', _Platform).
+deviceOnline('cameraB', _Platform).
+
+residesOn('camera_A_ssh-1', 'sshd', 'ver1').
+residesOn('camera_A_ssh-1', 'arpd', 'ver1').
+residesOn('adminPC1-ssh-1', 'libtasn1_6', 'v4_16_0_2').
+residesOn('ADServer', 'windowsUAC', 'ver1').
+residesOn('DVR_ssh-1', 'smbV1', 'ver1').
+residesOn('FileServer', 'sftpd', 'ver1').
+vulExists('arpSpoofVuln', 'arpd', 'ver1', 'network', 'caLoss', 'critical').
+vulExists('cve_2021_46848', 'libtasn1_6', 'v4_16_0_2', 'network', 'caLoss', 'critical').
+vulExists('cve_2022_2294', 'libtasn1_6', 'ver1', 'network', 'caLoss', 'critical').
+vulExists('cve_2017_0144', 'smbV1', 'ver1', 'network', 'caLoss', 'critical').
+vulExists('sshdSpoofVuln', 'sshd', 'ver1', 'network', 'caLoss', 'critical').
+
+
+fileOwner('adminPC1-ssh-1', '/etc/shadow', root).
+ownerAccessible('adminPC1-ssh-1', read, '/etc/shadow').
+
+attackerLocated('internet').
+
+isNameResolver(_FooledHost, _ImpersonatedHost, _AttackerHost).
+vulE2EProtocol(_FooledHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
+isNameResolver(_ImpersonatedHost, _FooledHost, _AttackerHost).
+vulE2EProtocol(_ImpersonatedHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
+isNameResolver(_ImpersonatedHost, _FooledHost, _NameResolver).

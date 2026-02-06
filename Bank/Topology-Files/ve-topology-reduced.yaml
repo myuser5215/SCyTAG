@@ -1,0 +1,1397 @@
+drawings:
+- drawing_id: 2cb870f3-7a89-4ac9-a27c-fcfa8821d184
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="52" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">.2-.7</text></svg>
+  x: 905
+  y: -249
+  z: 2
+- drawing_id: 3860417a-f5f4-4c3d-aafb-050b21c61615
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="420" height="332"><rect width="420" height="332" fill="#ffff7f"
+    fill-opacity="1.0" stroke-width="2" stroke="#000000" /></svg>
+  x: 617
+  y: -277
+  z: 0
+- drawing_id: 57a8d216-d42f-4b97-a7f4-9dd31efe57f5
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="344" height="244"><rect width="344" height="244" fill="#aaffff"
+    fill-opacity="1.0" stroke-width="2" stroke="#000000" /></svg>
+  x: 237
+  y: -333
+  z: 0
+- drawing_id: 1c2283d7-2755-481a-8e0b-57a3bb0413ba
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: '<svg width="192" height="216"><text font-family="MS Shell Dlg 2" font-size="10.0"
+    fill="#000000" fill-opacity="1.0">*Static IPs*
+
+    Marketing - 192.168.10.0/24
+
+    Accountant - 192.168.20.0/24
+
+    Finance - 192.168.30.0/24
+
+    Management - 192.168.40.0/24
+
+    Research - 192.168.50.0/24
+
+    HR - 192.168.60.0/24
+
+    Customer - 192.168.70.0/24
+
+    Logistic - 192.168.80.0/24
+
+    ICT - 192.168.90.0/24
+
+    SwitchX - 192.168.100.0/24
+
+    ServerRoom - 192.168.110.0/24
+
+    Admin - 192.168.120.0/24</text></svg>'
+  x: 623
+  y: -534
+  z: 2
+- drawing_id: 3879fcd6-b6fe-42c6-bd99-cf1cc5b98719
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="117" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.120.0/24</text></svg>
+  x: 615
+  y: -45
+  z: 2
+- drawing_id: 4711f7a0-cda2-4052-b9ba-b3f27b199d4e
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="117" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.110.0/24</text></svg>
+  x: 336
+  y: -110
+  z: 2
+- drawing_id: eaf2be8a-03c9-49fb-a45c-03330dce4092
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="117" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.100.0/24</text></svg>
+  x: 38
+  y: -92
+  z: 2
+- drawing_id: 55da267e-9d01-415b-baca-743104f22f80
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="95" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">vLan 100</text></svg>
+  x: -123
+  y: -311
+  z: 2
+- drawing_id: 64e6a551-65a1-43dd-87e9-2561793244da
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="95" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">vLan 110</text></svg>
+  x: 365
+  y: -309
+  z: 2
+- drawing_id: efd53eb1-9ad6-4b6e-bb8b-e06cb09f8140
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="95" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">vLan 120</text></svg>
+  x: 654
+  y: -264
+  z: 2
+- drawing_id: 47a53eea-9b4a-48c9-abdd-54512b3e09da
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: '<svg width="248" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">ip: 10.layer.floor.host/30</text></svg>'
+  x: -327
+  y: 295
+  z: 2
+- drawing_id: c9ab65da-5bd6-41a4-af5b-f02006cfdd92
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.0.4.0/30</text></svg>
+  x: -216
+  y: 79
+  z: 2
+- drawing_id: cd925fa2-2e10-4d24-a8d4-c1533540e57d
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.1.4.0/30</text></svg>
+  x: -85
+  y: 80
+  z: 2
+- drawing_id: 8f571db1-ac85-4e41-8a71-0e97914fc851
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.2.4.0/30</text></svg>
+  x: 19
+  y: 42
+  z: 2
+- drawing_id: 2f15fcce-2246-41eb-83e5-bc4c7fc3c103
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="69" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">trunk port</text></svg>
+  x: 226
+  y: -53
+  z: 2
+- drawing_id: 6683ed5a-52b8-4a05-b5de-8e9846412be5
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.70.0/24</text></svg>
+  x: 137
+  y: 368
+  z: 2
+- drawing_id: a01198e8-1843-41d7-b1cd-644642d4b324
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.80.0/24</text></svg>
+  x: 304
+  y: 332
+  z: 2
+- drawing_id: 5b78c7c7-d714-4005-8b69-5f4685c2c6ab
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: '<svg width="192" height="200"><text font-family="MS Shell Dlg 2" font-size="10.0"
+    fill="#000000" fill-opacity="1.0">Marketing - 192.168.10.0/24
+
+    Accountant - 192.168.20.0/24
+
+    Finance - 192.168.30.0/24
+
+    Management - 192.168.40.0/24
+
+    Research - 192.168.50.0/24
+
+    HR - 192.168.60.0/24
+
+    Customer - 192.168.70.0/24
+
+    Logistic - 192.168.80.0/24
+
+    ICT - 192.168.90.0/24
+
+    SwitchX - 192.168.100.0/24
+
+    ServerRoom - 192.168.110.0/24
+
+    Admin - 192.168.120.0/24</text></svg>'
+  x: -1246
+  y: -515
+  z: 2
+- drawing_id: 4876975c-de0b-4b0f-b827-358d9386b43c
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.90.0/24</text></svg>
+  x: 170
+  y: 211
+  z: 2
+- drawing_id: 4084f124-b0b2-41ef-819e-53f863cdc6a8
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.60.0/24</text></svg>
+  x: -581
+  y: 357
+  z: 2
+- drawing_id: beb8e540-26fa-43f0-8241-1f8a1127199f
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.50.0/24</text></svg>
+  x: -802
+  y: 449
+  z: 2
+- drawing_id: 5accfa21-99f1-45e3-a595-637e5cc015c6
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.40.0/24</text></svg>
+  x: -1104
+  y: 116
+  z: 2
+- drawing_id: 15e77dac-8ac1-44b8-a2b5-9a5bf199d5d1
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.30.0/24</text></svg>
+  x: -948
+  y: -79
+  z: 2
+- drawing_id: b61b948a-9f62-4229-bc47-02fd1af4fbba
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.20.0/24</text></svg>
+  x: -838
+  y: -187
+  z: 2
+- drawing_id: b58bc79d-f1ff-4591-92fb-95103be034ed
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="110" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">192.168.10.0/24</text></svg>
+  x: -471
+  y: -78
+  z: 2
+- drawing_id: 3729e868-5157-4e88-95a9-d1cc5debae74
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: '<svg width="278" height="54"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">Upstream interfaces: WAN
+
+    downstream interfaces: LAN</text></svg>'
+  x: -323
+  y: 322
+  z: 2
+- drawing_id: 8e31224b-5806-4acb-9e96-72317e9bcac8
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.1.1.0/30</text></svg>
+  x: -412
+  y: 9
+  z: 2
+- drawing_id: ff82b93f-1b94-46af-8fcd-c232a4751a43
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.2.1.0/30</text></svg>
+  x: -543
+  y: -39
+  z: 2
+- drawing_id: 9a4da487-f820-413a-ae69-47d01e6f239b
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="72" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">172.17.0.1</text></svg>
+  x: -298
+  y: -371
+  z: 2
+- drawing_id: 0de1093c-2a2b-4d28-9b60-07a2623b884b
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.0.1.0/30</text></svg>
+  x: -352
+  y: 96
+  z: 2
+- drawing_id: ffb42d9b-a290-4008-b87c-bef229f095f9
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.1.2.0/30</text></svg>
+  x: -394
+  y: 205
+  z: 2
+- drawing_id: 2a79626f-7ce5-42bf-a485-9c3764713487
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.0.2.0/30</text></svg>
+  x: -298
+  y: 155
+  z: 2
+- drawing_id: f42c2bd3-6ccb-40b5-83c0-1b7cfb1883a3
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.2.2.0/30</text></svg>
+  x: -519
+  y: 258
+  z: 2
+- drawing_id: 84e4b145-a578-444e-bc39-cf6744bf848f
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.2.3.0/30</text></svg>
+  x: 35
+  y: 214
+  z: 2
+- drawing_id: 3e75f7d6-51f8-459e-98be-ac734fd22bd0
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.1.3.0/30</text></svg>
+  x: -122
+  y: 210
+  z: 2
+- drawing_id: c2067dd3-c027-46cf-bb76-219e067531eb
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="79" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.0.3.0/30</text></svg>
+  x: -238
+  y: 145
+  z: 2
+- drawing_id: caf3a350-1e59-4b86-8b44-94f4a88210f9
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: '<svg width="574" height="88"><text font-family="MS Shell Dlg 2" font-size="10.0"
+    fill="#000000" fill-opacity="1.0">All VPCs have access to the core router.
+
+    Floor routers perform NAT.
+
+    Internal communication between floors is routed through the floor router interfaces
+    eth2 and eth3.
+
+    No access from the core router to the internet.
+
+    </text></svg>'
+  x: -121
+  y: -518
+  z: 2
+- drawing_id: 0d0795d4-6df8-45d7-bab9-afe68ac06a8b
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="87" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.3.12.0/30</text></svg>
+  x: -670
+  y: 88
+  z: 2
+- drawing_id: 586efcc0-05d0-48c8-a6a8-f2c66ac8bbb1
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="87" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.3.23.0/30</text></svg>
+  x: -263
+  y: 261
+  z: 2
+- drawing_id: 88d66c72-5a07-4217-a97c-32f2f89aac4d
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="87" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">10.3.34.0/30</text></svg>
+  x: 134
+  y: 121
+  z: 2
+- drawing_id: 14a7b704-650c-4198-ba00-b1532c74f7c5
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="47" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#3fbebe" fill-opacity="1.0">NAT</text></svg>
+  x: 58
+  y: 19
+  z: 2
+- drawing_id: f7a3b977-8e41-4dde-b899-83e96833f5fd
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="47" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#3fbebe" fill-opacity="1.0">NAT</text></svg>
+  x: 76
+  y: 226
+  z: 2
+- drawing_id: 48c54a36-f02e-445e-b747-6f7ba43aced3
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="47" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#3fbebe" fill-opacity="1.0">NAT</text></svg>
+  x: -536
+  y: 1
+  z: 2
+- drawing_id: 275bfbe9-e3e6-4cbe-a172-a3d2742ec3c1
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="47" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#3fbebe" fill-opacity="1.0">NAT</text></svg>
+  x: -549
+  y: 237
+  z: 2
+- drawing_id: 9f58d50b-4e0d-43e4-be8c-7fd89a1247a0
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="344" height="223"><rect width="344" height="223" fill="#ffaaff"
+    fill-opacity="1.0" stroke-width="2" stroke="#000000" /></svg>
+  x: -139
+  y: -316
+  z: 0
+- drawing_id: 06723c01-0caa-4d04-aff6-93b093318984
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="47" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#3fbebe" fill-opacity="1.0">NAT</text></svg>
+  x: -247
+  y: 53
+  z: 2
+- drawing_id: b8251cd9-53d1-48ef-abe3-0f92292b233c
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="94" height="23"><text font-family="MS Shell Dlg 2" font-size="9.0"
+    font-weight="bold" fill="#000000" fill-opacity="1.0">172.17.0.0\16</text></svg>
+  x: -291
+  y: -7
+  z: 2
+- drawing_id: eab9a0d9-b38e-4777-8570-bccf9340b13a
+  locked: false
+  project_id: 216f2bc7-a352-43ab-af36-ae84950bc7a4
+  rotation: 0
+  svg: <svg width="738" height="31"><text font-family="MS Shell Dlg 2" font-size="14.0"
+    font-weight="bold" fill="#ff00ff" fill-opacity="1.0">Routers perform inter-LAN
+    communication using Router-on-a-stick technics.</text></svg>
+  x: 588
+  y: 82
+  z: 2
+labels:
+- text: .2-.7
+  x: 905
+  y: -249
+- text: '*Static IPs*
+
+    Marketing - 192.168.10.0/24
+
+    Accountant - 192.168.20.0/24
+
+    Finance - 192.168.30.0/24
+
+    Management - 192.168.40.0/24
+
+    Research - 192.168.50.0/24
+
+    HR - 192.168.60.0/24
+
+    Customer - 192.168.70.0/24
+
+    Logistic - 192.168.80.0/24
+
+    ICT - 192.168.90.0/24
+
+    SwitchX - 192.168.100.0/24
+
+    ServerRoom - 192.168.110.0/24
+
+    Admin - 192.168.120.0/24'
+  x: 623
+  y: -534
+- text: 192.168.120.0/24
+  x: 615
+  y: -45
+- text: 192.168.110.0/24
+  x: 336
+  y: -110
+- text: 192.168.100.0/24
+  x: 38
+  y: -92
+- text: vLan 100
+  x: -123
+  y: -311
+- text: vLan 110
+  x: 365
+  y: -309
+- text: vLan 120
+  x: 654
+  y: -264
+- text: 'ip: 10.layer.floor.host/30'
+  x: -327
+  y: 295
+- text: 10.0.4.0/30
+  x: -216
+  y: 79
+- text: 10.1.4.0/30
+  x: -85
+  y: 80
+- text: 10.2.4.0/30
+  x: 19
+  y: 42
+- text: trunk port
+  x: 226
+  y: -53
+- text: 192.168.70.0/24
+  x: 137
+  y: 368
+- text: 192.168.80.0/24
+  x: 304
+  y: 332
+- text: 'Marketing - 192.168.10.0/24
+
+    Accountant - 192.168.20.0/24
+
+    Finance - 192.168.30.0/24
+
+    Management - 192.168.40.0/24
+
+    Research - 192.168.50.0/24
+
+    HR - 192.168.60.0/24
+
+    Customer - 192.168.70.0/24
+
+    Logistic - 192.168.80.0/24
+
+    ICT - 192.168.90.0/24
+
+    SwitchX - 192.168.100.0/24
+
+    ServerRoom - 192.168.110.0/24
+
+    Admin - 192.168.120.0/24'
+  x: -1246
+  y: -515
+- text: 192.168.90.0/24
+  x: 170
+  y: 211
+- text: 192.168.60.0/24
+  x: -581
+  y: 357
+- text: 192.168.50.0/24
+  x: -802
+  y: 449
+- text: 192.168.40.0/24
+  x: -1104
+  y: 116
+- text: 192.168.30.0/24
+  x: -948
+  y: -79
+- text: 192.168.20.0/24
+  x: -838
+  y: -187
+- text: 192.168.10.0/24
+  x: -471
+  y: -78
+- text: 'Upstream interfaces: WAN
+
+    downstream interfaces: LAN'
+  x: -323
+  y: 322
+- text: 10.1.1.0/30
+  x: -412
+  y: 9
+- text: 10.2.1.0/30
+  x: -543
+  y: -39
+- text: 172.17.0.1
+  x: -298
+  y: -371
+- text: 10.0.1.0/30
+  x: -352
+  y: 96
+- text: 10.1.2.0/30
+  x: -394
+  y: 205
+- text: 10.0.2.0/30
+  x: -298
+  y: 155
+- text: 10.2.2.0/30
+  x: -519
+  y: 258
+- text: 10.2.3.0/30
+  x: 35
+  y: 214
+- text: 10.1.3.0/30
+  x: -122
+  y: 210
+- text: 10.0.3.0/30
+  x: -238
+  y: 145
+- text: 'All VPCs have access to the core router.
+
+    Floor routers perform NAT.
+
+    Internal communication between floors is routed through the floor router interfaces
+    eth2 and eth3.
+
+    No access from the core router to the internet.'
+  x: -121
+  y: -518
+- text: 10.3.12.0/30
+  x: -670
+  y: 88
+- text: 10.3.23.0/30
+  x: -263
+  y: 261
+- text: 10.3.34.0/30
+  x: 134
+  y: 121
+- text: NAT
+  x: 58
+  y: 19
+- text: NAT
+  x: 76
+  y: 226
+- text: NAT
+  x: -536
+  y: 1
+- text: NAT
+  x: -549
+  y: 237
+- text: NAT
+  x: -247
+  y: 53
+- text: 172.17.0.0\16
+  x: -291
+  y: -7
+- text: Routers perform inter-LAN communication using Router-on-a-stick technics.
+  x: 588
+  y: 82
+links:
+- link_name: link-2
+  link_nodes:
+  - node_name: Floor4-L3SW
+    port_name: eth1
+  - node_name: SwitchX(PoE)
+    port_name: Ethernet0
+- link_name: link-3
+  link_nodes:
+  - node_name: Floor4-L3SW
+    port_name: eth2
+  - node_name: Server-Room-SW
+    port_name: Ethernet0
+- link_name: link-4
+  link_nodes:
+  - node_name: Floor4-L3SW
+    port_name: eth3
+  - node_name: Admin-SW
+    port_name: Ethernet0
+- link_name: link-5
+  link_nodes:
+  - node_name: Floor4-FW
+    port_name: Ethernet0
+  - node_name: CoreRouterE
+    port_name: Ethernet1
+- link_name: link-6
+  link_nodes:
+  - node_name: CoreRouterA
+    port_name: Ethernet4
+  - node_name: CoreRouterE
+    port_name: Ethernet0
+- link_name: link-29
+  link_nodes:
+  - node_name: Floor4-L3SW
+    port_name: eth0
+  - node_name: Floor4-Router
+    port_name: Ethernet1
+- link_name: link-30
+  link_nodes:
+  - node_name: Floor4-Router
+    port_name: Ethernet0
+  - node_name: Floor4-FW
+    port_name: Ethernet1
+- link_name: link-32
+  link_nodes:
+  - node_name: CoreRouterA
+    port_name: Ethernet0
+  - node_name: Cloud1
+    port_name: docker0
+- link_name: link-33
+  link_nodes:
+  - node_name: adminPC1-ssh-1
+    port_name: eth0
+  - node_name: Admin-SW
+    port_name: Ethernet7
+- link_name: link-34
+  link_nodes:
+  - node_name: camera_A_ssh-1
+    port_name: eth0
+  - node_name: SwitchX(PoE)
+    port_name: Ethernet3
+- link_name: link-35
+  link_nodes:
+  - node_name: DVR_ssh-1
+    port_name: eth0
+  - node_name: Server-Room-SW
+    port_name: Ethernet3
+- link_name: link-89
+  link_nodes:
+  - node_name: Server-Room-SW
+    port_name: Ethernet2
+  - node_name: FileServer
+    port_name: eth0
+nodes:
+- name: Server-Room-SW
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: :/symbols/ethernet_switch.svg
+  template: Ethernet switch
+  x: 368
+  y: -169
+- name: Admin-SW
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: :/symbols/ethernet_switch.svg
+  template: Ethernet switch
+  x: 628
+  y: -96
+- name: SwitchX(PoE)
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: :/symbols/ethernet_switch.svg
+  template: Ethernet switch
+  x: 94
+  y: -176
+- name: CoreRouterE
+  properties:
+    adapter_type: e1000
+    adapters: 5
+    bios_image: ''
+    bios_image_md5sum: null
+    boot_priority: c
+    cdrom_image: ''
+    cdrom_image_md5sum: null
+    cpu_throttling: 0
+    cpus: 1
+    create_config_disk: false
+    hda_disk_image: openwrt-22.03.0-x86-64-generic-ext4-combined.img
+    hda_disk_image_md5sum: 02e7d00436d5fc0f72116f987a2bff2d
+    hda_disk_interface: ide
+    hdb_disk_image: ''
+    hdb_disk_image_md5sum: null
+    hdb_disk_interface: none
+    hdc_disk_image: ''
+    hdc_disk_image_md5sum: null
+    hdc_disk_interface: none
+    hdd_disk_image: ''
+    hdd_disk_image_md5sum: null
+    hdd_disk_interface: none
+    initrd: ''
+    initrd_md5sum: null
+    kernel_command_line: ''
+    kernel_image: ''
+    kernel_image_md5sum: null
+    legacy_networking: false
+    linked_clone: true
+    mac_address: 0c:ca:c5:81:00:00
+    on_close: power_off
+    options: ''
+    platform: x86_64
+    process_priority: normal
+    qemu_path: /usr/bin/qemu-system-x86_64
+    ram: 256
+    replicate_network_connection_state: true
+    tpm: false
+    uefi: false
+    usage: ''
+  symbol: :/symbols/classic/router.svg
+  template: OpenWRT
+  x: -145
+  y: 60
+- name: CoreRouterA
+  properties:
+    adapter_type: e1000
+    adapters: 5
+    bios_image: ''
+    bios_image_md5sum: null
+    boot_priority: c
+    cdrom_image: ''
+    cdrom_image_md5sum: null
+    cpu_throttling: 0
+    cpus: 1
+    create_config_disk: false
+    hda_disk_image: openwrt-22.03.0-x86-64-generic-ext4-combined.img
+    hda_disk_image_md5sum: 02e7d00436d5fc0f72116f987a2bff2d
+    hda_disk_interface: ide
+    hdb_disk_image: ''
+    hdb_disk_image_md5sum: null
+    hdb_disk_interface: none
+    hdc_disk_image: ''
+    hdc_disk_image_md5sum: null
+    hdc_disk_interface: none
+    hdd_disk_image: ''
+    hdd_disk_image_md5sum: null
+    hdd_disk_interface: none
+    initrd: ''
+    initrd_md5sum: null
+    kernel_command_line: ''
+    kernel_image: ''
+    kernel_image_md5sum: null
+    legacy_networking: false
+    linked_clone: true
+    mac_address: 0c:d6:d4:e3:00:00
+    on_close: power_off
+    options: ''
+    platform: x86_64
+    process_priority: normal
+    qemu_path: /usr/bin/qemu-system-x86_64
+    ram: 256
+    replicate_network_connection_state: true
+    tpm: false
+    uefi: false
+    usage: ''
+  symbol: :/symbols/classic/router.svg
+  template: OpenWRT
+  x: -254
+  y: 100
+- name: Floor4-FW
+  properties:
+    adapter_type: e1000
+    adapters: 5
+    bios_image: ''
+    bios_image_md5sum: null
+    boot_priority: c
+    cdrom_image: ''
+    cdrom_image_md5sum: null
+    cpu_throttling: 0
+    cpus: 1
+    create_config_disk: false
+    hda_disk_image: openwrt-22.03.0-x86-64-generic-ext4-combined.img
+    hda_disk_image_md5sum: 02e7d00436d5fc0f72116f987a2bff2d
+    hda_disk_interface: ide
+    hdb_disk_image: ''
+    hdb_disk_image_md5sum: null
+    hdb_disk_interface: none
+    hdc_disk_image: ''
+    hdc_disk_image_md5sum: null
+    hdc_disk_interface: none
+    hdd_disk_image: ''
+    hdd_disk_image_md5sum: null
+    hdd_disk_interface: none
+    initrd: ''
+    initrd_md5sum: null
+    kernel_command_line: ''
+    kernel_image: ''
+    kernel_image_md5sum: null
+    legacy_networking: false
+    linked_clone: true
+    mac_address: 0c:8a:ee:89:00:00
+    on_close: power_off
+    options: ''
+    platform: x86_64
+    process_priority: normal
+    qemu_path: /usr/bin/qemu-system-x86_64
+    ram: 256
+    replicate_network_connection_state: true
+    tpm: false
+    uefi: false
+    usage: ''
+  symbol: :/symbols/affinity/square/red/firewall.svg
+  template: OpenWRT
+  x: -37
+  y: 13
+- name: Cloud1
+  properties:
+    interfaces:
+    - name: docker0
+      special: true
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: eth1
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    - name: virbr0
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: docker0
+      name: docker0
+      port_number: 0
+      type: ethernet
+    remote_console_host: tel
+    remote_console_http_path: /
+    remote_console_port: 21
+    remote_console_type: telnet
+  symbol: :/symbols/cloud.svg
+  template: Cloud
+  x: -296
+  y: -432
+- name: Floor4-L3SW
+  properties:
+    adapters: 16
+    aux: 5285
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 850db35c51112a54fc892897a43b853e2914cadc1b6d60dae6182aada29a718c
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:56:7c:3d:00
+    start_command: null
+    usage: By default all interfaces are connected to the br0
+  symbol: :/symbols/multilayer_switch.svg
+  template: Open vSwitch
+  x: 342
+  y: -70
+- name: Floor4-Router
+  properties:
+    adapter_type: e1000
+    adapters: 5
+    bios_image: ''
+    bios_image_md5sum: null
+    boot_priority: c
+    cdrom_image: ''
+    cdrom_image_md5sum: null
+    cpu_throttling: 0
+    cpus: 1
+    create_config_disk: false
+    hda_disk_image: openwrt-22.03.0-x86-64-generic-ext4-combined.img
+    hda_disk_image_md5sum: 02e7d00436d5fc0f72116f987a2bff2d
+    hda_disk_interface: ide
+    hdb_disk_image: ''
+    hdb_disk_image_md5sum: null
+    hdb_disk_interface: none
+    hdc_disk_image: ''
+    hdc_disk_image_md5sum: null
+    hdc_disk_interface: none
+    hdd_disk_image: ''
+    hdd_disk_image_md5sum: null
+    hdd_disk_interface: none
+    initrd: ''
+    initrd_md5sum: null
+    kernel_command_line: ''
+    kernel_image: ''
+    kernel_image_md5sum: null
+    legacy_networking: false
+    linked_clone: true
+    mac_address: 0c:d6:5d:a4:00:00
+    on_close: power_off
+    options: ''
+    platform: x86_64
+    process_priority: normal
+    qemu_path: /usr/bin/qemu-system-x86_64
+    ram: 256
+    replicate_network_connection_state: true
+    tpm: false
+    uefi: false
+    usage: ''
+  symbol: :/symbols/classic/router.svg
+  template: OpenWRT
+  x: 95
+  y: -23
+- name: adminPC1-ssh-1
+  properties:
+    adapters: 1
+    aux: 5121
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 2042fb130cca526d7b73f9018793885d13694673321ca0a98d8ad0b6b1d0ffed
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: caldera_agent_with_ssh_key:latest
+    mac_address: 02:42:0b:f3:a5:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: caldera_agent_with_ssh_key
+  x: 780
+  y: -193
+- name: camera_A_ssh-1
+  properties:
+    adapters: 1
+    aux: 5127
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 7ff483520efe03a32c15ba6901a714357ab4a8512b2e55c6e022b80e61fd49d1
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ssh-enabled-key:latest
+    mac_address: 02:42:28:0f:75:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/affinity/circle/blue/camera.svg
+  template: camera_A_ssh
+  x: -82
+  y: -187
+- name: DVR_ssh-1
+  properties:
+    adapters: 1
+    aux: 5129
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: fd562a13abd8950d9974e4694ea324ef57e68c908e8c7cb31b47b2dc82e5ca65
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ssh-enabled-key:latest
+    mac_address: 02:42:44:fc:27:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: DVR_ssh
+  x: 470
+  y: -251
+- name: FileServer
+  properties:
+    adapters: 1
+    aux: 5135
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 5951bbb2b3848fd632608983d146dea7c0e965fd21adeef671c071853a998586
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:noble
+    mac_address: 02:42:6d:97:d6:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker-idle
+  x: 303
+  y: -256
+templates:
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: ssh-enabled-key:latest
+  mac_address: ''
+  name: camera_A_ssh
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: ssh-enabled-key:latest
+  mac_address: ''
+  name: DVR_ssh
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 60
+  builtin: false
+  category: switch
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: gns3/openvswitch:latest
+  mac_address: null
+  name: Open vSwitch
+  start_command: ''
+  symbol: :/symbols/multilayer_switch.svg
+  template_type: docker
+  usage: By default all interfaces are connected to the br0
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: ubuntu:noble
+  mac_address: ''
+  name: ubuntu-docker-idle
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapter_type: e1000
+  adapters: 5
+  bios_image: ''
+  boot_priority: c
+  builtin: false
+  category: guest
+  cdrom_image: ''
+  compute_id: local
+  console_auto_start: false
+  console_type: telnet
+  cpu_throttling: 0
+  cpus: 1
+  create_config_disk: false
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  first_port_name: ''
+  hda_disk_image: openwrt-22.03.0-x86-64-generic-ext4-combined.img
+  hda_disk_interface: ide
+  hdb_disk_image: ''
+  hdb_disk_interface: none
+  hdc_disk_image: ''
+  hdc_disk_interface: none
+  hdd_disk_image: ''
+  hdd_disk_interface: none
+  initrd: ''
+  kernel_command_line: ''
+  kernel_image: ''
+  legacy_networking: false
+  linked_clone: true
+  mac_address: null
+  name: OpenWRT
+  on_close: power_off
+  options: ''
+  platform: ''
+  port_name_format: Ethernet{0}
+  port_segment_size: 0
+  process_priority: normal
+  qemu_path: /usr/bin/qemu-system-x86_64
+  ram: 256
+  replicate_network_connection_state: true
+  symbol: :/symbols/classic/router.svg
+  template_type: qemu
+  tpm: false
+  uefi: false
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: caldera_agent_with_ssh_key:latest
+  mac_address: ''
+  name: caldera_agent_with_ssh_key
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: intergalactic-vpn:latest
+  mac_address: ''
+  name: intergalactic-vpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: storage-server:latest
+  mac_address: ''
+  name: storage-server
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: alpine-3.18-openvpn:latest
+  mac_address: ''
+  name: alpine-3.18-openvpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''

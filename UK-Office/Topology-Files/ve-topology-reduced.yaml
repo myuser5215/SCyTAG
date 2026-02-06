@@ -1,0 +1,611 @@
+drawings: []
+labels: []
+links:
+- link_name: link-1
+  link_nodes:
+  - node_name: MainRouter
+    port_name: Ethernet1
+  - node_name: uk-site-internet
+    port_name: cyber-twin0
+- link_name: link-2
+  link_nodes:
+  - node_name: MainRouter
+    port_name: Ethernet0
+  - node_name: Core-Switch
+    port_name: eth0
+- link_name: link-3
+  link_nodes:
+  - node_name: Core-Switch
+    port_name: eth1
+  - node_name: VoIP-Switch
+    port_name: eth0
+- link_name: link-4
+  link_nodes:
+  - node_name: intergalactic-vpn-gw-internet
+    port_name: cyber-twin0
+  - node_name: intergalactic-vpn
+    port_name: eth0
+- link_name: link-5
+  link_nodes:
+  - node_name: AP-Controller
+    port_name: Ethernet1
+  - node_name: VoIP-Switch
+    port_name: eth1
+- link_name: link-6
+  link_nodes:
+  - node_name: alpine-3.18-openvpn-1
+    port_name: eth0
+  - node_name: FLE4N
+    port_name: Ethernet0
+- link_name: link-7
+  link_nodes:
+  - node_name: FLE4N
+    port_name: Ethernet2
+  - node_name: storage-server-1
+    port_name: eth0
+- link_name: link-8
+  link_nodes:
+  - node_name: intergalactic-hacker-internet
+    port_name: cyber-twin0
+  - node_name: intergalactic-hacker
+    port_name: eth0
+- link_name: link-33
+  link_nodes:
+  - node_name: AP-Controller
+    port_name: Ethernet2
+  - node_name: FLE4N
+    port_name: Ethernet1
+nodes:
+- console_type: telnet
+  name: Core-Switch
+  properties:
+    adapters: 16
+    aux: 5020
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 236ce8648e097efb2ee4924f2bfa85fe4f1a338008914f9025fea5e5e68f673f
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:27:ef:5f:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: :/symbols/classic/multilayer_switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -11
+  y: 205
+- console_type: telnet
+  name: MainRouter
+  properties:
+    adapter_type: virtio-net-pci
+    adapters: 4
+    bios_image: ''
+    bios_image_md5sum: null
+    boot_priority: c
+    cdrom_image: ''
+    cdrom_image_md5sum: null
+    cpu_throttling: 0
+    cpus: 1
+    create_config_disk: false
+    hda_disk_image: openwrt-24.10.2-x86-64-combined-ext4.img
+    hda_disk_image_md5sum: 056ea0d720101edbc9d838796e301a0b
+    hda_disk_interface: ide
+    hdb_disk_image: ''
+    hdb_disk_image_md5sum: null
+    hdb_disk_interface: none
+    hdc_disk_image: ''
+    hdc_disk_image_md5sum: null
+    hdc_disk_interface: none
+    hdd_disk_image: ''
+    hdd_disk_image_md5sum: null
+    hdd_disk_interface: none
+    initrd: ''
+    initrd_md5sum: null
+    kernel_command_line: ''
+    kernel_image: ''
+    kernel_image_md5sum: null
+    legacy_networking: false
+    linked_clone: true
+    mac_address: 0c:51:fc:a8:00:00
+    on_close: power_off
+    options: ''
+    platform: x86_64
+    process_priority: normal
+    qemu_path: /usr/bin/qemu-system-x86_64
+    ram: 128
+    replicate_network_connection_state: true
+    tpm: false
+    uefi: false
+    usage: Ethernet0 is the LAN link, Ethernet1 the WAN link, Ethernet2 and Ethernet3
+      are optional links.
+  symbol: 204_router.7b208c1133.svg
+  template: OpenWrt 24.10.2
+  type: qemu
+  x: -25
+  y: -351
+- console_type: none
+  name: uk-site-internet
+  properties:
+    interfaces:
+    - name: cyber-twin0
+      special: false
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: cyber-twin0
+      name: cyber-twin0
+      port_number: 0
+      type: ethernet
+    remote_console_host: ''
+    remote_console_http_path: /
+    remote_console_port: 23
+    remote_console_type: none
+  symbol: kindpng_511574.png
+  template: ''
+  type: cloud
+  x: 147
+  y: -374
+- console_type: telnet
+  name: VoIP-Switch
+  properties:
+    adapters: 16
+    aux: 5025
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: f988b7a53b96c30ef1dc04b7e77215fccd18d43476e39c60049ab828c170c00d
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:fc:ee:16:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: voice-switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -413
+  y: -510
+- console_type: none
+  name: AP-Controller
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: wlan-controller.svg
+  template: Ethernet switch
+  type: ethernet_switch
+  x: -555
+  y: -359
+- console_type: none
+  name: FLE4N
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: wifi-svgrepo-com.svg
+  template: Ethernet switch
+  type: ethernet_switch
+  x: -440
+  y: -217
+- console_type: none
+  name: intergalactic-vpn-gw-internet
+  properties:
+    interfaces:
+    - name: cyber-twin0
+      special: false
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: cyber-twin0
+      name: cyber-twin0
+      port_number: 0
+      type: ethernet
+    remote_console_host: ''
+    remote_console_http_path: /
+    remote_console_port: 23
+    remote_console_type: none
+  symbol: kindpng_511574.png
+  template: Cloud
+  type: cloud
+  x: 131
+  y: -236
+- console_type: telnet
+  name: intergalactic-vpn
+  properties:
+    adapters: 1
+    aux: 5030
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: a0d60677455ccb4f522a98f67035a5134fb9bd76927c470b871e05a2f777afac
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: intergalactic-vpn:latest
+    mac_address: 02:42:f2:d3:6e:00
+    start_command: null
+    usage: ''
+  symbol: intergalactic-vpn.png
+  template: intergalactic-vpn
+  type: docker
+  x: 493
+  y: -236
+- console_type: none
+  name: intergalactic-hacker-internet
+  properties:
+    interfaces:
+    - name: cyber-twin0
+      special: false
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: cyber-twin0
+      name: cyber-twin0
+      port_number: 0
+      type: ethernet
+    remote_console_host: ''
+    remote_console_http_path: /
+    remote_console_port: 23
+    remote_console_type: none
+  symbol: kindpng_511574.png
+  template: Cloud
+  type: cloud
+  x: 137
+  y: -93
+- console_type: telnet
+  name: alpine-3.18-openvpn-1
+  properties:
+    adapters: 1
+    aux: 5033
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: c24356243f1c6fe33be8c22accb1d7f7d7e61d607aeacc352904fb806b94335f
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:18:7b:d2:00
+    start_command: null
+    usage: ''
+  symbol: New_Logo_Alpine_Linux.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -571
+  y: -139
+- console_type: telnet
+  name: storage-server-1
+  properties:
+    adapters: 1
+    aux: 5035
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 55d6dedb2901e878200a9756b491d8843d9ca3a22f82ac4aebff9cdacea2cdff
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: storage-server:latest
+    mac_address: 02:42:bb:ea:d3:00
+    start_command: null
+    usage: ''
+  symbol: pngwing.com.png
+  template: storage-server
+  type: docker
+  x: -295
+  y: -134
+- console_type: telnet
+  name: intergalactic-hacker
+  properties:
+    adapters: 1
+    aux: 5037
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 05e17dcce2a01c4e3b53207aa866a5a08aefec5925a08efa607e6cd1c63de19c
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: intergalactic-hacker:latest
+    mac_address: 02:42:a9:1b:25:00
+    start_command: null
+    usage: ''
+  symbol: icons8-hacker-50.png
+  template: intergalactic-hacker
+  type: docker
+  x: 505
+  y: -80
+templates:
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: intergalactic-hacker:latest
+  mac_address: ''
+  name: intergalactic-hacker
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: intergalactic-vpn:latest
+  mac_address: ''
+  name: intergalactic-vpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapter_type: virtio-net-pci
+  adapters: 4
+  bios_image: ''
+  boot_priority: c
+  builtin: false
+  category: router
+  cdrom_image: ''
+  compute_id: local
+  console_auto_start: false
+  console_type: telnet
+  cpu_throttling: 0
+  cpus: 1
+  create_config_disk: false
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  first_port_name: ''
+  hda_disk_image: openwrt-24.10.2-x86-64-combined-ext4.img
+  hda_disk_interface: ide
+  hdb_disk_image: ''
+  hdb_disk_interface: none
+  hdc_disk_image: ''
+  hdc_disk_interface: none
+  hdd_disk_image: ''
+  hdd_disk_interface: none
+  initrd: ''
+  kernel_command_line: ''
+  kernel_image: ''
+  legacy_networking: false
+  linked_clone: true
+  mac_address: ''
+  name: OpenWrt 24.10.2
+  on_close: power_off
+  options: ''
+  platform: ''
+  port_name_format: Ethernet{0}
+  port_segment_size: 0
+  process_priority: normal
+  qemu_path: /usr/bin/qemu-system-x86_64
+  ram: 128
+  replicate_network_connection_state: true
+  symbol: :/symbols/classic/router.svg
+  template_type: qemu
+  tpm: false
+  uefi: false
+  usage: Ethernet0 is the LAN link, Ethernet1 the WAN link, Ethernet2 and Ethernet3
+    are optional links.
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: storage-server:latest
+  mac_address: ''
+  name: storage-server
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 16
+  builtin: false
+  category: switch
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: gns3/openvswitch:latest
+  mac_address: ''
+  name: Open vSwitch
+  start_command: ''
+  symbol: :/symbols/classic/multilayer_switch.svg
+  template_type: docker
+  usage: By default all interfaces are connected to the br0
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: alpine-3.18-openvpn:latest
+  mac_address: ''
+  name: alpine-3.18-openvpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: intergalactic-vpn:latest
+  mac_address: ''
+  name: intergalactic-vpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: storage-server:latest
+  mac_address: ''
+  name: storage-server
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: alpine-3.18-openvpn:latest
+  mac_address: ''
+  name: alpine-3.18-openvpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''

