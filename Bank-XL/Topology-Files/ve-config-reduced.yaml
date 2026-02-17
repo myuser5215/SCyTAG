@@ -872,12 +872,6 @@ configuration:
     - cat > /etc/network/interfaces << 'EOF' auto eth0 iface eth0 inet static address
       192.168.110.10 netmask 255.255.255.0 gateway 192.168.110.1 EOF
     - systemctl restart networking
-  - name: FileServer
-    commands:
-    - mkdir -p /etc/network
-    - cat > /etc/network/interfaces << 'EOF' auto eth0 iface eth0 inet static address
-      192.168.110.2 netmask 255.255.255.0 gateway 192.168.110.1 EOF
-    - systemctl restart networking
   - name: adminPC1-ssh-1
     commands:
     - mkdir -p /etc/network
@@ -889,7 +883,24 @@ agents:
   nodes:
   - name: adminPC1-ssh-1
     commands:
-    - while ! ping -c1 google.com; do echo 'Waiting for dns ...'; sleep 1; done
+    - while ! curl -s $CALDERA_AGENTS_URL 1>/dev/null 2>/dev/null; do echo 'Waiting
+      for Caldera ...'; sleep 1; done
+    - curl -s -X POST -H "file:sandcat.go" -H "platform:linux" $CALDERA_AGENTS_URL/file/download
+      > splunkd
+    - chmod +x splunkd
+    - ./splunkd -server $CALDERA_AGENTS_URL -group $CALDERA_AGENTS_GROUP_NAME -v &
+  - name: camera_A_ssh-1
+    commands:
+    - while ! curl -s $CALDERA_AGENTS_URL 1>/dev/null 2>/dev/null; do echo 'Waiting
+      for Caldera ...'; sleep 1; done
+    - curl -s -X POST -H "file:sandcat.go" -H "platform:linux" $CALDERA_AGENTS_URL/file/download
+      > splunkd
+    - chmod +x splunkd
+    - ./splunkd -server $CALDERA_AGENTS_URL -group $CALDERA_AGENTS_GROUP_NAME -v &
+  - name: DVR_ssh-1
+    commands:
+    - while ! curl -s $CALDERA_AGENTS_URL 1>/dev/null 2>/dev/null; do echo 'Waiting
+      for Caldera ...'; sleep 1; done
     - curl -s -X POST -H "file:sandcat.go" -H "platform:linux" $CALDERA_AGENTS_URL/file/download
       > splunkd
     - chmod +x splunkd
@@ -905,8 +916,8 @@ facts:
   - host: adminPC1-ssh-1
     software: libtasn1_6
     version: v4_16_0_2
-  - host: ADServer
-    software: windowsUAC
+  - host: adminPC1-ssh-1
+    software: sshd
     version: ver1
   - host: DVR_ssh-1
     software: smbV1
@@ -919,25 +930,25 @@ facts:
     software: arpd
     version: ver1
     access_vector: network
-    loose_types: ca_loss
+    loose_types: caLoss
     severity: critical
   - cve_id: cve_2021_46848
     software: libtasn1_6
     version: v4_16_0_2
     access_vector: network
-    loose_types: ca_loss
+    loose_types: caLoss
     severity: critical
   - cve_id: cve_2022_2294
     software: libtasn1_6
     version: ver1
     access_vector: network
-    loose_types: ca_loss
+    loose_types: caLoss
     severity: critical
   - cve_id: cve_2017_0144
     software: smbV1
     version: ver1
     access_vector: network
-    loose_types: ca_loss
+    loose_types: caLoss
     severity: critical
   - cve_id: sshdSpoofVuln
     software: sshd
@@ -946,41 +957,41 @@ facts:
     loose_types: caLoss
     severity: critical
   network_services:
-  - host: camera_A_ssh-1
+  - host: DVR_ssh-1
     software: arpd
-    protocol: arp
-    port: port
+    protocol: tcp
+    port: Port
+    account: root
+  - host: DVR_ssh-1
+    software: smbV1
+    protocol: tcp
+    port: '445'
+    account: root
+  - host: DVR_ssh-1
+    software: sshd
+    protocol: tcp
+    port: Port
+    account: root
+  - host: FileServer
+    software: sftpd
+    protocol: tcp
+    port: Port
     account: root
   - host: camera_A_ssh-1
     software: arpd
     protocol: tcp
-    port: port
+    port: Port
+    account: root
+  - host: camera_A_ssh-1
+    software: sshd
+    protocol: tcp
+    port: '22'
     account: root
   - host: adminPC1-ssh-1
     software: sshd
     protocol: tcp
     port: '22'
     account: root
-  - host: DVR_ssh-1
-    software: smbV1
-    protocol: tcp
-    port: port
-    account: root
-  - host: DVR_ssh-1
-    software: sshd
-    protocol: tcp
-    port: '22'
-    account: root
-  - host: FileServer
-    software: sftpd
-    protocol: tcp
-    port: port
-    account: root
-  - host: ADServer
-    software: windowsUAC
-    protocol: tcp
-    port: port
-    account: admin
   accounts:
   - user: victim
     host: DVR_ssh-1
@@ -988,133 +999,158 @@ facts:
   - user: victim
     host: camera_A_ssh-1
     account: user
-  - user: root
-    host: adminPC1-ssh-1
-    account: root
-  - user: root
-    host: DVR_ssh-1
-    account: root
-  - user: root
-    host: camera_A_ssh-1
-    account: root
-  - user: root
-    host: FileServer
-    account: root
-  - user: admin
-    host: ADServer
-    account: admin
   connectivity:
-  - src_host: camera_A_ssh-1
-    dst_host: SwitchX(PoE)
-    protocol: tcp
-    dest_port: port
-  - src_host: SwitchX(PoE)
-    dst_host: Floor4-L3SW
-    protocol: tcp
-    dest_port: port
-  - src_host: Server-Room-SW
-    dst_host: DVR_ssh-1
-    protocol: tcp
-    dest_port: port
-  - src_host: Server-Room-SW
-    dst_host: FileServer
-    protocol: tcp
-    dest_port: port
   - src_host: Admin-SW
     dst_host: adminPC1-ssh-1
     protocol: tcp
-    dest_port: port
-  - src_host: Floor4-L3SW
-    dst_host: Server-Room-SW
-    protocol: tcp
-    dest_port: port
-  - src_host: Floor4-L3SW
-    dst_host: Admin-SW
-    protocol: tcp
-    dest_port: port
-  - src_host: Floor4-L3SW
-    dst_host: DMZ-SW
-    protocol: tcp
-    dest_port: port
-  - src_host: Floor4-Router
-    dst_host: Floor4-L3SW
-    protocol: tcp
-    dest_port: port
-  - src_host: Floor4-FW
-    dst_host: Floor4-Router
-    protocol: tcp
-    dest_port: port
-  - src_host: Floor4-FW
-    dst_host: CoreRouterE
-    protocol: tcp
-    dest_port: port
+    dest_port: Port
   - src_host: CoreRouterA
     dst_host: Cloud1
     protocol: tcp
-    dest_port: port
+    dest_port: Port
+  - src_host: Floor4-FW
+    dst_host: CoreRouterE
+    protocol: tcp
+    dest_port: Port
+  - src_host: Floor4-FW
+    dst_host: Floor4-Router
+    protocol: tcp
+    dest_port: Port
+  - src_host: Floor4-L3SW
+    dst_host: Admin-SW
+    protocol: tcp
+    dest_port: Port
+  - src_host: Floor4-L3SW
+    dst_host: DMZ-SW
+    protocol: tcp
+    dest_port: Port
+  - src_host: Floor4-L3SW
+    dst_host: Server-Room-SW
+    protocol: tcp
+    dest_port: Port
+  - src_host: Floor4-Router
+    dst_host: Floor4-L3SW
+    protocol: tcp
+    dest_port: Port
+  - src_host: Server-Room-SW
+    dst_host: DVR_ssh-1
+    protocol: tcp
+    dest_port: Port
+  - src_host: Server-Room-SW
+    dst_host: FileServer
+    protocol: tcp
+    dest_port: Port
+  - src_host: SwitchX(PoE)
+    dst_host: Floor4-L3SW
+    protocol: tcp
+    dest_port: Port
+  - src_host: camera_A_ssh-1
+    dst_host: SwitchX(PoE)
+    protocol: tcp
+    dest_port: Port
+  - src_host: camera_A_ssh-1
+    dst_host: DVR_ssh-1
+    protocol: tcp
+    dest_port: '22'
+  - src_host: camera_A_ssh-1
+    dst_host: DVR_ssh-1
+    protocol: tcp
+    dest_port: '445'
   - src_host: Cloud1
     dst_host: adminPC1-ssh-1
     protocol: http
     dest_port: '80'
-  - src_host: vLan120
-    dst_host: vLan110
-    protocol: http
-    dest_port: port
-  - src_host: vLan120
-    dst_host: vLan100
-    protocol: http
-    dest_port: port
-  - src_host: vLan120
-    dst_host: vLan100
-    protocol: smbV1
-    dest_port: port
-  - src_host: vLan120
-    dst_host: vLan110
-    protocol: windowsUAC
-    dest_port: port
-  - src_host: vLan120
-    dst_host: vLan110
-    protocol: sftpd
-    dest_port: port
-  - src_host: adminPC1-ssh-1
-    dst_host: camera_A_ssh-1
-    protocol: arp
-    dest_port: port
-  - src_host: adminPC1-ssh-1
-    dst_host: camera_A_ssh-1
-    protocol: tcp
-    dest_port: port
-  - src_host: adminPC1-ssh-1
-    dst_host: cameraB
-    protocol: arp
-    dest_port: port
-  - src_host: adminPC1-ssh-1
-    dst_host: cameraB
-    protocol: tcp
-    dest_port: '22'
-  - src_host: adminPC1-ssh-1
-    dst_host: cameraC
-    protocol: arp
-    dest_port: port
-  - src_host: adminPC1-ssh-1
-    dst_host: cameraC
-    protocol: tcp
-    dest_port: '22'
-  - src_host: adminPC1-ssh-1
-    dst_host: cameraD
-    protocol: arp
-    dest_port: port
-  - src_host: adminPC1-ssh-1
-    dst_host: cameraD
-    protocol: tcp
-    dest_port: '22'
   - src_host: adminPC1-ssh-1
     dst_host: adminPC1-ssh-1
     protocol: tcp
     dest_port: '22'
+  - src_host: adminPC1-ssh-1
+    dst_host: camera_A_ssh-1
+    protocol: arp
+    dest_port: Port
+  - src_host: adminPC1-ssh-1
+    dst_host: camera_A_ssh-1
+    protocol: tcp
+    dest_port: '22'
+  - src_host: adminPC1-ssh-1
+    dst_host: cameraB
+    protocol: arp
+    dest_port: Port
+  - src_host: adminPC1-ssh-1
+    dst_host: cameraB
+    protocol: tcp
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan100
+    protocol: http
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan100
+    protocol: smbV1
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan100
+    protocol: Protocol
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan110
+    protocol: http
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan110
+    protocol: sftpd
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan110
+    protocol: windowsUAC
+    dest_port: Port
+  - src_host: vlan120
+    dst_host: vlan110
+    protocol: Protocol
+    dest_port: Port
   network_topology:
-  - name: FullBank topology
-    definition: ''
+  - name: Bank-XL topology
+    definition: 'isInSubnet(''WAN'', ''CoreRouterA'').
+
+      isInSubnet(''core'', ''Floor4-FW'').
+
+      isInSubnet(''floor4'', ''Floor4-L3SW'').
+
+      isInSubnet(''floor4'', ''Floor4-Router'').
+
+      isInSubnet(''vlan100'', ''Floor4-L3SW'').
+
+      isInSubnet(''vlan100'', ''SwitchX(PoE)'').
+
+      isInSubnet(''vlan100'', ''cameraB'').
+
+      isInSubnet(''vlan100'', ''camera_A_ssh-1'').
+
+      isInSubnet(''vlan110'', ''DVR_ssh-1'').
+
+      isInSubnet(''vlan110'', ''FileServer'').
+
+      isInSubnet(''vlan110'', ''Floor4-L3SW'').
+
+      isInSubnet(''vlan110'', ''Server-Room-SW'').
+
+      isInSubnet(''vlan120'', ''Admin-SW'').
+
+      isInSubnet(''vlan120'', ''Floor4-L3SW'').
+
+      isInSubnet(''vlan120'', ''adminPC1-ssh-1'').
+
+      isInSubnet(''vlan120'', ''adminPC2'').
+
+      isInSubnet(''vlan120'', ''adminPC3'').
+
+      isInSubnet(''vlan120'', ''adminPC4'').
+
+      isInSubnet(''vlan120'', ''adminPC5'').
+
+      isInSubnet(''vlan120'', ''adminPC6'').
+
+      '
   goals:
   - name: fullCampaign
     definition: 'attackGoal(fullCampaign(''attacker'', ''adminPC1-ssh-1'', ''camera_A_ssh-1'',
@@ -1126,62 +1162,98 @@ facts:
     attack_source: adminPC1-ssh-1
     host: Floor4-Router
     protocol: tcp
-    port: '22'
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: camera_A_ssh-1
-    protocol: arp
-    port: port
-  - user: ''
-    attack_source: camera_A_ssh-1
-    host: DVR_ssh-1
-    protocol: tcp
-    port: port
-  - user: ''
-    attack_source: camera_A_ssh-1
-    host: DVR_ssh-1
-    protocol: arp
-    port: port
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: camera_A_ssh-1
-    protocol: tcp
-    port: '22'
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: cameraB
-    protocol: arp
-    port: port
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: cameraB
-    protocol: tcp
-    port: '22'
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: cameraC
-    protocol: arp
-    port: port
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: cameraC
-    protocol: tcp
-    port: '22'
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: cameraD
-    protocol: arp
-    port: port
-  - user: ''
-    attack_source: adminPC1-ssh-1
-    host: cameraD
-    protocol: tcp
-    port: '22'
+    port: Port
   - user: attacker
     attack_source: adminPC1-ssh-1
     host: adminPC1-ssh-1
     protocol: tcp
     port: '22'
+  - user: attacker
+    attack_source: adminPC1-ssh-1
+    host: camera_A_ssh-1
+    protocol: tcp
+    port: '22'
+  - user: attacker
+    attack_source: camera_A_ssh-1
+    host: DVR_ssh-1
+    protocol: tcp
+    port: '445'
+  - user: root
+    attack_source: adminPC1-ssh-1
+    host: camera_A_ssh-1
+    protocol: tcp
+    port: '22'
+  - user: User
+    attack_source: adminPC1-ssh-1
+    host: cameraB
+    protocol: arp
+    port: Port
+  - user: User
+    attack_source: adminPC1-ssh-1
+    host: cameraB
+    protocol: tcp
+    port: Port
+  - user: User
+    attack_source: adminPC1-ssh-1
+    host: camera_A_ssh-1
+    protocol: arp
+    port: Port
+  - user: User
+    attack_source: adminPC1-ssh-1
+    host: camera_A_ssh-1
+    protocol: tcp
+    port: '22'
+  file_owner:
+  - host: DVR_ssh-1
+    path: Path
+    owner: root
+  - host: adminPC1-ssh-1
+    path: /etc/shadow
+    owner: root
+  - host: adminPC1-ssh-1
+    path: Path
+    owner: root
+  - host: camera_A_ssh-1
+    path: /etc/shadow
+    owner: root
+  owner_accessible:
+  - host: DVR_ssh-1
+    permission: read
+    path: Path
+  - host: adminPC1-ssh-1
+    permission: read
+    path: /etc/shadow
+  - host: adminPC1-ssh-1
+    permission: read
+    path: Path
+  - host: camera_A_ssh-1
+    permission: read
+    path: /etc/shadow
+  - host: camera_A_ssh-1
+    permission: read
+    path: Path
+  vul_e2e_protocol:
+  - fooled_host: DVR_ssh-1
+    name_resolver: adminPC1-ssh-1
+    attack_type: DNSCachePoisoning
+    protocol: DNS
+    exploit_range: DNSProt
+    lose_types: RemoteExploit
+    consequence: NameresolverCachePoisoned
+  - fooled_host: camera_A_ssh-1
+    name_resolver: adminPC1-ssh-1
+    attack_type: DNSCachePoisoning
+    protocol: DNS
+    exploit_range: DNSProt
+    lose_types: RemoteExploit
+    consequence: NameresolverCachePoisoned
+  device_platforms:
+  - host: DVR_ssh-1
+    platform: Linux
+  - host: adminPC1-ssh-1
+    platform: Linux
+  - host: camera_A_ssh-1
+    platform: Linux
   device_online:
   - host: Cloud1
     platform: _Platform
@@ -1223,6 +1295,9 @@ facts:
   - host: camera_A_ssh-1
     user: attacker
     software: arpd
+  - host: camera_A_ssh-1
+    user: attacker
+    software: sshd
   - host: cameraB
     user: attacker
     software: _Software
@@ -1237,66 +1312,60 @@ facts:
     software: _Software
   - host: adminPC1-ssh-1
     user: attacker
-    software: libtasn1_6
+    software: sshd
   data_bind:
-  - flow: Flow
+  - flow: null
     src_host: camera_A_ssh-1
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: cameraB
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: SwitchX(PoE)
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: Admin-SW
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: adminPC1-ssh-1
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: Server-Room-SW
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: DVR_ssh-1
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: FileServer
-    path: Path1
-  - flow: Flow
-    src_host: ADServer
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: Floor4-L3SW
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: Floor4-Router
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: CoreRouterC
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: CoreRouterB
-    path: Path1
-  - flow: Flow
-    src_host: fortigateWAN
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: Cloud1
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: CoreRouterA
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: CoreRouterE
-    path: Path1
-  - flow: Flow
+    path: null
+  - flow: null
     src_host: Floor4-FW
-    path: Path1
-  name_resolvers:
-  - name_resolver: camera_A_ssh-1
-    fooled_host: DVR_ssh-1
-    impersonated_host: adminPC1-ssh-1
+    path: null
+  is_name_resolver:
   - name_resolver: DVR_ssh-1
     fooled_host: camera_A_ssh-1
+    impersonated_host: adminPC1-ssh-1
+  - name_resolver: camera_A_ssh-1
+    fooled_host: DVR_ssh-1
     impersonated_host: adminPC1-ssh-1

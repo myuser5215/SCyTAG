@@ -747,12 +747,6 @@ links:
     port_name: eth0
   - node_name: Server-Room-SW
     port_name: Ethernet3
-- link_name: link-89
-  link_nodes:
-  - node_name: Server-Room-SW
-    port_name: Ethernet2
-  - node_name: FileServer
-    port_name: eth0
 nodes:
 - name: Server-Room-SW
   properties:
@@ -1162,25 +1156,6 @@ nodes:
   template: DVR_ssh
   x: 470
   y: -251
-- name: FileServer
-  properties:
-    adapters: 1
-    aux: 5135
-    console_http_path: /
-    console_http_port: 80
-    console_resolution: 1024x768
-    container_id: 5951bbb2b3848fd632608983d146dea7c0e965fd21adeef671c071853a998586
-    environment: null
-    extra_hosts: null
-    extra_volumes: []
-    image: ubuntu:noble
-    mac_address: 02:42:6d:97:d6:00
-    start_command: null
-    usage: ''
-  symbol: :/symbols/docker_guest.svg
-  template: ubuntu-docker-idle
-  x: 303
-  y: -256
 templates:
 - adapters: 1
   builtin: false
@@ -1245,27 +1220,6 @@ templates:
   symbol: :/symbols/multilayer_switch.svg
   template_type: docker
   usage: By default all interfaces are connected to the br0
-- adapters: 1
-  builtin: false
-  category: guest
-  compute_id: local
-  console_auto_start: false
-  console_http_path: /
-  console_http_port: 80
-  console_resolution: 1024x768
-  console_type: telnet
-  custom_adapters: []
-  default_name_format: '{name}-{0}'
-  environment: ''
-  extra_hosts: ''
-  extra_volumes: []
-  image: ubuntu:noble
-  mac_address: ''
-  name: ubuntu-docker-idle
-  start_command: ''
-  symbol: :/symbols/docker_guest.svg
-  template_type: docker
-  usage: ''
 - adapter_type: e1000
   adapters: 5
   bios_image: ''

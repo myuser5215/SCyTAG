@@ -1,367 +1,132 @@
-1,"compromised('DVR_ssh-1')","OR",0
-2,"RULE 17 (Host compromised via code execution)","AND",0
-3,"execCode(attacker,'DVR_ssh-1',root)","OR",0
-4,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-5,"hasAccount(attacker,'DVR_ssh-1',root)","LEAF",1
+1,"fullCampaign(attacker,'adminPC1-ssh-1','camera_A_ssh-1','DVR_ssh-1')","OR",0
+2,"RULE 25 (Exploit EternalBlue from cameraA to DVR)","AND",0
+3,"execDelegatedCode(attacker,'camera_A_ssh-1','DVR_ssh-1',root)","OR",0
+4,"RULE 24 (Exploit EternalBlue from cameraA to DVR)","AND",0
+5,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
 4,5,-1
-6,"vulExists(cve_2017_0144,smbV1,ver1,network,caLoss,critical)","LEAF",1
+6,"networkService('DVR_ssh-1',arpd,tcp,'445',root)","LEAF",1
 4,6,-1
-7,"residesOn('DVR_ssh-1',smbV1,ver1)","LEAF",1
+7,"hasAccess(attacker,'camera_A_ssh-1','DVR_ssh-1',tcp,'445')","LEAF",1
 4,7,-1
-4,1,-1
-3,4,-1
-2,3,-1
-1,2,-1
-8,"RULE 17 (Host compromised via code execution)","AND",0
-9,"execCode(root,'DVR_ssh-1',root)","OR",0
-10,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-11,"hasAccount(root,'DVR_ssh-1',root)","LEAF",1
-10,11,-1
-10,6,-1
-10,7,-1
-10,1,-1
+8,"compromised('camera_A_ssh-1')","OR",0
+9,"RULE 16 ()","AND",0
+10,"maliciousInteraction('camera_A_ssh-1',attacker,arpd)","LEAF",1
 9,10,-1
+9,5,-1
+11,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
+9,11,-1
+12,"deviceOnline('camera_A_ssh-1','Linux')","LEAF",1
+9,12,-1
 8,9,-1
-1,8,-1
-12,"RULE 17 (Host compromised via code execution)","AND",0
-13,"execCode(victim,'DVR_ssh-1',user)","OR",0
-14,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-15,"hasAccount(victim,'DVR_ssh-1',user)","LEAF",1
-14,15,-1
-14,6,-1
-14,7,-1
-14,1,-1
+13,"RULE 16 ()","AND",0
+14,"maliciousInteraction('camera_A_ssh-1',attacker,sshd)","LEAF",1
 13,14,-1
-12,13,-1
-1,12,-1
-16,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-17,"execDelegatedCode(attacker,'DVR_ssh-1','DVR_ssh-1',root)","OR",0
-18,"RULE 25 (Lateral movement with delegated execution)","AND",0
-18,5,-1
-19,"hacl('DVR_ssh-1','DVR_ssh-1',tcp,22)","LEAF",1
-18,19,-1
-18,1,-1
-17,18,-1
-16,17,-1
-1,16,-1
-20,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-21,"execDelegatedCode(attacker,'FileServer','DVR_ssh-1',root)","OR",0
-22,"RULE 25 (Lateral movement with delegated execution)","AND",0
-22,5,-1
-23,"hacl('FileServer','DVR_ssh-1',tcp,22)","LEAF",1
+15,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
+13,15,-1
+16,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
+13,16,-1
+13,12,-1
+8,13,-1
+17,"RULE 16 ()","AND",0
+17,10,-1
+17,5,-1
+17,11,-1
+17,12,-1
+8,17,-1
+18,"RULE 16 ()","AND",0
+18,14,-1
+18,15,-1
+18,16,-1
+18,12,-1
+8,18,-1
+4,8,-1
+3,4,-1
+19,"RULE 24 (Exploit EternalBlue from cameraA to DVR)","AND",0
+20,"vulExists(cve_2017_0144,smbV1,ver1,network,caLoss,critical)","LEAF",1
+19,20,-1
+21,"networkService('DVR_ssh-1',smbV1,tcp,'445',root)","LEAF",1
+19,21,-1
+19,7,-1
+19,8,-1
+3,19,-1
+22,"RULE 24 (Exploit EternalBlue from cameraA to DVR)","AND",0
+22,15,-1
+23,"networkService('DVR_ssh-1',sshd,tcp,'445',root)","LEAF",1
 22,23,-1
-24,"compromised('FileServer')","OR",0
-25,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-26,"execDelegatedCode(root,'DVR_ssh-1','FileServer',root)","OR",0
-27,"RULE 25 (Lateral movement with delegated execution)","AND",0
-28,"hasAccount(root,'FileServer',root)","LEAF",1
+22,7,-1
+22,8,-1
+3,22,-1
+2,3,-1
+24,"ingressToolTransfer(arpd,attacker,'camera_A_ssh-1',_,'22')","OR",0
+25,"RULE 17 (Net direct access)","AND",0
+26,"netAccess(attacker,'adminPC1-ssh-1','camera_A_ssh-1',tcp,'22')","OR",0
+27,"RULE 6 (Net direct access)","AND",0
+28,"hasAccess(attacker,'adminPC1-ssh-1','camera_A_ssh-1',tcp,'22')","LEAF",1
 27,28,-1
-29,"hacl('DVR_ssh-1','FileServer',tcp,22)","LEAF",1
-27,29,-1
-27,1,-1
 26,27,-1
 25,26,-1
-24,25,-1
-30,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-31,"execDelegatedCode(root,'FileServer','FileServer',root)","OR",0
-32,"RULE 25 (Lateral movement with delegated execution)","AND",0
-32,28,-1
-33,"hacl('FileServer','FileServer',tcp,22)","LEAF",1
-32,33,-1
-32,24,-1
-31,32,-1
-30,31,-1
-24,30,-1
-34,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-35,"execDelegatedCode(root,'adminPC1-ssh-1','FileServer',root)","OR",0
-36,"RULE 25 (Lateral movement with delegated execution)","AND",0
-36,28,-1
-37,"hacl('adminPC1-ssh-1','FileServer',tcp,22)","LEAF",1
+29,"hacl('adminPC1-ssh-1','camera_A_ssh-1',tcp,'22')","LEAF",1
+25,29,-1
+30,"networkService('camera_A_ssh-1',arpd,tcp,'22',root)","LEAF",1
+25,30,-1
+31,"dataInject(attacker,'camera_A_ssh-1','/etc/shadow',_,'22')","OR",0
+32,"RULE 19 (Can access to the local file on the host)","AND",0
+32,26,-1
+33,"accessFile(attacker,'camera_A_ssh-1',root,read,'/etc/shadow')","OR",0
+34,"RULE 10 (Valid file protection mechanism)","AND",0
+35,"localFileProtection('camera_A_ssh-1','/etc/shadow',root,read)","OR",0
+36,"RULE 11 (Valid file protection mechanism)","AND",0
+37,"ownerAccessible('camera_A_ssh-1',read,'/etc/shadow')","LEAF",1
 36,37,-1
-38,"compromised('adminPC1-ssh-1')","OR",0
-39,"RULE 16 (Host compromised via vulnerability exploitation)","AND",0
-40,"maliciousInteraction('adminPC1-ssh-1',attacker,libtasn1_6)","LEAF",1
-39,40,-1
-41,"vulExists(cve_2021_46848,libtasn1_6,v4_16_0_2,network,caLoss,critical)","LEAF",1
-39,41,-1
-42,"residesOn('adminPC1-ssh-1',libtasn1_6,v4_16_0_2)","LEAF",1
-39,42,-1
-43,"deviceOnline('adminPC1-ssh-1',_)","LEAF",1
-39,43,-1
-38,39,-1
-44,"RULE 17 (Host compromised via code execution)","AND",0
-45,"execCode(attacker,'adminPC1-ssh-1',root)","OR",0
-46,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-47,"hasAccount(attacker,'adminPC1-ssh-1',root)","LEAF",1
-46,47,-1
-46,41,-1
-46,42,-1
-46,38,-1
-45,46,-1
-44,45,-1
-38,44,-1
-48,"RULE 17 (Host compromised via code execution)","AND",0
-49,"execCode(root,'adminPC1-ssh-1',root)","OR",0
-50,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-51,"hasAccount(root,'adminPC1-ssh-1',root)","LEAF",1
-50,51,-1
-50,41,-1
-50,42,-1
-50,38,-1
-49,50,-1
-48,49,-1
-38,48,-1
-52,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-53,"execDelegatedCode(attacker,'DVR_ssh-1','adminPC1-ssh-1',root)","OR",0
-54,"RULE 25 (Lateral movement with delegated execution)","AND",0
-54,47,-1
-55,"hacl('DVR_ssh-1','adminPC1-ssh-1',tcp,22)","LEAF",1
-54,55,-1
-54,1,-1
-53,54,-1
-52,53,-1
-38,52,-1
-56,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-57,"execDelegatedCode(attacker,'FileServer','adminPC1-ssh-1',root)","OR",0
-58,"RULE 25 (Lateral movement with delegated execution)","AND",0
-58,47,-1
-59,"hacl('FileServer','adminPC1-ssh-1',tcp,22)","LEAF",1
-58,59,-1
-58,24,-1
-57,58,-1
-56,57,-1
-38,56,-1
-60,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-61,"execDelegatedCode(attacker,'adminPC1-ssh-1','adminPC1-ssh-1',root)","OR",0
-62,"RULE 25 (Lateral movement with delegated execution)","AND",0
-62,47,-1
-63,"hacl('adminPC1-ssh-1','adminPC1-ssh-1',tcp,22)","LEAF",1
-62,63,-1
-62,38,-1
-61,62,-1
-60,61,-1
-38,60,-1
-64,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-65,"execDelegatedCode(attacker,'camera_A_ssh-1','adminPC1-ssh-1',root)","OR",0
-66,"RULE 25 (Lateral movement with delegated execution)","AND",0
-66,47,-1
-67,"hacl('camera_A_ssh-1','adminPC1-ssh-1',tcp,22)","LEAF",1
-66,67,-1
-68,"compromised('camera_A_ssh-1')","OR",0
-69,"RULE 16 (Host compromised via vulnerability exploitation)","AND",0
-70,"maliciousInteraction('camera_A_ssh-1',attacker,arpd)","LEAF",1
-69,70,-1
-71,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
-69,71,-1
-72,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
-69,72,-1
-73,"deviceOnline('camera_A_ssh-1',_)","LEAF",1
-69,73,-1
-68,69,-1
-74,"RULE 17 (Host compromised via code execution)","AND",0
-75,"execCode(attacker,'camera_A_ssh-1',user)","OR",0
-76,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-77,"hasAccount(attacker,'camera_A_ssh-1',user)","LEAF",1
-76,77,-1
-76,71,-1
-76,72,-1
-76,68,-1
-75,76,-1
-78,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-78,77,-1
-79,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
-78,79,-1
-80,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
-78,80,-1
-78,68,-1
-75,78,-1
-74,75,-1
-68,74,-1
-81,"RULE 17 (Host compromised via code execution)","AND",0
-82,"execCode(root,'camera_A_ssh-1',root)","OR",0
-83,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-84,"hasAccount(root,'camera_A_ssh-1',root)","LEAF",1
-83,84,-1
-83,71,-1
-83,72,-1
-83,68,-1
-82,83,-1
-85,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-85,84,-1
-85,79,-1
-85,80,-1
-85,68,-1
-82,85,-1
-81,82,-1
-68,81,-1
-86,"RULE 17 (Host compromised via code execution)","AND",0
-87,"execCode(victim,'camera_A_ssh-1',user)","OR",0
-88,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-89,"hasAccount(victim,'camera_A_ssh-1',user)","LEAF",1
-88,89,-1
-88,71,-1
-88,72,-1
-88,68,-1
-87,88,-1
-90,"RULE 15 (Arbitrary code execution after host compromise)","AND",0
-90,89,-1
-90,79,-1
-90,80,-1
-90,68,-1
-87,90,-1
-86,87,-1
-68,86,-1
-91,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-92,"execDelegatedCode(root,'DVR_ssh-1','camera_A_ssh-1',root)","OR",0
-93,"RULE 25 (Lateral movement with delegated execution)","AND",0
-93,84,-1
-94,"hacl('DVR_ssh-1','camera_A_ssh-1',tcp,22)","LEAF",1
-93,94,-1
-93,1,-1
-92,93,-1
-91,92,-1
-68,91,-1
-95,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-96,"execDelegatedCode(root,'FileServer','camera_A_ssh-1',root)","OR",0
-97,"RULE 25 (Lateral movement with delegated execution)","AND",0
-97,84,-1
-98,"hacl('FileServer','camera_A_ssh-1',tcp,22)","LEAF",1
-97,98,-1
-97,24,-1
-96,97,-1
-95,96,-1
-68,95,-1
-99,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-100,"execDelegatedCode(root,'adminPC1-ssh-1','camera_A_ssh-1',root)","OR",0
-101,"RULE 25 (Lateral movement with delegated execution)","AND",0
-101,84,-1
-102,"hacl('adminPC1-ssh-1','camera_A_ssh-1',tcp,22)","LEAF",1
-101,102,-1
-101,38,-1
-100,101,-1
-99,100,-1
-68,99,-1
-103,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-104,"execDelegatedCode(root,'camera_A_ssh-1','camera_A_ssh-1',root)","OR",0
-105,"RULE 25 (Lateral movement with delegated execution)","AND",0
-105,84,-1
-106,"hacl('camera_A_ssh-1','camera_A_ssh-1',tcp,22)","LEAF",1
-105,106,-1
-105,68,-1
-104,105,-1
-103,104,-1
-68,103,-1
-66,68,-1
-65,66,-1
-64,65,-1
-38,64,-1
-107,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-108,"execDelegatedCode(root,'DVR_ssh-1','adminPC1-ssh-1',root)","OR",0
-109,"RULE 25 (Lateral movement with delegated execution)","AND",0
-109,51,-1
-109,55,-1
-109,1,-1
-108,109,-1
-107,108,-1
-38,107,-1
-110,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-111,"execDelegatedCode(root,'FileServer','adminPC1-ssh-1',root)","OR",0
-112,"RULE 25 (Lateral movement with delegated execution)","AND",0
-112,51,-1
-112,59,-1
-112,24,-1
-111,112,-1
-110,111,-1
-38,110,-1
-113,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-114,"execDelegatedCode(root,'adminPC1-ssh-1','adminPC1-ssh-1',root)","OR",0
-115,"RULE 25 (Lateral movement with delegated execution)","AND",0
-115,51,-1
-115,63,-1
-115,38,-1
-114,115,-1
-113,114,-1
-38,113,-1
-116,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-117,"execDelegatedCode(root,'camera_A_ssh-1','adminPC1-ssh-1',root)","OR",0
-118,"RULE 25 (Lateral movement with delegated execution)","AND",0
-118,51,-1
-118,67,-1
-118,68,-1
-117,118,-1
-116,117,-1
-38,116,-1
+38,"fileOwner('camera_A_ssh-1','/etc/shadow',root)","LEAF",1
 36,38,-1
 35,36,-1
 34,35,-1
-24,34,-1
-119,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-120,"execDelegatedCode(root,'camera_A_ssh-1','FileServer',root)","OR",0
-121,"RULE 25 (Lateral movement with delegated execution)","AND",0
-121,28,-1
-122,"hacl('camera_A_ssh-1','FileServer',tcp,22)","LEAF",1
-121,122,-1
-121,68,-1
-120,121,-1
-119,120,-1
-24,119,-1
-22,24,-1
-21,22,-1
-20,21,-1
-1,20,-1
-123,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-124,"execDelegatedCode(attacker,'adminPC1-ssh-1','DVR_ssh-1',root)","OR",0
-125,"RULE 25 (Lateral movement with delegated execution)","AND",0
-125,5,-1
-126,"hacl('adminPC1-ssh-1','DVR_ssh-1',tcp,22)","LEAF",1
-125,126,-1
-125,38,-1
-124,125,-1
-123,124,-1
-1,123,-1
-127,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-128,"execDelegatedCode(attacker,'camera_A_ssh-1','DVR_ssh-1',root)","OR",0
-129,"RULE 25 (Lateral movement with delegated execution)","AND",0
-129,5,-1
-130,"hacl('camera_A_ssh-1','DVR_ssh-1',tcp,22)","LEAF",1
-129,130,-1
-129,68,-1
-128,129,-1
-127,128,-1
-1,127,-1
-131,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-132,"execDelegatedCode(root,'DVR_ssh-1','DVR_ssh-1',root)","OR",0
-133,"RULE 25 (Lateral movement with delegated execution)","AND",0
-133,11,-1
-133,19,-1
-133,1,-1
-132,133,-1
-131,132,-1
-1,131,-1
-134,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-135,"execDelegatedCode(root,'FileServer','DVR_ssh-1',root)","OR",0
-136,"RULE 25 (Lateral movement with delegated execution)","AND",0
-136,11,-1
-136,23,-1
-136,24,-1
-135,136,-1
-134,135,-1
-1,134,-1
-137,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-138,"execDelegatedCode(root,'adminPC1-ssh-1','DVR_ssh-1',root)","OR",0
-139,"RULE 25 (Lateral movement with delegated execution)","AND",0
-139,11,-1
-139,126,-1
-139,38,-1
-138,139,-1
-137,138,-1
-1,137,-1
-140,"RULE 26 (Destination host compromised via delegated code execution)","AND",0
-141,"execDelegatedCode(root,'camera_A_ssh-1','DVR_ssh-1',root)","OR",0
-142,"RULE 25 (Lateral movement with delegated execution)","AND",0
-142,11,-1
-142,130,-1
-142,68,-1
-141,142,-1
-140,141,-1
-1,140,-1
+39,"execCode(attacker,'camera_A_ssh-1',root)","OR",0
+34,39,-1
+33,34,-1
+40,"RULE 10 (Valid file protection mechanism)","AND",0
+40,35,-1
+40,39,-1
+33,40,-1
+32,33,-1
+31,32,-1
+25,31,-1
+41,"localAccess(attacker,'camera_A_ssh-1',root)","OR",0
+42,"RULE 9 (Privilege escalation using setuid program)","AND",0
+43,"malicious(attacker)","LEAF",1
+42,43,-1
+42,5,-1
+42,30,-1
+42,26,-1
+41,42,-1
+44,"RULE 9 (Privilege escalation using setuid program)","AND",0
+44,43,-1
+44,15,-1
+45,"networkService('camera_A_ssh-1',sshd,tcp,'22',root)","LEAF",1
+44,45,-1
+44,26,-1
+41,44,-1
+25,41,-1
+46,"mitmE2E(attacker,'adminPC1-ssh-1','camera_A_ssh-1','DVR_ssh-1',tcp,'22')","OR",0
+25,46,-1
+24,25,-1
+2,24,-1
+47,"credentialsAccessInFiles(arpd,'adminPC1-ssh-1')","OR",0
+2,47,-1
+1,2,-1
+48,"RULE 25 (Exploit EternalBlue from cameraA to DVR)","AND",0
+48,3,-1
+49,"ingressToolTransfer(sshd,attacker,'camera_A_ssh-1',_,'22')","OR",0
+50,"RULE 17 (Net direct access)","AND",0
+50,26,-1
+50,29,-1
+50,45,-1
+50,31,-1
+50,41,-1
+50,46,-1
+49,50,-1
+48,49,-1
+51,"credentialsAccessInFiles(sshd,'adminPC1-ssh-1')","OR",0
+48,51,-1
+1,48,-1

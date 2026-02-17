@@ -289,7 +289,27 @@ facts:
       version: 0.1.0rc0
 
     - host: intergalactic-vpn
-      software: openVPN
+      software: intergalactic-web-ui
+      version: 2.4.12
+
+    - host: intergalactic-hacker
+      software: intergalactic-web-ui
+      version: 0.1.0rc0
+
+    - host: intergalactic-hacker
+      software: intergalactic-web-ui
+      version: 2.4.12
+
+    - host: intergalactic-vpn
+      software: open-ssh
+      version: v1.0
+
+    - host: alpine-3.18-openvpn-1
+      software: intergalactic-web-ui
+      version: 0.1.0rc0
+
+    - host: alpine-3.18-openvpn-1
+      software: intergalactic-web-ui
       version: 2.4.12
 
     - host: alpine-3.18-openvpn-1
@@ -303,7 +323,7 @@ facts:
   vulnerabilities:
     - cve_id: cve-2023-27524
       software: intergalactic-web-ui
-      version: 0.1.0rc0
+      version: 2.4.12
       access_vector: network
       loose_types: ca_loss
       severity: critical
@@ -323,32 +343,32 @@ facts:
       account: root
 
     - host: intergalactic-vpn
-      software: openVPN
+      software: intergalactic-web-ui
       protocol: udp
       port: '1194'
       account: root
 
     - host: alpine-3.18-openvpn-1
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
       account: user-account
 
     - host: storage-server-1
-      software: sftpd
-      protocol: tcp
+      software:
+      protocol: sftpd
       port: '22'
-      account: user-storage-server-1-account
+      account: user-backup-account
 
     - host: intergalactic-vpn
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
       account: root
 
     - host: intergalactic-hacker
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
       account: hacker
 
@@ -368,67 +388,61 @@ facts:
       software: fwMgmtUI
       protocol: tcp
       port: '443'
-      account: fwAdmin
+      account:
 
     - host: Core-Switch
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
-      account: coreAdmin
+      account:
 
     - host: HP-2560A
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
-      account: hpAdmin
+      account:
 
     - host: HP-2650D1
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
       account: hpAdmin
 
     - host: HP-2650D
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
-      account: hpAdmin
+      account:
 
     - host: VoIP-Switch
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '443'
-      account: voipAdmin
+      account:
 
     - host: AP-Controller
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '80'
       account: apcAdmin
 
     - host: AP-Controller
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '443'
       account: apcAdmin
 
     - host: ADMIN
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
       account: localAdmin
 
     - host: PAXTON
-      software: open-ssh
-      protocol: tcp
+      software:
+      protocol: open-ssh
       port: '22'
       account: paxUser
-
-    - host: storage-server-1
-      software: sftpd
-      protocol: tcp
-      port: '22'
-      account: user-storage-server-1-account
 
   accounts:
     - user: root
@@ -439,22 +453,22 @@ facts:
       host:  alpine-3.18-openvpn-1
       account: user-account
 
-    - user: alice
+    - user: alice-backup
       host:  storage-server-1
-      account: user-storage-server-1-account
+      account: user-backup-account
 
     - user: hacker
       host:  intergalactic-hacker
       account: user-account
 
   access:
-    - user:
+    - user: hacker
       attack_source: intergalactic-hacker
       host: intergalactic-vpn
       protocol: udp
       port: '1194'
 
-    - user:
+    - user: hacker
       attack_source: intergalactic-hacker
       host: intergalactic-vpn
       protocol: http
@@ -490,15 +504,92 @@ facts:
   network_topology:
     - name: 'VPN network'
       definition: |
+        dataFlow('uk-site-internet', 'internet', _FlowName, _Direction).
+        dataFlow('intergalactic-vpn-gw-internet', 'internet', _FlowName, _Direction).
+        dataFlow('intergalactic-hacker-internet', 'internet', _FlowName, _Direction).
+        dataFlow('Core-Switch', 'MainRouter', _FlowName, _Direction).
+        dataFlow('Core-Switch', 'VoIP-Switch', _FlowName, _Direction).
+        dataFlow('Core-Switch', 'HP-2560A', _FlowName, _Direction).
+        dataFlow('Core-Switch', 'ADMIN', _FlowName, _Direction).
+        dataFlow('Core-Switch', 'PAXTON', _FlowName, _Direction).
+        dataFlow('MainRouter', 'uk-site-internet', _FlowName, _Direction).
+        dataFlow('VoIP-Switch', 'AP-Controller', _FlowName, _Direction).
+        dataFlow('AP-Controller', 'DEV3', _FlowName, _Direction).
+        dataFlow('AP-Controller', 'FLE4N', _FlowName, _Direction).
+        dataFlow('FLE4N', 'alpine-3.18-openvpn-1', _FlowName, _Direction).
+        dataFlow('FLE4N', 'storage-server-1', _FlowName, _Direction).
+        dataFlow('intergalactic-vpn-gw-internet', 'intergalactic-vpn', _FlowName, _Direction).
+        dataFlow('intergalactic-hacker-internet', 'intergalactic-hacker', _FlowName, _Direction).
+        dataFlow('PC1-1', 'HP-2560A', _FlowName, _Direction).
+        dataFlow('PC1-4', 'HP-2560A', _FlowName, _Direction).
+        dataFlow('PC3-6', 'HP-2650D', _FlowName, _Direction).
+        dataFlow('PC2-2', 'HP-2650D1', _FlowName, _Direction).
+        dataFlow('PC3-3', 'HP-2650D', _FlowName, _Direction).
+        dataFlow('PC1-5', 'HP-2560A', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'HP-2650D1', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-3', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-6', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-2', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-8', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-9', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-10', _FlowName, _Direction).
+        dataFlow('HP-2560A', 'PC1-7', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'HP-2650D', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-4', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-3', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-6', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-1', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-5', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-7', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-8', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-9', _FlowName, _Direction).
+        dataFlow('HP-2650D1', 'PC2-10', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-5', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-4', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-2', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-1', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'OpenvSwitch-Servers', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-7', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-8', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-9', _FlowName, _Direction).
+        dataFlow('HP-2650D', 'PC3-10', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'wordpress', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'devStorage', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'devPC1', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'devPC2', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'devPC3', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'devPC4', _FlowName, _Direction).
+        dataFlow('OpenvSwitch-Servers', 'devPC5', _FlowName, _Direction).
         dataFlow('intergalactic-vpn', 'alpine-3.18-openvpn-1').
         dataFlow('alpine-3.18-openvpn-1', 'intergalactic-vpn').
-        isInSubnet('vpn', 'alpine-3.18-openvpn-1').
-        isInSubnet('vlan', 'storage-server-1').
+
+        isInSubnet('outsideNet','intergalactic-vpn-gw-internet').
+        isInSubnet('outsideNet','intergalactic-vpn').
+        isInSubnet('vpn','intergalactic-vpn').
+        isInSubnet('outsideNet','intergalactic-hacker-internet').
+        isInSubnet('outsideNet','intergalactic-hacker').
+        isInSubnet('vpn','intergalactic-hacker').
+        isInSubnet('outsideNet','uk-site-internet').
+        isInSubnet('outsideNet','MainRouter').
+        isInSubnet('insideNet','MainRouter').
+        isInSubnet('insideNet','Core-Switch').
+        isInSubnet('hpNet','HP-2650D').
+        isInSubnet('hpNet','HP-2650D1').
+        isInSubnet('hpNet','HP-2560A').
+        isInSubnet('voiceNet','VoIP-Switch').
+        isInSubnet('wifiCtrlNet','AP-Controller').
+        isInSubnet('wifiNet','DEV3').
+        isInSubnet('wifiNet','FLE4N').
+        isInSubnet('labNet','alpine-3.18-openvpn-1').
+        isInSubnet('vpn','alpine-3.18-openvpn-1').
+        isInSubnet('labNet','storage-server-1').
+        isInSubnet('insideNet','ADMIN').
+        isInSubnet('insideNet','PAXTON').
 
   goals:
     - name: 'basic'
       definition: |
-        attackGoal(compromisedVPNClient('intergalactic-hacker','alpine-3.18-openvpn-1')).
+        attackGoal(lateralMovementVPN('intergalactic-hacker', 'intergalactic-vpn', 'alpine-3.18-openvpn-1')).
 
   # Data binding facts (flow to host and path associations)
   data_bind:
@@ -600,9 +691,6 @@ facts:
       subnet_type: DMZ/Perimeter
     - src_host: Core-Switch
       src_subnet: insideNet
-      subnet_type: LAN
-    - src_host: Core-Switch
-      src_subnet: insideNet
       subnet_type: LAN/Core
     - src_host: HP-2560A
       src_subnet: hpNet
@@ -661,22 +749,22 @@ facts:
 
     - host: alpine-3.18-openvpn-1
       path: ./etc/shr
-      owner: alice-storage-server-1
+      owner: alice-backup
 
     - host: AP-Controller
-      path:
+      path: Path
       owner: root
 
     - host: ADMIN
-      path:
+      path: Path
       owner: root
 
     - host: PAXTON
-      path:
+      path: Path
       owner: root
 
     - host: storage-server-1
-      path:
+      path: Path
       owner: root
 
   owner_accessible:
@@ -710,19 +798,19 @@ facts:
 
     - host: AP-Controller
       permission: read
-      path:
+      path: Path
 
     - host: ADMIN
       permission: read
-      path:
+      path: Path
 
     - host: PAXTON
       permission: read
-      path:
+      path: Path
 
     - host: storage-server-1
       permission: read
-      path:
+      path: Path
 
   allows:
     - host: intergalactic-vpn
@@ -739,44 +827,45 @@ facts:
   setuid_program:
     - host: intergalactic-vpn
       software: intergalactic-web-ui
-      account:
+      account: Account
 
   installed:
     - host: intergalactic-vpn
       software: intergalactic-web-ui
-      version: 0.1.0rc0
+      version: 2.4.12
 
   can_invoke:
     - software1: intergalactic-web-ui
-      software2:
+      software2: Software2
       method: keylogging
 
   access_file:
     - user: root
       host: intergalactic-vpn
       permission: write
-      path:
+      path: Path
 
   is_name_resolver:
-    - name_resolver:
+    - name_resolver: NameResolver
       fooled_host: intergalactic-vpn
       impersonated_host: intergalactic-hacker
-    - name_resolver:
+    - name_resolver: NameResolver
       fooled_host: intergalactic-hacker
       impersonated_host: intergalactic-vpn
 
   vul_e2e_protocol:
     - fooled_host: intergalactic-vpn
-      name_resolver:
+      name_resolver: NameResolver
       attack_type: dnsCachePoisoning
-      protocol: DNSProt
-      exploit_range: remoteExploit
-      lose_types: nameresolverCachePoisoned
+      protocol: dns
+      exploit_range: DNSProt
+      lose_types: remoteExploit
+      consequence: nameresolverCachePoisoned
 
   local_service:
     - host: intergalactic-vpn
       software: intergalactic-vpn
-      account:
+      account: Account
 
   # Device platform specifications
   device_platforms:

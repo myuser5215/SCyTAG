@@ -37,12 +37,6 @@ links:
     port_name: eth0
   - node_name: FLE4N
     port_name: Ethernet0
-- link_name: link-7
-  link_nodes:
-  - node_name: FLE4N
-    port_name: Ethernet2
-  - node_name: storage-server-1
-    port_name: eth0
 - link_name: link-8
   link_nodes:
   - node_name: intergalactic-hacker-internet
@@ -353,27 +347,6 @@ nodes:
   x: -571
   y: -139
 - console_type: telnet
-  name: storage-server-1
-  properties:
-    adapters: 1
-    aux: 5035
-    console_http_path: /
-    console_http_port: 80
-    console_resolution: 1024x768
-    container_id: 55d6dedb2901e878200a9756b491d8843d9ca3a22f82ac4aebff9cdacea2cdff
-    environment: null
-    extra_hosts: null
-    extra_volumes: []
-    image: storage-server:latest
-    mac_address: 02:42:bb:ea:d3:00
-    start_command: null
-    usage: ''
-  symbol: pngwing.com.png
-  template: storage-server
-  type: docker
-  x: -295
-  y: -134
-- console_type: telnet
   name: intergalactic-hacker
   properties:
     adapters: 1
@@ -483,27 +456,6 @@ templates:
   uefi: false
   usage: Ethernet0 is the LAN link, Ethernet1 the WAN link, Ethernet2 and Ethernet3
     are optional links.
-- adapters: 1
-  builtin: false
-  category: guest
-  compute_id: local
-  console_auto_start: false
-  console_http_path: /
-  console_http_port: 80
-  console_resolution: 1024x768
-  console_type: telnet
-  custom_adapters: []
-  default_name_format: '{name}-{0}'
-  environment: ''
-  extra_hosts: ''
-  extra_volumes: []
-  image: storage-server:latest
-  mac_address: ''
-  name: storage-server
-  start_command: ''
-  symbol: :/symbols/docker_guest.svg
-  template_type: docker
-  usage: ''
 - adapters: 16
   builtin: false
   category: switch

@@ -168,26 +168,25 @@ interaction_rule(
 interaction_rule(
    (leakInfo(Host, Path) :-
      execCode(User, Host, Account),
-     accessFile(User, Host, Account, Permission, Path),
+     accessFile(User, Host, Permission, Path),
      localFileProtection(Host, Path, Account, Permission)),
    rule_desc('Credential dumping via access to sensitive files', 1.0)).
 
 /* */
 /* Interaction Rules for T1552.001 - Unsecured Credentials */
 interaction_rule(
-   (credentialsAccessInFiles('ssh', Host) :-
-     accessFile(_, Host, root, read, '/etc/shadow')),
-    rule_desc('Credentials extracted from files', 1.0)).
+   (credentialsAccessInFiles(Software, Host) :-
+     accessFile(User, Host, Account, Permission, Path),
+     canAccessHost(User, Host)),
+    rule_desc('Device compromised after ARP spoofing', 1.0)).
 
 /* Interaction Rules for T1059 - Command and Scripting Interpreter: */
 
 interaction_rule(
    (execCode(User, Host, Account) :-
      compromised(Host),
-     residesOn(Host, Software, Version),
-     vulExists(_, Software, Version, _, _, 'critical'),
-     hasAccount(User, Host, Account)),
-    rule_desc('Arbitrary code execution after host compromise', 1.0)).
+     vulExists(CveId, Software, Version, LocalNetwork, LoseTypes, 'critical')),
+    rule_desc('Can access to the local file  on  the host', 1.0)).
 
 interaction_rule(
    (compromised(Host) :-
@@ -195,21 +194,18 @@ interaction_rule(
      residesOn(Host, Software, Version),
      vulExists(CveId, Software, Version, RemoteNetwork, LoseTypes, 'critical'),
      maliciousInteraction(Host, User, Software)),
-    rule_desc('Host compromised via vulnerability exploitation', 1.0)).
-
-interaction_rule(
-   (compromised(Host) :-
-     execCode(_, Host, _)),
-    rule_desc('Host compromised via code execution', 1.0)).
+    rule_desc('', 1.0)).
 
 /* Interaction Rules for T1105 - Ingress Tools */
 interaction_rule(
-   (ingressToolTransfer('ssh', User, Host, '/tmp/splunkd', 22) :-
-     credentialsAccessInFiles('ssh', _),
-     attackerLocated(_),
-     hacl(_, Host, tcp, 22),
-     hasAccount(User, Host, user)),
-    rule_desc('Tool transferred using stolen SSH credentials', 1.0)).
+   (ingressToolTransfer(Software, User, Host, Path, Port) :-
+     mitmE2E(User, SrcHost, Host, SpoofingHost, Protocol, Port),
+     localAccess(User, Host, Permission),
+     dataInject(User, Host, Path1, Path2, Port),
+     networkService(Host, Software, Protocol, Port, Permission),
+     hacl(SrcHost, Host, Protocol, Port),
+     netAccess(User, SrcHost, Host, Protocol, Port)),
+    rule_desc('', 1.0)).
 
 /* Interaction Rules for T1055 - Process Injection: */
 
@@ -259,21 +255,17 @@ interaction_rule(
     rule_desc('MITM attack in the end-to-end layer in which only a specific application layer protocol is routed through the attacker host', 1.0)).
 
 interaction_rule(
-   (execDelegatedCode(User, SrcHost, DstHost, root) :-
+   (execDelegatedCode(User, SrcHost, DstHost, Account) :-
      compromised(SrcHost),
-     hacl(SrcHost, DstHost, tcp, 22),
-     hasAccount(User, DstHost, root)),
-    rule_desc('Lateral movement with delegated execution', 1.0)).
-
-interaction_rule(
-   (compromised(DstHost) :-
-     execDelegatedCode(_, _, DstHost, _)),
-    rule_desc('Destination host compromised via delegated code execution', 1.0)).
+     hasAccess(User, SrcHost, DstHost, Protocol, Port),
+     networkService(DstHost, Software, Protocol, Port, Account),
+     vulExists(CveId, Software, Version, RemoteNetwork, LoseTypes, 'critical')),
+    rule_desc('Exploit EternalBlue from cameraA to DVR', 1.0)).
 
 /* Final IR */
 interaction_rule(
    (fullCampaign(User, StartHost, MiddleHost, EndHost) :-
-     credentialsAccessInFiles('ssh', StartHost),
-     ingressToolTransfer('ssh', User, MiddleHost, '/tmp/splunkd', 22),
-     execDelegatedCode(User, MiddleHost, EndHost, root)),
-    rule_desc('End-to-end Caldera campaign execution', 1.0)).
+     credentialsAccessInFiles(Software, StartHost),
+     ingressToolTransfer(Software, User, MiddleHost, Path, Port),
+     execDelegatedCode(User, MiddleHost, EndHost, Account)),
+    rule_desc('', 1.0)).

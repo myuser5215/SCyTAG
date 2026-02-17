@@ -9,7 +9,7 @@ primitive(dataBind(_flow, _srcHost, _path)).
 primitive(dataFlow(_srcHost, _dstHost, _flow, _direction)).
 primitive(deviceOnline(_host, _platform)).
 primitive(maliciousInteraction(_host, _user, _software)).
-primitive(vulE2EProtocol(_fooledHost, _nameResolver, _dnsAttackType, _protocol, _exploitRange, _loseTypes)).
+primitive(vulE2EProtocol(_fooledHost, _nameResolver, _dnsAttackType, _dns, _protocol, _exploitRange, _loseTypes)).
 primitive(isNameResolver(_nameResolver, _fooledHost, _impersonatedHost)).
 primitive(fileOwner(_host, _path, _owner)).
 primitive(vulExists(_cveId, _software, _version, _access_vector, _lose_types, _severity)).
@@ -17,7 +17,8 @@ primitive(ownerAccessible(_host, _permission, _path)).
 primitive(hasAccount(_user, _host, _account)).
 primitive(hacl(_src, _dst, _protocol, _port)).
 primitive(allows(_host, _user, _operation, _url, _response)).
-primitive(installed(_host, _software, _version)).
+/* updated below primitive(installed(_host, _software, _version)). */
+primitive(installed(_host, _software)).
 primitive(isInSubnet(_subnet, _host)).
 primitive(setuidProgram(_host, _software, _account)).
 primitive(networkService(_host, _software, _protocol, _port, _account)).
@@ -136,9 +137,10 @@ interaction_rule(
     hasAccess(User, AttackSrc, Host, Protocol, Port)),
   rule_desc('Net direct access', 1.0)).
 
+/* changed to Host1 in netAccess */
 interaction_rule(
   (netAccess(User, AttackSrc, Host2, Protocol, Port) :-
-    netAccess(User, AttackSrc, Host2, Protocol, Port),
+    netAccess(User, AttackSrc, Host1, Protocol, Port),
     dataFlow(Host1, Host2, _FlowName, _Direction)),
   rule_desc('Net access hop', 1.0)).
 
@@ -186,26 +188,34 @@ interaction_rule(
      localFileProtection(Host, Account, Permission, Path)),
     rule_desc('', 1.0)).
 
-interaction_rule(
-   (localFileProtection(Host, root, read, Path) :-
-     fileOwner(Host, Path, root),
-     ownerAccessible(Host, read, Path)),
-    rule_desc('Valid file protection mechanism', 1.0)).
+/* interaction_rule( */
+ /*  (localFileProtection(Host, root, read, Path) :- */
+  /*   fileOwner(Host, Path, root), */
+  /*   ownerAccessible(Host, read, Path)), */
+ /*   rule_desc('Valid file protection mechanism', 1.0)). */
     
-/* Interaction Rules for T1059 - Command and Scripting Interpreter: */
-
+/* updated below*/
 interaction_rule(
-   (execCode(User, Host, Account) :-
+   (localFileProtection(Host, Account, Permission, Path) :-
+     fileOwner(Host, Path, 'root'),
+     ownerAccessible(Host, 'read', Path)),
+    rule_desc('Valid file protection mechanism', 1.0)).    
+
+/* Interaction Rules for T1059 - Command and Scripting Interpreter: */
+/* changed User to _User */
+interaction_rule(
+   (execCode(_User, Host, Account) :-
      compromised(Host),
      vulExists(CveId, Software, Version, LocalNetwork, _lose_types, critical)),
     rule_desc('Can access to the local file  on  the host', 1.0)).
 
+/* changed User to _User and Software to _Software in maliciousInteraction rule */
 interaction_rule(
    (compromised(Host) :-
      deviceOnline(Host, Platform),
      residesOn(Host, Software, Version),
      vulExists(CveId, Software, Version, RemoteNetwork, _lose_types, 'critical'),
-     maliciousInteraction(Host, User, Software)),
+     maliciousInteraction(Host, _User, _Software)),
     rule_desc('', 1.0)).
 
 
@@ -308,20 +318,21 @@ interaction_rule(
     rule_desc('Valid file protection mechanism', 1.0)).
 
 /* Interaction Rules for T1003 - OS Credential Dumping: */
-
+/* changed in hasAccount Account to _Account */
 interaction_rule(
    (principalCompromised(Victim, Host, Attacker) :-
-     hasAccount(Victim, Host, Account),
+     hasAccount(Victim, Host, _Account),
      execCode(Attacker, Host, 'root'),
      leakInfo(Host, File),
      malicious(Attacker)),
     rule_desc('Device compromised via OS credential dumping', 1.0)).
 
+/* changed in hasAccount Account to _SomeAccount and removed '' from root and read in localFileProtection */
 interaction_rule(
    (leakInfo(Host, File) :-
-     execCode(Attacker, Host, Account),
+     execCode(Attacker, Host, _SomeAccount),
      accessFile(Attacker, Host, Permission, File),
-     localFileProtection(Host, 'root', 'read', File)),
+     localFileProtection(Host, root, read, File)),
     rule_desc('Credential dumping via access to sensitive files', 1.0)).
 
 
@@ -342,14 +353,14 @@ interaction_rule(
 
 
 /* Interaction Rules for T1070.004		Indicator Removal File Deletion: */
-
+/* removed the version variable in installed */
 interaction_rule(
    (fileDeletion(Host, Software, Subnet, Attacker) :-
      localFileProtection(Host, Account, Permission, Path),
      residesOn(Host, Software, Version),
      vulExists(CveId, Software, Version, LocalNetwork, _lose_types, critical),
      canDeleteDoc(Software, Victim, Host, Attacker),
-     installed(Host, Software, Version),
+     installed(Host, Software),
      isInSubnet(Subnet, Host),
      setuidProgram(Host, Software, Account),
      malicious(User)),
@@ -362,20 +373,20 @@ interaction_rule(
 
 
 /* Interaction Rules for T1560.001		Archive Collected Data Archive via Utility: */
-
+/* removed the version variable in installed */
 interaction_rule(
    (archiveviaUtility(Software, Host, Account, Path) :-
      localFileProtection(Host, Account, Permission, Path),
-     installed(Host, Software, Version)),
+     installed(Host, Software)),
     rule_desc('', 1.0)).
 
 
 /* Interaction Rules for T1056.001		Input Capture Keylogging: */
-
+/* removed the version variable in installed */
 interaction_rule(
    (keylogging(Host, 'intergalactic-web-ui', Software2, Account) :-
      setuidProgram(Host, Software, Account),
-     installed(Host, 'intergalactic-web-ui', Version),
+     installed(Host, 'intergalactic-web-ui'),
      canInvoke('intergalactic-web-ui', Software2, 'keylogging')),
     rule_desc('', 1.0)).
 

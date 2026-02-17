@@ -1,38 +1,41 @@
-1,"compromisedVPNClient('intergalactic-hacker','alpine-3.18-openvpn-1')","OR",0
-2,"RULE 17 (Host compromised using known credentials over VPN lateral movement.)","AND",0
-3,"hasAccount(alice,'alpine-3.18-openvpn-1','user-account')","LEAF",1
-4,"residesOn('alpine-3.18-openvpn-1','open-ssh','v1.0')","LEAF",1
-5,"networkService('alpine-3.18-openvpn-1','open-ssh',tcp,'22','user-account')","LEAF",1
-6,"lateralMovementVPN('intergalactic-hacker','intergalactic-vpn','alpine-3.18-openvpn-1')","OR",0
-7,"RULE 22 (Lateral movement over VPN network.)","AND",0
-8,"canAccessVPN('intergalactic-hacker','intergalactic-vpn')","OR",0
-9,"RULE 21 (VPN network access.)","AND",0
-10,"canCreateValidVPNCertificate('intergalactic-hacker','intergalactic-vpn')","OR",0
-11,"RULE 20 (Can create/forge intergalactic-web-ui certificate.)","AND",0
-12,"softwareCompromisedLocally('intergalactic-vpn')","OR",0
-13,"RULE 19 (Privilege escalation due to locally compromised software.)","AND",0
-14,"vulExists('cve-2023-27524','intergalactic-web-ui','0.1.0rc0',network,ca_loss,critical)","LEAF",1
-15,"hasAccount(root,'intergalactic-vpn','operating-system-administration-account')","LEAF",1
-16,"residesOn('intergalactic-vpn','intergalactic-web-ui','0.1.0rc0')","LEAF",1
-17,"compromisedVPNClient('intergalactic-hacker','intergalactic-vpn')","OR",0
-18,"RULE 15 (Host compromised.)","AND",0
-19,"softwareCompromisedRemotely('intergalactic-hacker','intergalactic-vpn')","OR",0
+1,"lateralMovementVPN('intergalactic-hacker','intergalactic-vpn','alpine-3.18-openvpn-1')","OR",0
+2,"RULE 22 (Lateral movement over VPN network.)","AND",0
+3,"canAccessVPN('intergalactic-hacker','intergalactic-vpn')","OR",0
+4,"RULE 21 (VPN network access.)","AND",0
+5,"canCreateValidVPNCertificate('intergalactic-hacker','intergalactic-vpn')","OR",0
+6,"RULE 20 (Can create/forge intergalactic-web-ui certificate.)","AND",0
+7,"softwareCompromisedLocally('intergalactic-vpn')","OR",0
+8,"RULE 19 (Privilege escalation due to locally compromised software.)","AND",0
+9,"vulExists('cve-2023-27524','intergalactic-web-ui','2.4.12',network,ca_loss,critical)","LEAF",1
+10,"hasAccount(root,'intergalactic-vpn','operating-system-administration-account')","LEAF",1
+11,"residesOn('intergalactic-vpn','intergalactic-web-ui','2.4.12')","LEAF",1
+12,"compromisedVPNClient('alpine-3.18-openvpn-1','intergalactic-vpn')","OR",0
+13,"RULE 15 (Host compromised.)","AND",0
+14,"softwareCompromisedRemotely('alpine-3.18-openvpn-1','intergalactic-vpn')","OR",0
+15,"RULE 18 (Software compromised via remote vulnerability.)","AND",0
+16,"networkService('intergalactic-vpn','intergalactic-web-ui',udp,'1194',root)","LEAF",1
+17,"netAccess(alice,'alpine-3.18-openvpn-1','intergalactic-vpn',udp,'1194')","OR",0
+18,"RULE 5 (Net direct access)","AND",0
+19,"hasAccess(alice,'alpine-3.18-openvpn-1','intergalactic-vpn',udp,'1194')","LEAF",1
 20,"RULE 18 (Software compromised via remote vulnerability.)","AND",0
-21,"networkService('intergalactic-vpn','intergalactic-web-ui',http,'80',root)","LEAF",1
-22,"netAccess(_,'intergalactic-hacker','intergalactic-vpn',http,'80')","OR",0
-23,"RULE 5 (Net direct access)","AND",0
-24,"hasAccess(_,'intergalactic-hacker','intergalactic-vpn',http,'80')","LEAF",1
-25,"RULE 6 (Net access hop)","AND",0
-26,"dataFlow('intergalactic-vpn-gw-internet','intergalactic-vpn',_,_)","LEAF",1
+21,"vulExists('cve-zero-day-web-ui-execute-code-1337','intergalactic-web-ui','0.1.0rc0',local,privilege_escalation,critical)","LEAF",1
+22,"residesOn('intergalactic-vpn','intergalactic-web-ui','0.1.0rc0')","LEAF",1
+23,"RULE 19 (Privilege escalation due to locally compromised software.)","AND",0
+24,"compromisedVPNClient('intergalactic-hacker','intergalactic-vpn')","OR",0
+25,"RULE 15 (Host compromised.)","AND",0
+26,"softwareCompromisedRemotely('intergalactic-hacker','intergalactic-vpn')","OR",0
 27,"RULE 18 (Software compromised via remote vulnerability.)","AND",0
-28,"vulExists('cve-zero-day-web-ui-execute-code-1337','intergalactic-web-ui','0.1.0rc0',local,privilege_escalation,critical)","LEAF",1
-29,"RULE 19 (Privilege escalation due to locally compromised software.)","AND",0
-30,"netAccess(_,'intergalactic-hacker','intergalactic-vpn',udp,'1194')","OR",0
-31,"RULE 5 (Net direct access)","AND",0
-32,"hasAccess(_,'intergalactic-hacker','intergalactic-vpn',udp,'1194')","LEAF",1
-33,"RULE 6 (Net access hop)","AND",0
-34,"isInSubnet(vpn,'alpine-3.18-openvpn-1')","LEAF",1
-35,"RULE 17 (Host compromised using known credentials over VPN lateral movement.)","AND",0
-36,"hasAccount(alice,'storage-server-1','user-storage-server-1-account')","LEAF",1
-37,"residesOn('storage-server-1',sftpd,'v1.0')","LEAF",1
-38,"networkService('storage-server-1',sftpd,tcp,'22','user-storage-server-1-account')","LEAF",1
+28,"networkService('intergalactic-vpn','intergalactic-web-ui',http,'80',root)","LEAF",1
+29,"netAccess(hacker,'intergalactic-hacker','intergalactic-vpn',http,'80')","OR",0
+30,"RULE 5 (Net direct access)","AND",0
+31,"hasAccess(hacker,'intergalactic-hacker','intergalactic-vpn',http,'80')","LEAF",1
+32,"RULE 18 (Software compromised via remote vulnerability.)","AND",0
+33,"netAccess(hacker,'intergalactic-hacker','intergalactic-vpn',udp,'1194')","OR",0
+34,"RULE 5 (Net direct access)","AND",0
+35,"hasAccess(hacker,'intergalactic-hacker','intergalactic-vpn',udp,'1194')","LEAF",1
+36,"RULE 18 (Software compromised via remote vulnerability.)","AND",0
+37,"RULE 18 (Software compromised via remote vulnerability.)","AND",0
+38,"RULE 19 (Privilege escalation due to locally compromised software.)","AND",0
+39,"RULE 19 (Privilege escalation due to locally compromised software.)","AND",0
+40,"RULE 20 (Can create/forge intergalactic-web-ui certificate.)","AND",0
+41,"isInSubnet(vpn,'alpine-3.18-openvpn-1')","LEAF",1

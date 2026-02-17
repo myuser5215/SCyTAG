@@ -1,7 +1,6 @@
-attackGoal(compromised('DVR_ssh-1')).
+attackGoal(fullCampaign('attacker', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'DVR_ssh-1')).
 
 
-dataFlow('Cloud1', 'internet', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'Floor4-L3SW', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'DVR_ssh-1', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'FileServer', _FlowName, _Direction).
@@ -185,183 +184,108 @@ isInSubnet('core', 'CoreRouterB').
 isInSubnet('core', 'CoreRouterC').
 isInSubnet('core', 'CoreRouterD').
 malicious('attacker').
-malicious('hacker').
+dataBind(Flow, 'camera_A_ssh-1', Path1).
+dataBind(Flow, 'cameraB', Path1).
+dataBind(Flow, 'SwitchX(PoE)', Path1).
+dataBind(Flow, 'Admin-SW', Path1).
+dataBind(Flow, 'adminPC1-ssh-1', Path1).
+dataBind(Flow, 'Server-Room-SW', Path1).
+dataBind(Flow, 'DVR_ssh-1', Path1).
+dataBind(Flow, 'FileServer', Path1).
+dataBind(Flow, 'Floor4-L3SW', Path1).
+dataBind(Flow, 'Floor4-Router', Path1).
+dataBind(Flow, 'CoreRouterC', Path1).
+dataBind(Flow, 'CoreRouterB', Path1).
+dataBind(Flow, 'Cloud1', Path1).
+dataBind(Flow, 'CoreRouterA', Path1).
+dataBind(Flow, 'CoreRouterE', Path1).
+dataBind(Flow, 'Floor4-FW', Path1).
 maliciousInteraction('camera_A_ssh-1', 'attacker', 'arpd').
-maliciousInteraction('cameraB', 'attacker', _).
-maliciousInteraction('DVR_ssh-1', 'attacker', 'arpd').
-maliciousInteraction('FileServer', 'attacker', _).
-maliciousInteraction('adminPC1-ssh-1', 'attacker', 'libtasn1_6').
-maliciousInteraction('DVR_ssh-1', 'attacker', 'sshd').
-dataBind('Flow', 'camera_A_ssh-1', 'Path1').
-dataBind('Flow', 'cameraB', 'Path1').
-dataBind('Flow', 'SwitchX(PoE)', 'Path1').
-dataBind('Flow', 'Admin-SW', 'Path1').
-dataBind('Flow', 'adminPC1-ssh-1', 'Path1').
-dataBind('Flow', 'Server-Room-SW', 'Path1').
-dataBind('Flow', 'DVR_ssh-1', 'Path1').
-dataBind('Flow', 'FileServer', 'Path1').
-dataBind('Flow', 'ADServer', 'Path1').
-dataBind('Flow', 'Floor4-L3SW', 'Path1').
-dataBind('Flow', 'Floor4-Router', 'Path1').
-dataBind('Flow', 'CoreRouterC', 'Path1').
-dataBind('Flow', 'CoreRouterB', 'Path1').
-dataBind('Flow', 'fortigateWAN', 'Path1').
-dataBind('Flow', 'Cloud1', 'Path1').
-dataBind('Flow', 'CoreRouterA', 'Path1').
-dataBind('Flow', 'CoreRouterE', 'Path1').
-dataBind('Flow', 'Floor4-FW', 'Path1').
-maliciousInteraction('camera_A_ssh-1', 'attacker', 'arpd').
-maliciousInteraction('cameraB', 'attacker', '_Software').
+maliciousInteraction('camera_A_ssh-1', 'attacker', 'sshd').
+maliciousInteraction('cameraB', 'attacker', _Software).
 maliciousInteraction('DVR_ssh-1', 'attacker', 'arpd').
 maliciousInteraction('DVR_ssh-1', 'attacker', 'sshd').
-maliciousInteraction('FileServer', 'attacker', '_Software').
-maliciousInteraction('adminPC1-ssh-1', 'attacker', 'libtasn1_6').
+maliciousInteraction('FileServer', 'attacker', _Software).
+maliciousInteraction('adminPC1-ssh-1', 'attacker', 'sshd').
+isInSubnet('WAN', 'CoreRouterA').
+isInSubnet('core', 'Floor4-FW').
+isInSubnet('floor4', 'Floor4-L3SW').
+isInSubnet('floor4', 'Floor4-Router').
+isInSubnet('vlan100', 'Floor4-L3SW').
+isInSubnet('vlan100', 'SwitchX(PoE)').
+isInSubnet('vlan100', 'cameraB').
+isInSubnet('vlan100', 'camera_A_ssh-1').
+isInSubnet('vlan110', 'DVR_ssh-1').
+isInSubnet('vlan110', 'FileServer').
+isInSubnet('vlan110', 'Floor4-L3SW').
+isInSubnet('vlan110', 'Server-Room-SW').
+isInSubnet('vlan120', 'Admin-SW').
+isInSubnet('vlan120', 'Floor4-L3SW').
+isInSubnet('vlan120', 'adminPC1-ssh-1').
+isInSubnet('vlan120', 'adminPC2').
+isInSubnet('vlan120', 'adminPC3').
+isInSubnet('vlan120', 'adminPC4').
+isInSubnet('vlan120', 'adminPC5').
+isInSubnet('vlan120', 'adminPC6').
 
-hacl('Server-Room-SW', _, _, _).
-hacl('Admin-SW', _, _, _).
-hacl('SwitchX(PoE)', _, _, _).
-hacl('Logistic-SW', _, _, _).
-hacl('Customer-SW', _, _, _).
-hacl('ICT-SW', _, _, _).
-hacl('HR-SW', _, _, _).
-hacl('Management-SW', _, _, _).
-hacl('Research-SW', _, _, _).
-hacl('Marketing-SW', _, _, _).
-hacl('Accountant-SW', _, _, _).
-hacl('Finance-SW', _, _, _).
-hacl('CoreRouterE', _, _, _).
-hacl('CoreRouterA', _, _, _).
-hacl('Floor1-FW', _, _, _).
-hacl('Floor1-L3SW', _, _, _).
-hacl('Floor4-FW', _, _, _).
-hacl('FinancePC3', _, _, _).
-hacl('Cloud1', _, _, _).
-hacl('Floor4-L3SW', _, _, _).
-hacl('Floor3-L3SW', _, _, _).
-hacl('Floor2-L3SW', _, _, _).
-hacl('CoreRouterB', _, _, _).
-hacl('Floor2-FW', _, _, _).
-hacl('Floor3-FW', _, _, _).
-hacl('CoreRouterC', _, _, _).
-hacl('CoreRouterD', _, _, _).
-hacl('Floor2-Router', _, _, _).
-hacl('Floor1-Router', _, _, _).
-hacl('Floor3-Router', _, _, _).
-hacl('Floor4-Router', _, _, _).
-hacl('adminPC1-ssh-1', _, _, _).
-hacl('camera_A_ssh-1', _, _, _).
-hacl('DVR_ssh-1', _, _, _).
-hacl('MarketingPC1', _, _, _).
-hacl('MarketingPC2', _, _, _).
-hacl('MarketingPC3', _, _, _).
-hacl('MarketingPC4', _, _, _).
-hacl('MarketingPC5', _, _, _).
-hacl('MarketingPC6', _, _, _).
-hacl('AccountantPC1', _, _, _).
-hacl('AccountantPC2', _, _, _).
-hacl('AccountantPC3', _, _, _).
-hacl('FinancePC1', _, _, _).
-hacl('FinancePC2', _, _, _).
-hacl('FinancePC4', _, _, _).
-hacl('FinancePC5', _, _, _).
-hacl('FinancePC6', _, _, _).
-hacl('ManagerPC1', _, _, _).
-hacl('ManagerPC2', _, _, _).
-hacl('ManagerPC3', _, _, _).
-hacl('ManagerPC4', _, _, _).
-hacl('ManagerPC5', _, _, _).
-hacl('MangerPC6', _, _, _).
-hacl('ResearchPC1', _, _, _).
-hacl('ResearchPC2', _, _, _).
-hacl('ResearchPC3', _, _, _).
-hacl('ResearchPC4', _, _, _).
-hacl('ResearchPC5', _, _, _).
-hacl('ResearchPC6', _, _, _).
-hacl('HrPC1', _, _, _).
-hacl('HrPC2', _, _, _).
-hacl('HrPC3', _, _, _).
-hacl('HrPC4', _, _, _).
-hacl('HrPC5', _, _, _).
-hacl('HrPC6', _, _, _).
-hacl('CustomerPC1', _, _, _).
-hacl('CustomerPC2', _, _, _).
-hacl('CustomerPC3', _, _, _).
-hacl('LogisticPC1', _, _, _).
-hacl('LogisticPC2', _, _, _).
-hacl('LogisticPC3', _, _, _).
-hacl('LogisticPC4', _, _, _).
-hacl('LogisticPC5', _, _, _).
-hacl('LogisticPC6', _, _, _).
-hacl('IctPC1', _, _, _).
-hacl('IctPC2', _, _, _).
-hacl('IctPC3', _, _, _).
-hacl('IctPC4', _, _, _).
-hacl('IctPC5', _, _, _).
-hacl('IctPC6', _, _, _).
-hacl('adminPC2', _, _, _).
-hacl('adminPC3', _, _, _).
-hacl('adminPC4', _, _, _).
-hacl('adminPC5', _, _, _).
-hacl('adminPC6', _, _, _).
-hacl('FileServer', _, _, _).
-hacl('cameraB', _, _, _).
-networkService('camera_A_ssh-1', 'arpd', 'arp', 'port', 'root').
-networkService('camera_A_ssh-1', 'arpd', 'tcp', 'port', 'root').
+networkService('DVR_ssh-1', 'arpd', 'tcp', Port, 'root').
+networkService('DVR_ssh-1', 'smbV1', 'tcp', '445', 'root').
+networkService('DVR_ssh-1', 'sshd', 'tcp', Port, 'root').
+networkService('FileServer', 'sftpd', 'tcp', Port, 'root').
+networkService('camera_A_ssh-1', 'arpd', 'tcp', Port, 'root').
+networkService('camera_A_ssh-1', 'sshd', 'tcp', '22', 'root').
 networkService('adminPC1-ssh-1', 'sshd', 'tcp', '22', 'root').
-networkService('DVR_ssh-1', 'smbV1', 'tcp', 'port', 'root').
-networkService('DVR_ssh-1', 'sshd', 'tcp', '22', 'root').
-networkService('FileServer', 'sftpd', 'tcp', 'port', 'root').
-networkService('ADServer', 'windowsUAC', 'tcp', 'port', 'admin').
-hacl('camera_A_ssh-1', 'SwitchX(PoE)', 'tcp', 'port').
-hacl('SwitchX(PoE)', 'Floor4-L3SW', 'tcp', 'port').
-hacl('Server-Room-SW', 'DVR_ssh-1', 'tcp', 'port').
-hacl('Server-Room-SW', 'FileServer', 'tcp', 'port').
-hacl('Admin-SW', 'adminPC1-ssh-1', 'tcp', 'port').
-hacl('Floor4-L3SW', 'Server-Room-SW', 'tcp', 'port').
-hacl('Floor4-L3SW', 'Admin-SW', 'tcp', 'port').
-hacl('Floor4-L3SW', 'DMZ-SW', 'tcp', 'port').
-hacl('Floor4-Router', 'Floor4-L3SW', 'tcp', 'port').
-hacl('Floor4-FW', 'Floor4-Router', 'tcp', 'port').
-hacl('Floor4-FW', 'CoreRouterE', 'tcp', 'port').
-hacl('CoreRouterA', 'Cloud1', 'tcp', 'port').
-hacl('Cloud1', 'adminPC1-ssh-1', 'http', '80').
-hacl('vLan120', 'vLan110', 'http', 'port').
-hacl('vLan120', 'vLan100', 'http', 'port').
-hacl('vLan120', 'vLan100', 'smbV1', 'port').
-hacl('vLan120', 'vLan110', 'windowsUAC', 'port').
-hacl('vLan120', 'vLan110', 'sftpd', 'port').
-hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', 'port').
-hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
-hacl('adminPC1-ssh-1', 'cameraB', 'arp', 'port').
-hacl('adminPC1-ssh-1', 'cameraB', 'tcp', '22').
-hacl('adminPC1-ssh-1', 'cameraC', 'arp', 'port').
-hacl('adminPC1-ssh-1', 'cameraC', 'tcp', '22').
-hacl('adminPC1-ssh-1', 'cameraD', 'arp', 'port').
-hacl('adminPC1-ssh-1', 'cameraD', 'tcp', '22').
-hacl('adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
+hacl('Admin-SW', 'adminPC1-ssh-1', 'tcp', Port).
+hacl('CoreRouterA', 'Cloud1', 'tcp', Port).
+hacl('Floor4-FW', 'CoreRouterE', 'tcp', Port).
+hacl('Floor4-FW', 'Floor4-Router', 'tcp', Port).
+hacl('Floor4-L3SW', 'Admin-SW', 'tcp', Port).
+hacl('Floor4-L3SW', 'DMZ-SW', 'tcp', Port).
+hacl('Floor4-L3SW', 'Server-Room-SW', 'tcp', Port).
+hacl('Floor4-Router', 'Floor4-L3SW', 'tcp', Port).
+hacl('Server-Room-SW', 'DVR_ssh-1', 'tcp', Port).
+hacl('Server-Room-SW', 'FileServer', 'tcp', Port).
+hacl('SwitchX(PoE)', 'Floor4-L3SW', 'tcp', Port).
+hacl('camera_A_ssh-1', 'SwitchX(PoE)', 'tcp', Port).
 hacl('camera_A_ssh-1', 'DVR_ssh-1', 'tcp', '22').
-hasAccount('victim', 'DVR_ssh-1', 'user').
-hasAccount('victim', 'camera_A_ssh-1', 'user').
-hasAccount('root', 'adminPC1-ssh-1', 'root').
-hasAccount('root', 'DVR_ssh-1', 'root').
-hasAccount('root', 'camera_A_ssh-1', 'root').
-hasAccount('root', 'FileServer', 'root').
-hasAccount('admin', 'ADServer', 'admin').
-hasAccount('attacker', 'camera_A_ssh-1', 'user').
-hasAccount('attacker', 'DVR_ssh-1', 'root').
-hasAccount('attacker', 'adminPC1-ssh-1', 'root').
-hasAccess('attacker', 'adminPC1-ssh-1', 'Floor4-Router', 'tcp', '22').
-hasAccess('', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', 'port').
-hasAccess('', 'camera_A_ssh-1', 'DVR_ssh-1', 'tcp', 'port').
-hasAccess('', 'camera_A_ssh-1', 'DVR_ssh-1', 'arp', 'port').
-hasAccess('', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
-hasAccess('', 'adminPC1-ssh-1', 'cameraB', 'arp', 'port').
-hasAccess('', 'adminPC1-ssh-1', 'cameraB', 'tcp', '22').
-hasAccess('', 'adminPC1-ssh-1', 'cameraC', 'arp', 'port').
-hasAccess('', 'adminPC1-ssh-1', 'cameraC', 'tcp', '22').
-hasAccess('', 'adminPC1-ssh-1', 'cameraD', 'arp', 'port').
-hasAccess('', 'adminPC1-ssh-1', 'cameraD', 'tcp', '22').
+hacl('camera_A_ssh-1', 'DVR_ssh-1', 'tcp', '445').
+hacl('Cloud1', 'adminPC1-ssh-1', 'http', '80').
+hacl('adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
+hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', Port).
+hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
+hacl('adminPC1-ssh-1', 'cameraB', 'arp', Port).
+hacl('adminPC1-ssh-1', 'cameraB', 'tcp', Port).
+hacl('vlan120', 'vlan100', 'http', Port).
+hacl('vlan120', 'vlan100', 'smbV1', Port).
+hacl('vlan120', 'vlan100', Protocol, Port).
+hacl('vlan120', 'vlan110', 'http', Port).
+hacl('vlan120', 'vlan110', 'sftpd', Port).
+hacl('vlan120', 'vlan110', 'windowsUAC', Port).
+hacl('vlan120', 'vlan110', Protocol, Port).
+hasAccount('victim', 'DVR_ssh-1', User).
+hasAccount('victim', 'camera_A_ssh-1', User).
+hasAccess('attacker', 'adminPC1-ssh-1', 'Floor4-Router', 'tcp', Port).
 hasAccess('attacker', 'adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
+hasAccess('attacker', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
+hasAccess('attacker', 'camera_A_ssh-1', 'DVR_ssh-1', 'tcp', '445').
+hasAccess('root', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
+hasAccess(User, 'adminPC1-ssh-1', 'cameraB', 'arp', Port).
+hasAccess(User, 'adminPC1-ssh-1', 'cameraB', 'tcp', Port).
+hasAccess(User, 'adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', Port).
+hasAccess(User, 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
+fileOwner('DVR_ssh-1', Path, 'root').
+fileOwner('adminPC1-ssh-1', '/etc/shadow', 'root').
+fileOwner('adminPC1-ssh-1', Path, 'root').
+fileOwner('camera_A_ssh-1', '/etc/shadow', 'root').
+ownerAccessible('DVR_ssh-1', 'read', Path).
+ownerAccessible('adminPC1-ssh-1', 'read', '/etc/shadow').
+ownerAccessible('adminPC1-ssh-1', 'read', Path).
+ownerAccessible('camera_A_ssh-1', 'read', '/etc/shadow').
+ownerAccessible('camera_A_ssh-1', 'read', Path).
+isNameResolver('DVR_ssh-1', 'camera_A_ssh-1', 'adminPC1-ssh-1').
+isNameResolver('camera_A_ssh-1', 'DVR_ssh-1', 'adminPC1-ssh-1').
+vulE2EProtocol('DVR_ssh-1', 'adminPC1-ssh-1', DNSCachePoisoning, DNS, DNSProt, RemoteExploit, NameresolverCachePoisoned).
+vulE2EProtocol('camera_A_ssh-1', 'adminPC1-ssh-1', DNSCachePoisoning, DNS, DNSProt, RemoteExploit, NameresolverCachePoisoned).
 deviceOnline('Server-Room-SW', _Platform).
 deviceOnline('Admin-SW', _Platform).
 deviceOnline('SwitchX(PoE)', _Platform).
@@ -393,9 +317,9 @@ deviceOnline('Floor2-Router', _Platform).
 deviceOnline('Floor1-Router', _Platform).
 deviceOnline('Floor3-Router', _Platform).
 deviceOnline('Floor4-Router', _Platform).
-deviceOnline('adminPC1-ssh-1', _Platform).
-deviceOnline('camera_A_ssh-1', _Platform).
-deviceOnline('DVR_ssh-1', _Platform).
+deviceOnline('adminPC1-ssh-1', 'Linux').
+deviceOnline('camera_A_ssh-1', 'Linux').
+deviceOnline('DVR_ssh-1', 'Linux').
 deviceOnline('MarketingPC1', _Platform).
 deviceOnline('MarketingPC2', _Platform).
 deviceOnline('MarketingPC3', _Platform).
@@ -454,23 +378,11 @@ deviceOnline('cameraB', _Platform).
 residesOn('camera_A_ssh-1', 'sshd', 'ver1').
 residesOn('camera_A_ssh-1', 'arpd', 'ver1').
 residesOn('adminPC1-ssh-1', 'libtasn1_6', 'v4_16_0_2').
-residesOn('ADServer', 'windowsUAC', 'ver1').
+residesOn('adminPC1-ssh-1', 'sshd', 'ver1').
 residesOn('DVR_ssh-1', 'smbV1', 'ver1').
 residesOn('FileServer', 'sftpd', 'ver1').
-vulExists('arpSpoofVuln', 'arpd', 'ver1', 'network', 'caLoss', 'critical').
-vulExists('cve_2021_46848', 'libtasn1_6', 'v4_16_0_2', 'network', 'caLoss', 'critical').
-vulExists('cve_2022_2294', 'libtasn1_6', 'ver1', 'network', 'caLoss', 'critical').
-vulExists('cve_2017_0144', 'smbV1', 'ver1', 'network', 'caLoss', 'critical').
-vulExists('sshdSpoofVuln', 'sshd', 'ver1', 'network', 'caLoss', 'critical').
-
-
-fileOwner('adminPC1-ssh-1', '/etc/shadow', root).
-ownerAccessible('adminPC1-ssh-1', read, '/etc/shadow').
-
-attackerLocated('internet').
-
-isNameResolver(_FooledHost, _ImpersonatedHost, _AttackerHost).
-vulE2EProtocol(_FooledHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
-isNameResolver(_ImpersonatedHost, _FooledHost, _AttackerHost).
-vulE2EProtocol(_ImpersonatedHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
-isNameResolver(_ImpersonatedHost, _FooledHost, _NameResolver).
+vulExists('arpSpoofVuln', 'arpd', 'ver1', 'network', caLoss, 'critical').
+vulExists('cve_2021_46848', 'libtasn1_6', 'v4_16_0_2', 'network', caLoss, 'critical').
+vulExists('cve_2022_2294', 'libtasn1_6', 'ver1', 'network', caLoss, 'critical').
+vulExists('cve_2017_0144', 'smbV1', 'ver1', 'network', caLoss, 'critical').
+vulExists('sshdSpoofVuln', 'sshd', 'ver1', 'network', caLoss, 'critical').
