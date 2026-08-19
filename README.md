@@ -2,15 +2,15 @@
 
 This repository contains the experimental artifacts, datasets, and scripts for the SCyTAG framework.
 
-**"SCyTAG: Scalable Cyber Twins for Threat Assessment using Attack Graphs"**
+**"SCyTAG: Scalable Cyber-Twin for Threat-Assessment Based on Attack Graphs"**
 
 ### Abstract
 
-Understanding the risks associated with an enterprise environment is the first step toward improving its security. Organizations employ various methods to assess and prioritize the risks identified in cyber threat intelligence (CTI) reports that may be relevant to their operations. Some methodologies rely heavily on manual analysis (which requires expertise and cannot be applied frequently), while others automate the assessment, using attack graphs (AGs) or threat emulators. Such emulators can be employed in conjunction with cyber twins to avoid disruptions in live production environments when evaluating the highlighted threats. Unfortunately, the use of cyber twins in organizational networks is limited due to their inability to scale.
+Understanding the risks associated with an enterprise environment is the first step toward improving its security. Organizations employ various methods to assess and prioritize risks identified in cyber threat intelligence (CTI) reports relevant to their operations. Some methodologies rely heavily on manual analysis (which requires expertise), while others automate assessment using attack graphs (AGs) or threat emulators employed in conjunction with cyber twins (to avoid disruptions in live production environments when evaluating the highlighted threats). Unfortunately, cyber twins are not scalable.
 
-**SCyTAG** is a multi-step framework that generates the minimal viable cyber twin required to assess the impact of a given attack scenario. Given the organizational computer network specifications and an attack scenario extracted from a CTI report, SCyTAG generates an AG. Then, based on the AG, it automatically constructs a cyber twin comprising the network components necessary to emulate the attack scenario and assess the relevance and risks of the attack to the organization.
+**SCyTAG** is a multi-step framework that generates the minimal viable cyber twin required to assess the impact of a given attack scenario. Given the organizational computer network specifications and an attack scenario extracted from a CTI report, SCyTAG generates an AG. Then, based on the AG, it automatically constructs a cyber twin comprising the network elements needed to emulate the attack scenario and assess the attack's relevance and risks to the organization.
 
-SCyTAG has been evaluated on both real and fictitious organizational networks. The results show that compared to the full topology, SCyTAG **reduces the number of network components needed for emulation by up to 99%** while preserving the fidelity of the emulated attack. SCyTAG serves as a cost-effective, scalable, and highly adaptable threat assessment solution, improving organizational cyber defense by bridging the gap between abstract CTI and practical scenario-driven testing.
+SCyTAG's evaluation results show that compared to the full topology, it **reduces the number of network elements needed for emulation by up to 99%** and halves the required resources while preserving the fidelity of the emulated attack.
 
 ---
 
@@ -19,17 +19,16 @@ SCyTAG has been evaluated on both real and fictitious organizational networks. T
 ```
 SCyTAG/
 ├── README.md                        # This file
-├── .env                             # Environment configuration (file paths, etc.)
 ├── .gitignore
 ├── LICENSE
 ├── Caldera/                         # MITRE Caldera attack emulation data
 │   ├── Bank-Adversary/              # Bank-Adversary abilities and profile
 │   │   ├── Ability-1.yml            # T1552.001 — Credentials in Files (SSH cat password file)
-│   │   ├── Ability-2.yaml           # T1105    — Ingress Tool Transfer (sshpass scp agent)
+│   │   ├── Ability-2.yml            # T1105    — Ingress Tool Transfer (sshpass scp agent)
 │   │   ├── Ability-3.yml            # T1021    — Remote Services (activate agent on target)
 │   │   └── Bank-Adversary.yml       # Adversary profile (3-ability chain)
 │   └── Thief/                       # Thief abilities and profile
-│       └── Thief.yaml               # Adversary profile (file discovery and exfiltration chain)
+│       └── Thief.yml                # Adversary profile (file discovery and exfiltration chain)
 ├── Scripts/                         # Automation and analysis scripts
 │   ├── CompleteMissingFacts.py      # Identifies and completes missing MulVAL facts
 │   ├── ReduceTopologyWithAG.py      # Reduces full topology to minimal cyber twin via attack graph
@@ -73,12 +72,12 @@ SCyTAG/
 │   │   │   ├── Bank_Facts_Bank-Adversary.p
 │   │   │   └── Bank_IR_Bank-Adversary.p
 │   │   └── Thief/
-│   │       ├── Bank_Facts-Thief.p
-│   │       └── Bank_IR-Thief.p
+│   │       ├── Bank_Facts_Thief.p
+│   │       └── Bank_IR_Thief.p
 │   ├── Images/
 │   │   ├── Bank.png                          # Full 88-node topology diagram
 │   │   ├── Bank_Reduced_Thief.png            # Minimal cyber twin (Thief scenario)
-│   │   └── Bank-Reduced_Bank-Adversary.png   # Minimal cyber twin (Bank-Adversary scenario)
+│   │   └── Bank_Reduced_Bank-Adversary.png   # Minimal cyber twin (Bank-Adversary scenario)
 │   └── Topology-Files/
 │       ├── Bank-Adversary/
 │       │   ├── ve-config.yaml
@@ -191,7 +190,7 @@ Files follow a consistent scheme throughout the repository. Understanding it mak
 | Topology | Adversary | Facts file | IR file |
 |---|---|---|---|
 | `Bank` | `Bank-Adversary` | `Bank_Facts_Bank-Adversary.p` | `Bank_IR_Bank-Adversary.p` |
-| `Bank` | `Thief` | `Bank_Facts-Thief.p` | `Bank_IR-Thief.p` |
+| `Bank` | `Thief` | `Bank_Facts_Thief.p` | `Bank_IR_Thief.p` |
 | `Bank-XL` | `Bank-Adversary` | `Bank-XL_Facts_Bank-Adversary.p` | `Bank-XL_IR_Bank-Adversary.p` |
 | `Bank-XL` | `Thief` | `Bank-XL_Facts_Thief.p` | `Bank-XL_IR_Thief.p` |
 | `UK-Office` | `Thief` | `UK-Office_Facts_Thief.p` | `UK-Office_IR_Thief.p` |
@@ -199,7 +198,7 @@ Files follow a consistent scheme throughout the repository. Understanding it mak
 
 **Image files:**
 - Full topology: `{Topology}.{ext}`
-- Minimal cyber twin: `{Topology}_Reduced_{Adversary}.{ext}` or `{Topology}-Reduced_{Adversary}.{ext}`
+- Minimal cyber twin: `{Topology}_Reduced_{Adversary}.{ext}`
 
 **GNS3 setup script folders:** `setup_{Adversary}_{Topology}/`
 - Adversary and topology names are lowercase with hyphens within each name.
@@ -265,7 +264,7 @@ The `Caldera/` directory contains MITRE Caldera attack emulation configurations.
 ### Bank-Adversary (`Caldera/Bank-Adversary/`)
 
 - **`Ability-1.yml`** — T1552.001 (Credentials in Files): SSH into a known host and `cat` a password file. Output is parsed to extract the password fact for downstream abilities.
-- **`Ability-2.yaml`** — T1105 (Ingress Tool Transfer): Use `sshpass` and `scp` to transfer the Caldera agent binary to the target machine, authenticated with the stolen password.
+- **`Ability-2.yml`** — T1105 (Ingress Tool Transfer): Use `sshpass` and `scp` to transfer the Caldera agent binary to the target machine, authenticated with the stolen password.
 - **`Ability-3.yml`** — T1021 (Remote Services): Activate the transferred agent on the target machine to establish a C2 foothold.
 - **`Bank-Adversary.yml`** — Adversary profile chaining all three abilities into a single operation.
 
@@ -274,7 +273,7 @@ The `Caldera/` directory contains MITRE Caldera attack emulation configurations.
 
 ### Thief (`Caldera/Thief/`)
 
-- **`Thief.yaml`** — Adversary profile for post-compromise data theft: discovers files by extension, stages them, archives to a tarball, and exfiltrates over the C2 channel.
+- **`Thief.yml`** — Adversary profile for post-compromise data theft: discovers files by extension, stages them, archives to a tarball, and exfiltrates over the C2 channel.
 
 ### UK-Intergalactic
 
@@ -329,7 +328,7 @@ Mitigated:
 
 ## Configuration
 
-- **`.env`**: Environment configuration file containing file paths and settings for the Python scripts. Load with `python-dotenv`:
+- **`.env`** *(not tracked in version control — create locally)*: Environment configuration file containing file paths and settings for the Python scripts. Load with `python-dotenv`:
   ```python
   from dotenv import load_dotenv
   load_dotenv()
@@ -339,15 +338,15 @@ Mitigated:
 
 ## Experimental Environments
 
-### 1. UK-Office (Real-World Network)
+### 1. UK-Office
 
-A real organizational office network used to validate SCyTAG's practical applicability. This topology represents a typical small-to-medium enterprise environment with realistic network segmentation (DMZ, internal networks, VLAN isolation), production services, end-user workstations, IoT devices, and security controls. Two adversary scenarios are evaluated: **Thief** (post-compromise data exfiltration) and **UK-Intergalactic** (VPN exploitation and lateral movement).
+A network topology inspired by a real organizational office environment, used to validate SCyTAG's practical applicability. This topology represents a typical small-to-medium enterprise environment with realistic network segmentation (DMZ, internal networks, VLAN isolation), production services, end-user workstations, IoT devices, and security controls. Two adversary scenarios are evaluated: **Thief** (post-compromise data exfiltration) and **UK-Intergalactic** (VPN exploitation and lateral movement).
 
-**Purpose**: Demonstrate real-world applicability and validate threat assessment accuracy.
+**Purpose**: Demonstrate practical applicability and validate threat assessment accuracy.
 
 ### 2. Bank (Fictitious Banking Network — 88 Nodes)
 
-A synthetic banking enterprise network with 4 building floors, hierarchical network architecture, and segregated departments (Marketing, Finance, Accounting, HR, Research, Management, ICT, Logistics, Customer Service). Includes security infrastructure: firewalls, DMZ, admin workstations, surveillance systems, and file servers. Two adversary scenarios are evaluated: **Thief** and **Bank-Adversary**.
+A synthetic banking enterprise network inspired by the [Enterprise Network Lab — Bank Project](https://gns3.com/marketplace/labs/enterprise-network-lab-bank-project) from the GNS3 Marketplace. The topology features 4 building floors, hierarchical network architecture, and segregated departments (Marketing, Finance, Accounting, HR, Research, Management, ICT, Logistics, Customer Service). Includes security infrastructure: firewalls, DMZ, admin workstations, surveillance systems, and file servers. Two adversary scenarios are evaluated: **Thief** and **Bank-Adversary**.
 
 **Purpose**: Controlled environment for measuring cyber twin reduction effectiveness and resource optimization.
 
@@ -365,7 +364,7 @@ A massive enterprise topology with 1,471 network nodes including switches, route
 
 2. **Attack Graph-Driven Reduction**: Uses attack graphs to identify only the network components necessary for emulating specific threats, dramatically reducing resource requirements.
 
-3. **Scalability**: Successfully scales from small office networks (UK-Office, 45 nodes) to enterprise environments with 1,471+ nodes (Bank-XL).
+3. **Scalability**: Successfully scales from small office networks (UK-Office, 56 nodes) to enterprise environments with 1,471+ nodes (Bank-XL).
 
 4. **Resource Efficiency**: Achieves up to **99% reduction** in network components while maintaining 100% attack emulation fidelity.
 
@@ -387,15 +386,20 @@ A massive enterprise topology with 1,471 network nodes including switches, route
 - **Memory**: Minimum 32 GB RAM (64 GB+ recommended for Bank-XL)
 - **Storage**: 100 GB+ available disk space
 
-### Component Reduction (Table 1 from paper)
+### Component Reduction per Adversary Scenario
 
-| Topology | Full Nodes | Minimal Twin | Reduction | Attack Fidelity |
-|---|---|---|---|---|
-| UK-Office | 45 | 12 | 73.3% | 100% |
-| Bank | 88 | 13 | 85.0% | 100% |
-| Bank-XL | 1,471 | 13 | **99.1%** | 100% |
+| Topology | Adversary | Full Nodes | Minimal Twin | Reduction | Attack Fidelity |
+|---|---|---|---|---|---|
+| UK-Office | Thief | 56 | 4 | 92.9% | 100% |
+| UK-Office | UK-Intergalactic | 56 | 12 | 78.6% | 100% |
+| Bank | Thief | 88 | 8 | 90.9% | 100% |
+| Bank | Bank-Adversary | 88 | 12 | 86.4% | 100% |
+| Bank-XL | Thief | 1,471 | 8 | **99.5%** | 100% |
+| Bank-XL | Bank-Adversary | 1,471 | 12 | **99.2%** | 100% |
 
 All attack scenarios successfully reproduced in minimal cyber twins with **100% fidelity** compared to full topology emulation.
+
+> **Note:** The Bank and Bank-XL minimal cyber twins for the Thief scenario are identical (8 nodes each), derived from equivalent Thief-based MulVAL attack graphs with the same interaction rules and facts structure.
 
 ---
 
@@ -413,6 +417,22 @@ All attack scenarios successfully reproduced in minimal cyber twins with **100% 
 
 Caldera abilities and adversary profile for the UK-Intergalactic scenario are proprietary and not included in this repository.
 
+### Mitigations
+
+Each adversary scenario is accompanied by an empirically validated mitigation, demonstrated to hold in both the full topology and the corresponding minimal cyber twin.
+
+#### Thief (UK-Office and Bank)
+
+The Thief adversary discovers sensitive files by searching for files matching specific extensions and below a size threshold. The mitigation relocates the target files to a hidden directory and pads each file beyond the size threshold, rendering all three target files undiscoverable by the adversary's search. The mitigation is applied identically in the UK-Office topology (ADMIN node) and the Bank topology (DVR node).
+
+#### Bank-Adversary (Bank)
+
+The Bank-Adversary's first ability reads a credential file from a known path on the camera/DVR node. The mitigation removes all filesystem access permissions from that file, causing the credential-read step to fail with a permission error. Because the two downstream abilities (agent transfer and agent activation) depend on the credential produced by the first ability, both are skipped and the attack chain is halted entirely.
+
+#### UK-Intergalactic (UK-Office)
+
+Two independent mitigations are applied, each targeting a different stage of the attack chain. The first hardens the password of the targeted user account in the web-UI host's user database, causing the adversary's offline credential-cracking step to fail and preventing any further progression. The second removes the Certificate Authority signing key from the VPN host, making it impossible to forge a valid VPN client certificate and blocking both the certificate-forgery step and the subsequent lateral movement step.
+
 ---
 
 ## Citation
@@ -420,10 +440,11 @@ Caldera abilities and adversary profile for the UK-Intergalactic scenario are pr
 If you use this artifact in your research, please cite our work:
 
 ```bibtex
-@article{scytag2026,
-  title={{SCyTAG}: Scalable Cyber Twins for Threat Assessment using Attack Graphs},
+@article{scytag2025,
+  title={{SCyTAG}: Scalable Cyber-Twin for Threat-Assessment Based on Attack Graphs},
   author={[Authors]},
-  year={2026}
+  journal={arXiv preprint arXiv:2512.22669},
+  year={2025}
 }
 ```
 
@@ -464,6 +485,7 @@ Special thanks to the GNS3 and MITRE Caldera communities for providing the netwo
 ## Version History
 
 - **v1.0.0**: Initial public release with Bank, Bank-XL, and UK-Office topologies
+- **v1.1.0**: Expanded artifact coverage to include a second adversary scenario per topology, providing attack graphs, network facts and interaction rules, GNS3 topology configurations, and minimal cyber twins for all scenario–topology combinations. Each adversary scenario is accompanied by an empirically validated mitigation, demonstrated to hold in both the full topology and the minimal cyber twin.
 
 ---
 
