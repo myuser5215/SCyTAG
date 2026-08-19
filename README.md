@@ -264,25 +264,7 @@ GNS3 virtual environment configurations for a specific adversary scenario:
 
 ## Caldera Attack Emulation Data
 
-The `Caldera/` directory contains MITRE Caldera attack emulation configurations.
-
-### Bank-Adversary (`Caldera/Bank-Adversary/`)
-
-- **`Ability-1.yml`** — T1552.001 (Credentials in Files): SSH into a known host and `cat` a password file. Output is parsed to extract the password fact for downstream abilities.
-- **`Ability-2.yml`** — T1105 (Ingress Tool Transfer): Use `sshpass` and `scp` to transfer the Caldera agent binary to the target machine, authenticated with the stolen password.
-- **`Ability-3.yml`** — T1021 (Remote Services): Activate the transferred agent on the target machine to establish a C2 foothold.
-- **`Bank-Adversary.yml`** — Adversary profile chaining all three abilities into a single operation.
-
-**Pre-requisite facts** (must be pre-configured as IMPORTED in the operation source before running):
-`vulnerable.hostname`, `vulnerable.ip`, `password.file`, `target.ip`, `target.path`, `agent_group`
-
-### Thief (`Caldera/Thief/`)
-
-- **`Thief.yml`** — Adversary profile for post-compromise data theft: discovers files by extension, stages them, archives to a tarball, and exfiltrates over the C2 channel.
-
-### UK-Intergalactic
-
-Caldera abilities and adversary profile for the UK-Intergalactic scenario are **proprietary and not included** in this repository.
+The `Caldera/` directory contains the MITRE Caldera adversary profiles and ability definitions used to emulate attack scenarios on the SCyTAG-generated cyber twins. Caldera serves as the threat emulator in the SCyTAG pipeline: once the minimal cyber twin is deployed in GNS3, Caldera executes the CTI-derived attack steps and produces a structured debrief report used to assess impact and validate mitigations. Ability definitions and adversary profiles for the Bank-Adversary and Thief scenarios are included; the UK-Intergalactic profile is proprietary and not published. For the full ability descriptions and pre-requisite facts, see [`Caldera/README.md`](Caldera/README.md).
 
 ---
 
