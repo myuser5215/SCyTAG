@@ -16,6 +16,9 @@ SCyTAG's evaluation results show that compared to the full topology, it **reduce
 
 ## Repository Structure
 
+<details>
+<summary>Click to expand directory tree</summary>
+
 ```
 SCyTAG/
 ├── README.md                        # This file
@@ -170,6 +173,8 @@ SCyTAG/
             ├── ve-topology.yaml
             └── ve-topology-reduced.yaml
 ```
+
+</details>
 
 **Note on Proprietary Content:**
 - UK-Office (UK-Intergalactic scenario): Caldera abilities and adversary profile for the UK-Intergalactic adversary are proprietary and not included in this repository.
@@ -328,10 +333,18 @@ Mitigated:
 
 ## Configuration
 
-- **`.env`** *(not tracked in version control — create locally)*: Environment configuration file containing file paths and settings for the Python scripts. Load with `python-dotenv`:
-  ```python
-  from dotenv import load_dotenv
-  load_dotenv()
+`CompleteMissingFacts.py` requires the `MISSING_FACTS_FILE_PATH` environment variable, which sets the output path where the generated missing-fact skeletons are written. The other two scripts (`ReduceTopologyWithAG.py`, `compare_debrief.py`) take all arguments from the command line and require no environment configuration.
+
+There are two ways to provide `MISSING_FACTS_FILE_PATH`:
+
+- **Via a `.env` file** *(not tracked in version control — create locally in your working directory)*:
+  ```
+  MISSING_FACTS_FILE_PATH=/path/to/output_missing_facts.p
+  ```
+
+- **Via an inline environment variable** (no `.env` file needed):
+  ```bash
+  MISSING_FACTS_FILE_PATH=/path/to/output_missing_facts.p python3 CompleteMissingFacts.py <facts_file.p> <ir_file.p>
   ```
 
 ---
