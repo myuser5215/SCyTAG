@@ -68,12 +68,6 @@ Example:
 ./apply-thief-mitigation-bank.sh 942ec581-725a-4b13-a21d-609548301b2c /root
 ```
 
-### Diagnostics (if Caldera is unreachable from DVR)
-```bash
-./diagnose-dvr-connectivity.sh
-./diagnose-ovs-l3sw.sh
-```
-
 ---
 
 ## 3. UK-Intergalactic — UK-Office
