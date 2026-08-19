@@ -1,0 +1,8 @@
+name: BGU Test Adversary
+description: 'An adversary to test the simple attack '
+atomic_ordering:
+- 85f41c0c-29a6-4780-87de-1f467f97142f
+- 48fa4d60-a3e1-456a-a7f3-15c85b007c6c
+- d6e3f681-7b22-4315-98b8-19e9ee1a1ca0
+adversary_id: 5c9a437d-925e-433b-8918-4f69af72592e
+objective: 495a9828-cab1-44dd-a0ca-66e58177d8cc

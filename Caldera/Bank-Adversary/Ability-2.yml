@@ -1,0 +1,15 @@
+- requirements: []
+  name: Transfer Splunkd to Password Protected Machine -BGU
+  tactic: command-and-control
+  technique_id: T1105
+  technique_name: Ingress Tool Transfer
+  singleton: true
+  executors:
+  - cleanup: []
+    timeout: 60
+    platform: linux
+    name: sh
+    payloads: []
+    parsers: []
+    command: 'sshpass -p "#{password}" scp -o StrictHostKeyChecking=no #{file} #{target.hostname}@#{target.ip}:#{target.path}'
+  id: 48fa4d60-a3e1-456a-a7f3-15c85b007c6c

