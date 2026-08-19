@@ -1,0 +1,51 @@
+1,"fullCampaign(attacker,'adminPC1-ssh-1','camera_A_ssh-1','DVR_ssh-1')","OR",0
+2,"RULE 25 (Exploit EternalBlue from cameraA to DVR)","AND",0
+3,"execDelegatedCode(attacker,'camera_A_ssh-1','DVR_ssh-1',root)","OR",0
+4,"RULE 24 (Exploit EternalBlue from cameraA to DVR)","AND",0
+5,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
+6,"networkService('DVR_ssh-1',arpd,tcp,'445',root)","LEAF",1
+7,"hasAccess(attacker,'camera_A_ssh-1','DVR_ssh-1',tcp,'445')","LEAF",1
+8,"compromised('camera_A_ssh-1')","OR",0
+9,"RULE 16 ()","AND",0
+10,"maliciousInteraction('camera_A_ssh-1',attacker,arpd)","LEAF",1
+11,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
+12,"deviceOnline('camera_A_ssh-1','Linux')","LEAF",1
+13,"RULE 16 ()","AND",0
+14,"maliciousInteraction('camera_A_ssh-1',attacker,sshd)","LEAF",1
+15,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
+16,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
+17,"RULE 16 ()","AND",0
+18,"RULE 16 ()","AND",0
+19,"RULE 24 (Exploit EternalBlue from cameraA to DVR)","AND",0
+20,"vulExists(cve_2017_0144,smbV1,ver1,network,caLoss,critical)","LEAF",1
+21,"networkService('DVR_ssh-1',smbV1,tcp,'445',root)","LEAF",1
+22,"RULE 24 (Exploit EternalBlue from cameraA to DVR)","AND",0
+23,"networkService('DVR_ssh-1',sshd,tcp,'445',root)","LEAF",1
+24,"ingressToolTransfer(arpd,attacker,'camera_A_ssh-1',_,'22')","OR",0
+25,"RULE 17 (Net direct access)","AND",0
+26,"netAccess(attacker,'adminPC1-ssh-1','camera_A_ssh-1',tcp,'22')","OR",0
+27,"RULE 6 (Net direct access)","AND",0
+28,"hasAccess(attacker,'adminPC1-ssh-1','camera_A_ssh-1',tcp,'22')","LEAF",1
+29,"hacl('adminPC1-ssh-1','camera_A_ssh-1',tcp,'22')","LEAF",1
+30,"networkService('camera_A_ssh-1',arpd,tcp,'22',root)","LEAF",1
+31,"dataInject(attacker,'camera_A_ssh-1','/etc/shadow',_,'22')","OR",0
+32,"RULE 19 (Can access to the local file on the host)","AND",0
+33,"accessFile(attacker,'camera_A_ssh-1',root,read,'/etc/shadow')","OR",0
+34,"RULE 10 (Valid file protection mechanism)","AND",0
+35,"localFileProtection('camera_A_ssh-1','/etc/shadow',root,read)","OR",0
+36,"RULE 11 (Valid file protection mechanism)","AND",0
+37,"ownerAccessible('camera_A_ssh-1',read,'/etc/shadow')","LEAF",1
+38,"fileOwner('camera_A_ssh-1','/etc/shadow',root)","LEAF",1
+39,"execCode(attacker,'camera_A_ssh-1',root)","OR",0
+40,"RULE 10 (Valid file protection mechanism)","AND",0
+41,"localAccess(attacker,'camera_A_ssh-1',root)","OR",0
+42,"RULE 9 (Privilege escalation using setuid program)","AND",0
+43,"malicious(attacker)","LEAF",1
+44,"RULE 9 (Privilege escalation using setuid program)","AND",0
+45,"networkService('camera_A_ssh-1',sshd,tcp,'22',root)","LEAF",1
+46,"mitmE2E(attacker,'adminPC1-ssh-1','camera_A_ssh-1','DVR_ssh-1',tcp,'22')","OR",0
+47,"credentialsAccessInFiles(arpd,'adminPC1-ssh-1')","OR",0
+48,"RULE 25 (Exploit EternalBlue from cameraA to DVR)","AND",0
+49,"ingressToolTransfer(sshd,attacker,'camera_A_ssh-1',_,'22')","OR",0
+50,"RULE 17 (Net direct access)","AND",0
+51,"credentialsAccessInFiles(sshd,'adminPC1-ssh-1')","OR",0

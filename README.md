@@ -18,96 +18,203 @@ SCyTAG has been evaluated on both real and fictitious organizational networks. T
 
 ```
 SCyTAG/
-├── README.md                    # This file
-├── .env                         # Environment configuration (file paths, etc.)
-├── .gitignore                   # Git ignore rules
-├── Caldera/                     # MITRE Caldera attack emulation data
-│   ├── Abilitiy-1.yml           # Attack technique definition 1
-│   ├── Ability-2.yaml           # Attack technique definition 2
-│   ├── Ability-3.yml            # Attack technique definition 3
-│   └── Bank_Adversary.yml       # Adversary profile for banking scenarios
-├── Scripts/                     # Automation and analysis scripts
-│   ├── CompleteMissingFacts.py  # Completes missing facts in topology
-│   ├── ReduceTopologyWithAG.py  # Reduces topology based on attack graph
-│   └── compare_debrief.py       # Compares and analyzes debrief data
-├── Bank/                    # Fictitious banking enterprise (88 nodes)
-│   ├── AttackGraph/             # Generated attack graph artifacts
-│   │   ├── ARCS.CSV             # Attack graph edges
-│   │   ├── AttackGraph.dot      # GraphViz format
-│   │   ├── AttackGraph.eps      # EPS image format
-│   │   ├── AttackGraph.pdf      # PDF visualization
-│   │   ├── AttackGraph.txt      # Text representation
-│   │   ├── AttackGraph.xml      # XML format
-│   │   └── VERTICES.CSV         # Attack graph vertices
-│   ├── Facts/                   # Network facts and rules
-│   │   ├── Bank_Facts.P     # Network state facts
-│   │   ├── Bank_MissingFacts.p  # Identified missing facts
-│   │   └── IR_Bank_Topology.p   # Interaction rules for AG
-│   ├── Images/                  # Topology visualizations
-│   │   ├── Bank.jpg         # Full topology diagram
-│   │   └── Bank-Reduced.jpg # Reduced cyber twin diagram
-│   └── Topology-Files/          # GNS3 configuration files
-│       ├── ve-config.yaml       # Virtual environment configuration
-│       ├── ve-config-reduced.yaml   # Reduced VE configuration
-│       ├── ve-topology.yaml     # Complete 88-node topology
-│       └── ve-topology-reduced.yaml # Minimal cyber twin topology
-├── Bank-XL/                    # Large-scale enterprise network (1,471 nodes)
-│   ├── AttackGraph/             # Generated attack graph artifacts
-│   │   ├── ARCS.CSV             # Attack graph edges
-│   │   ├── AttackGraph.dot      # GraphViz format
-│   │   ├── AttackGraph.eps      # EPS image format
-│   │   ├── AttackGraph.pdf      # PDF visualization
-│   │   ├── AttackGraph.txt      # Text representation
-│   │   ├── AttackGraph.xml      # XML format
-│   │   └── VERTICES.CSV         # Attack graph vertices
-│   ├── Facts/                   # Network facts and rules
-│   │   ├── Bank-XL_Facts.P     # Large-scale network facts
-│   │   ├── Bank-XL_IR.p        # Interaction rules
-│   │   └── Bank-XL_MissingFacts.p  # Identified missing facts
-│   ├── Images/                  # Topology visualizations
-│   │   ├── Bank-XL.jpg         # Full topology diagram
-│   │   └── Bank-XL-Reduced.jpg # Reduced cyber twin diagram
-│   └── Topology-Files/          # GNS3 configuration files
-│       ├── ve-config.yaml       # Enterprise-scale VE configuration
-│       ├── ve-config-reduced.yaml   # Reduced configuration
-│       ├── ve-topology.yaml     # 1,471-node topology specification
-│       └── ve-topology-reduced.yaml # Minimal cyber twin topology
-└── UK-Office/                   # Real-world office network topology
-    ├── AttackGraph/             # Generated attack graph artifacts
-    │   ├── ARCS.CSV             # Attack graph edges
-    │   ├── AttackGraph.dot      # GraphViz format
-    │   ├── AttackGraph.eps      # EPS image format
-    │   ├── AttackGraph.pdf      # PDF visualization
-    │   ├── AttackGraph.txt      # Text representation
-    │   ├── AttackGraph.xml      # XML format
-    │   └── VERTICES.CSV         # Attack graph vertices
-    ├── Facts/                   # Network facts and rules
-    │   ├── UK-Office_Facts.p    # Network state facts
-    │   ├── UK-Office_IR.p       # Interaction rules for AG
-    │   └── UK-Office_MissingFacts.p # Identified missing facts
-    ├── Images/                  # Topology visualizations
-    │   ├── UK-Office.jpg        # Full topology diagram
-    │   └── UK-Office-Reduced.jpg # Reduced cyber twin diagram
-    └── Topology-Files/          # GNS3 configuration files
-        ├── ve-config.yaml       # Virtual environment configuration
-        ├── ve-config-reduced.yaml   # Reduced VE configuration
-        ├── ve-topology.yaml     # Complete topology specification
-        └── ve-topology-reduced.yaml # Minimal cyber twin topology
+├── README.md                        # This file
+├── .env                             # Environment configuration (file paths, etc.)
+├── .gitignore
+├── LICENSE
+├── Caldera/                         # MITRE Caldera attack emulation data
+│   ├── Bank-Adversary/              # Bank-Adversary abilities and profile
+│   │   ├── Ability-1.yml            # T1552.001 — Credentials in Files (SSH cat password file)
+│   │   ├── Ability-2.yaml           # T1105    — Ingress Tool Transfer (sshpass scp agent)
+│   │   ├── Ability-3.yml            # T1021    — Remote Services (activate agent on target)
+│   │   └── Bank-Adversary.yml       # Adversary profile (3-ability chain)
+│   └── Thief/                       # Thief abilities and profile
+│       └── Thief.yaml               # Adversary profile (file discovery and exfiltration chain)
+├── Scripts/                         # Automation and analysis scripts
+│   ├── CompleteMissingFacts.py      # Identifies and completes missing MulVAL facts
+│   ├── ReduceTopologyWithAG.py      # Reduces full topology to minimal cyber twin via attack graph
+│   ├── compare_debrief.py           # Compares and analyzes Caldera operation debrief data
+│   └── GNS3_Caldera_Scripts/        # GNS3 setup and mitigation shell scripts
+│       ├── README.md                # Usage guide for all setup and mitigation scripts
+│       ├── setup_thief_uk-office/   # Thief adversary on UK-Office topology
+│       │   ├── setup-caldera-lab_on_gns3_topology-fixed.sh
+│       │   └── apply-thief-mitigation.sh
+│       ├── setup_thief_bank/        # Thief adversary on Bank topology
+│       │   ├── setup-thief-on-bank.sh
+│       │   ├── apply-thief-mitigation-bank.sh
+│       │   ├── diagnose-dvr-connectivity.sh
+│       │   └── diagnose-ovs-l3sw.sh
+│       ├── setup_uk-intergalactic_uk-office/  # UK-Intergalactic adversary on UK-Office topology
+│       │   ├── setup-caldera-uk-intergalactic.sh
+│       │   └── apply_uk-intergalactic_mitigation_uk-office.sh
+│       └── setup_bank-adversary_bank/         # Bank-Adversary on Bank topology
+│           ├── setup_bank-adversary_bank.sh
+│           └── apply_bank-adversary_mitigation_bank.sh
+├── Bank/                            # Fictitious banking enterprise (88 nodes)
+│   ├── AttackGraph/
+│   │   ├── Bank-Adversary/          # Attack graph artifacts for Bank-Adversary scenario
+│   │   │   ├── ARCS.CSV
+│   │   │   ├── AttackGraph.dot
+│   │   │   ├── AttackGraph.eps
+│   │   │   ├── AttackGraph.pdf
+│   │   │   ├── AttackGraph.txt
+│   │   │   ├── AttackGraph.xml
+│   │   │   └── VERTICES.CSV
+│   │   └── Thief/                   # Attack graph artifacts for Thief scenario
+│   │       ├── ARCS.CSV
+│   │       ├── AttackGraph.dot
+│   │       ├── AttackGraph.eps
+│   │       ├── AttackGraph.pdf
+│   │       ├── AttackGraph.txt
+│   │       ├── AttackGraph.xml
+│   │       └── VERTICES.CSV
+│   ├── Facts/
+│   │   ├── Bank-Adversary/
+│   │   │   ├── Bank_Facts_Bank-Adversary.p
+│   │   │   └── Bank_IR_Bank-Adversary.p
+│   │   └── Thief/
+│   │       ├── Bank_Facts-Thief.p
+│   │       └── Bank_IR-Thief.p
+│   ├── Images/
+│   │   ├── Bank.png                          # Full 88-node topology diagram
+│   │   ├── Bank_Reduced_Thief.png            # Minimal cyber twin (Thief scenario)
+│   │   └── Bank-Reduced_Bank-Adversary.png   # Minimal cyber twin (Bank-Adversary scenario)
+│   └── Topology-Files/
+│       ├── Bank-Adversary/
+│       │   ├── ve-config.yaml
+│       │   ├── ve-config-reduced.yaml
+│       │   ├── ve-topology.yaml
+│       │   └── ve-topology-reduced.yaml
+│       └── Thief/
+│           ├── ve-config.yaml
+│           ├── ve-config-reduced.yaml
+│           ├── ve-topology.yaml
+│           └── ve-topology-reduced.yaml
+├── Bank-XL/                         # Large-scale enterprise network (1,471 nodes)
+│   ├── AttackGraph/
+│   │   ├── Bank-Adversary/          # Attack graph artifacts for Bank-Adversary scenario
+│   │   │   ├── ARCS.CSV
+│   │   │   ├── AttackGraph.dot
+│   │   │   ├── AttackGraph.eps
+│   │   │   ├── AttackGraph.pdf
+│   │   │   ├── AttackGraph.txt
+│   │   │   ├── AttackGraph.xml
+│   │   │   └── VERTICES.CSV
+│   │   └── Thief/                   # Attack graph artifacts for Thief scenario
+│   │       ├── ARCS.CSV
+│   │       ├── AttackGraph.dot
+│   │       ├── AttackGraph.eps
+│   │       ├── AttackGraph.pdf
+│   │       ├── AttackGraph.txt
+│   │       ├── AttackGraph.xml
+│   │       └── VERTICES.CSV
+│   ├── Facts/
+│   │   ├── Bank-Adversary/
+│   │   │   ├── Bank-XL_Facts_Bank-Adversary.p
+│   │   │   └── Bank-XL_IR_Bank-Adversary.p
+│   │   └── Thief/
+│   │       ├── Bank-XL_Facts_Thief.p
+│   │       └── Bank-XL_IR_Thief.p
+│   ├── Images/
+│   │   ├── Bank-XL.jpg                           # Full 1,471-node topology diagram
+│   │   ├── Bank-XL-Reduced_Thief.png             # Minimal cyber twin (Thief scenario)
+│   │   └── Bank-XL-Reduced_Bank-Adversary.png    # Minimal cyber twin (Bank-Adversary scenario)
+│   └── Topology-Files/
+│       ├── Bank-Adversary/
+│       │   ├── ve-config.yaml
+│       │   ├── ve-config-reduced.yaml
+│       │   ├── ve-topology.yaml
+│       │   └── ve-topology-reduced.yaml
+│       └── Thief/
+│           ├── ve-config.yaml
+│           ├── ve-config-reduced.yaml
+│           ├── ve-topology.yaml
+│           └── ve-topology-reduced.yaml
+└── UK-Office/                       # Real-world office network topology
+    ├── AttackGraph/
+    │   ├── Thief/                   # Attack graph artifacts for Thief scenario
+    │   │   ├── ARCS.CSV
+    │   │   ├── AttackGraph.dot
+    │   │   ├── AttackGraph.eps
+    │   │   ├── AttackGraph.pdf
+    │   │   ├── AttackGraph.txt
+    │   │   ├── AttackGraph.xml
+    │   │   └── VERTICES.CSV
+    │   └── UK-Intergalactic/        # Attack graph artifacts for UK-Intergalactic scenario
+    │       ├── ARCS.CSV
+    │       ├── AttackGraph.dot
+    │       ├── AttackGraph.eps
+    │       ├── AttackGraph.pdf
+    │       ├── AttackGraph.txt
+    │       ├── AttackGraph.xml
+    │       └── VERTICES.CSV
+    ├── Facts/
+    │   ├── Thief/
+    │   │   ├── UK-Office_Facts_Thief.p
+    │   │   └── UK-Office_IR_Thief.p
+    │   └── UK-Intergalactic/
+    │       ├── UK-Office_UK-Intergalactic_Facts.p
+    │       └── UK-Office_UK-Intergalactic_IR.p
+    ├── Images/
+    │   ├── UK-Office.jpeg                              # Full topology diagram
+    │   ├── UK-Office_Reduced_Thief.jpeg                # Minimal cyber twin (Thief scenario)
+    │   └── UK-Office_Reduced_UK-Intergalactic.jpeg     # Minimal cyber twin (UK-Intergalactic scenario)
+    └── Topology-Files/
+        ├── Thief/
+        │   ├── ve-config.yaml
+        │   ├── ve-config-reduced.yaml
+        │   ├── ve-topology.yaml
+        │   └── ve-topology-reduced.yaml
+        └── UK-Intergalactic/
+            ├── ve-config.yaml
+            ├── ve-config-reduced.yaml
+            ├── ve-topology.yaml
+            └── ve-topology-reduced.yaml
 ```
 
 **Note on Proprietary Content:**
-- UK-Office: Caldera abilities and adversary profiles are proprietary and not included in this repository.
+- UK-Office (UK-Intergalactic scenario): Caldera abilities and adversary profile for the UK-Intergalactic adversary are proprietary and not included in this repository.
 - Additional pipeline execution scripts and automation code are proprietary and not shared publicly.
+
+---
+
+## Naming Convention
+
+Files follow a consistent scheme throughout the repository. Understanding it makes it easy to locate any artifact by topology and adversary.
+
+**Logical parts and separators:**
+- Parts of a filename (topology, type, adversary) are separated by underscores `_`.
+- Hyphens `-` appear only *within* a multi-word name: `Bank-XL`, `UK-Office`, `Bank-Adversary`, `UK-Intergalactic`.
+
+**Facts and IR files:** `{Topology}_{Type}_{Adversary}.p`
+
+| Topology | Adversary | Facts file | IR file |
+|---|---|---|---|
+| `Bank` | `Bank-Adversary` | `Bank_Facts_Bank-Adversary.p` | `Bank_IR_Bank-Adversary.p` |
+| `Bank` | `Thief` | `Bank_Facts-Thief.p` | `Bank_IR-Thief.p` |
+| `Bank-XL` | `Bank-Adversary` | `Bank-XL_Facts_Bank-Adversary.p` | `Bank-XL_IR_Bank-Adversary.p` |
+| `Bank-XL` | `Thief` | `Bank-XL_Facts_Thief.p` | `Bank-XL_IR_Thief.p` |
+| `UK-Office` | `Thief` | `UK-Office_Facts_Thief.p` | `UK-Office_IR_Thief.p` |
+| `UK-Office` | `UK-Intergalactic` | `UK-Office_UK-Intergalactic_Facts.p` | `UK-Office_UK-Intergalactic_IR.p` |
+
+**Image files:**
+- Full topology: `{Topology}.{ext}`
+- Minimal cyber twin: `{Topology}_Reduced_{Adversary}.{ext}` or `{Topology}-Reduced_{Adversary}.{ext}`
+
+**GNS3 setup script folders:** `setup_{Adversary}_{Topology}/`
+- Adversary and topology names are lowercase with hyphens within each name.
+- Examples: `setup_thief_uk-office/`, `setup_bank-adversary_bank/`, `setup_uk-intergalactic_uk-office/`
+
+**Caldera YAML files:** `.yml` for ability files and adversary profiles.
 
 ---
 
 ## Topology File Descriptions
 
-Each experimental topology is organized in a consistent structure with four main subdirectories:
+Each experimental topology is organized in a consistent structure with four main subdirectories, each further split by adversary scenario.
 
-### Subdirectory Organization
+### `AttackGraph/{Adversary}/`
 
-#### `AttackGraph/`
 Generated attack graph artifacts in multiple formats:
 - **`ARCS.CSV`**: Attack graph edges representing state transitions
 - **`AttackGraph.dot`**: GraphViz DOT format for visualization
@@ -117,105 +224,138 @@ Generated attack graph artifacts in multiple formats:
 - **`AttackGraph.xml`**: XML format for programmatic processing
 - **`VERTICES.CSV`**: Attack graph vertices (states)
 
-#### `Facts/`
-Network specification and interaction rules:
-- **`*_Facts.P`**: Prolog facts file containing the complete network state
+### `Facts/{Adversary}/`
+
+Network specification and interaction rules for a specific adversary scenario:
+- **`{Topology}_Facts_{Adversary}.p`**: Prolog facts file containing the complete network state
   - Node definitions (hosts, routers, switches, firewalls)
   - Network connectivity and topology structure
   - Vulnerability information and CVE mappings
   - Service configurations and access control policies
   - User privileges and credential information
-  
-- **`*_IR.p`**: Interaction Rules for attack graph generation
+  - Adversary-specific seed facts (e.g., `agentPresent`, `attackGoal`)
+
+- **`{Topology}_IR_{Adversary}.p`**: Interaction Rules for attack graph generation
   - State transition rules defining attacker capabilities
   - Exploit preconditions and postconditions
   - Privilege escalation rules
   - Lateral movement conditions
   - Multi-step attack chain logic
 
-- **`*_MissingFacts.p`**: Identified missing facts that need completion for accurate AG generation
+### `Images/`
 
-#### `Images/`
-Visual representations of the network topologies:
-- **`*.jpg`**: Full topology network diagram
-- **`*-Reduced.jpg`**: Minimal cyber twin topology diagram (generated by SCyTAG)
+Visual representations of the network topology and its minimal cyber twins:
+- **`{Topology}.{ext}`**: Full topology network diagram
+- **`{Topology}_Reduced_{Adversary}.{ext}`**: Minimal cyber twin diagram generated by SCyTAG for the given adversary scenario
 
-#### `Topology-Files/`
-GNS3 virtual environment configurations:
-- **`ve-config.yaml`**: Virtual Environment configuration
-  - GNS3 project settings
-  - Resource allocation parameters
-  - Node deployment specifications
-  
+### `Topology-Files/{Adversary}/`
+
+GNS3 virtual environment configurations for a specific adversary scenario:
+- **`ve-config.yaml`**: Full virtual environment configuration (GNS3 project settings, resource allocation, node deployment)
 - **`ve-config-reduced.yaml`**: Reduced virtual environment configuration (generated by SCyTAG)
-
-- **`ve-topology.yaml`**: Complete GNS3 topology specification
-  - Node definitions with coordinates
-  - Link configurations and port mappings
-  - Console settings and management interfaces
-  - Docker container and QEMU VM specifications
-  
+- **`ve-topology.yaml`**: Complete GNS3 topology specification (node definitions, link configurations, console settings, Docker/QEMU specs)
 - **`ve-topology-reduced.yaml`**: Minimal cyber twin topology (generated by SCyTAG)
 
-### Caldera Attack Emulation Data
+---
 
-The `Caldera/` directory contains MITRE Caldera attack emulation configurations for Bank and Bank-XL scenarios:
+## Caldera Attack Emulation Data
 
-- **`Abilitiy-1.yml`, `Ability-2.yaml`, `Ability-3.yml`**: Atomic attack techniques mapped to MITRE ATT&CK framework
-  - Individual TTPs (Tactics, Techniques, and Procedures)
-  - Platform-specific command implementations
-  - Cleanup and undo operations
-  - Requirements and execution parameters
-  
-- **`Bank_Adversary.yml`**: Adversary profile for banking attack scenarios
-  - Pre-configured attack chains and operation sequences
-  - Multi-stage attack scenarios
-  - Objective-based operations (data exfiltration, etc.)
+The `Caldera/` directory contains MITRE Caldera attack emulation configurations.
 
-**Note**: UK-Office abilities and adversary profiles are proprietary and not included in this repository.
+### Bank-Adversary (`Caldera/Bank-Adversary/`)
 
-### Scripts
+- **`Ability-1.yml`** — T1552.001 (Credentials in Files): SSH into a known host and `cat` a password file. Output is parsed to extract the password fact for downstream abilities.
+- **`Ability-2.yaml`** — T1105 (Ingress Tool Transfer): Use `sshpass` and `scp` to transfer the Caldera agent binary to the target machine, authenticated with the stolen password.
+- **`Ability-3.yml`** — T1021 (Remote Services): Activate the transferred agent on the target machine to establish a C2 foothold.
+- **`Bank-Adversary.yml`** — Adversary profile chaining all three abilities into a single operation.
 
-- **`CompleteMissingFacts.py`**: Automatically identifies and completes missing facts in the topology
-- **`ReduceTopologyWithAG.py`**: Reduces the full topology to minimal cyber twin based on attack graph analysis
-- **`compare_debrief.py`**: Compares and analyzes attack emulation debrief data
+**Pre-requisite facts** (must be pre-configured as IMPORTED in the operation source before running):
+`vulnerable.hostname`, `vulnerable.ip`, `password.file`, `target.ip`, `target.path`, `agent_group`
 
-### Configuration
+### Thief (`Caldera/Thief/`)
 
-- **`.env`**: Environment configuration file containing file paths and settings (use `python-dotenv` to load)
+- **`Thief.yaml`** — Adversary profile for post-compromise data theft: discovers files by extension, stages them, archives to a tarball, and exfiltrates over the C2 channel.
+
+### UK-Intergalactic
+
+Caldera abilities and adversary profile for the UK-Intergalactic scenario are **proprietary and not included** in this repository.
+
+---
+
+## Scripts
+
+### Analysis Scripts (`Scripts/`)
+
+- **`CompleteMissingFacts.py`**: Parses a MulVAL IR file and facts file, identifies body predicates that are neither ground facts nor derivable by interaction rules, and outputs skeleton Prolog fact entries for manual completion. Run with:
+  ```bash
+  python3 CompleteMissingFacts.py <facts_file.p> <ir_file.p>
+  ```
+
+- **`ReduceTopologyWithAG.py`**: Takes a full GNS3 topology YAML and an attack graph, and produces the minimal cyber twin topology containing only the nodes required to emulate the attack path.
+
+- **`compare_debrief.py`**: Parses and compares Caldera operation debrief JSON reports (baseline vs. mitigated), summarizing per-ability outcomes, fact propagation, and status codes.
+
+### GNS3 Setup and Mitigation Scripts (`Scripts/GNS3_Caldera_Scripts/`)
+
+Shell scripts for deploying Caldera agents into GNS3 topologies and applying mitigations before a mitigated run. Each subfolder corresponds to one adversary–topology combination. See `Scripts/GNS3_Caldera_Scripts/README.md` for full usage instructions.
+
+| Folder | Adversary | Topology |
+|---|---|---|
+| `setup_thief_uk-office/` | Thief | UK-Office |
+| `setup_thief_bank/` | Thief | Bank |
+| `setup_uk-intergalactic_uk-office/` | UK-Intergalactic | UK-Office |
+| `setup_bank-adversary_bank/` | Bank-Adversary | Bank |
+
+**Typical session workflow:**
+
+Baseline (no mitigation):
+```
+1. Start GNS3 project
+2. Run setup script
+3. Start Caldera operation
+```
+
+Mitigated:
+```
+1. Start GNS3 project
+2. Run setup script
+3. Run mitigation script
+4. Start Caldera operation
+```
+
+> **Note:** GNS3 is ephemeral — container IDs change on restart. Always run the setup script at the start of each session.
+
+---
+
+## Configuration
+
+- **`.env`**: Environment configuration file containing file paths and settings for the Python scripts. Load with `python-dotenv`:
+  ```python
+  from dotenv import load_dotenv
+  load_dotenv()
+  ```
 
 ---
 
 ## Experimental Environments
 
 ### 1. UK-Office (Real-World Network)
-A real organizational office network used to validate SCyTAG's practical applicability. This topology represents a typical small-to-medium enterprise environment with:
-- Realistic network segmentation (DMZ, internal networks, VLAN isolation)
-- Production services (web servers, file servers, databases)
-- End-user workstations and IoT devices
-- Multi-factor authentication and security controls
+
+A real organizational office network used to validate SCyTAG's practical applicability. This topology represents a typical small-to-medium enterprise environment with realistic network segmentation (DMZ, internal networks, VLAN isolation), production services, end-user workstations, IoT devices, and security controls. Two adversary scenarios are evaluated: **Thief** (post-compromise data exfiltration) and **UK-Intergalactic** (VPN exploitation and lateral movement).
 
 **Purpose**: Demonstrate real-world applicability and validate threat assessment accuracy.
 
-### 2. Bank (Fictitious Banking Network - 88 Nodes)
-A synthetic banking enterprise network designed to represent a medium-scale financial institution with:
-- 4 building floors with hierarchical network architecture
-- Core routers, L3 switches, and departmental switches
-- Segregated departments: Marketing, Finance, Accounting, HR, Research, Management, ICT, Logistics, Customer Service
-- Security infrastructure: firewalls, DMZ, admin workstations, surveillance systems
-- File servers and administrative endpoints
+### 2. Bank (Fictitious Banking Network — 88 Nodes)
+
+A synthetic banking enterprise network with 4 building floors, hierarchical network architecture, and segregated departments (Marketing, Finance, Accounting, HR, Research, Management, ICT, Logistics, Customer Service). Includes security infrastructure: firewalls, DMZ, admin workstations, surveillance systems, and file servers. Two adversary scenarios are evaluated: **Thief** and **Bank-Adversary**.
 
 **Purpose**: Controlled environment for measuring cyber twin reduction effectiveness and resource optimization.
 
-### 3. Bank-XL (Large-Scale Enterprise - 1,471 Nodes)
-A massive enterprise topology representing a large financial institution or corporate network:
-- 1,471 network nodes including switches, routers, firewalls, and endpoints
-- Complex multi-floor architecture with 43 switches per floor across 4 floors
-- 7 PCs per switch (1,204 endpoint devices)
-- Multiple WiFi access points and controller infrastructure
-- Enterprise-grade security segmentation
+### 3. Bank-XL (Large-Scale Enterprise — 1,471 Nodes)
 
-**Purpose**: Evaluate SCyTAG's scalability limits and demonstrate up to 85% component reduction in large-scale environments.
+A massive enterprise topology with 1,471 network nodes including switches, routers, firewalls, and endpoints. Complex multi-floor architecture with 43 switches per floor across 4 floors, 7 PCs per switch (1,204 endpoint devices), multiple WiFi access points, and enterprise-grade security segmentation. Two adversary scenarios are evaluated: **Thief** and **Bank-Adversary**.
+
+**Purpose**: Evaluate SCyTAG's scalability limits and demonstrate up to 99% component reduction in large-scale environments.
 
 ---
 
@@ -225,9 +365,9 @@ A massive enterprise topology representing a large financial institution or corp
 
 2. **Attack Graph-Driven Reduction**: Uses attack graphs to identify only the network components necessary for emulating specific threats, dramatically reducing resource requirements.
 
-3. **Scalability**: Successfully scales from small office networks (UK-Office) to enterprise environments with 1,471+ nodes (Bank-XL).
+3. **Scalability**: Successfully scales from small office networks (UK-Office, 45 nodes) to enterprise environments with 1,471+ nodes (Bank-XL).
 
-4. **Resource Efficiency**: Achieves up to **99% reduction** in network components while maintaining attack emulation fidelity.
+4. **Resource Efficiency**: Achieves up to **99% reduction** in network components while maintaining 100% attack emulation fidelity.
 
 5. **CTI Integration**: Bridges the gap between abstract threat intelligence reports and practical, scenario-driven security testing.
 
@@ -239,40 +379,39 @@ A massive enterprise topology representing a large financial institution or corp
 
 - **Operating System**: Linux (Ubuntu 20.04+ recommended) or Windows with WSL2
 - **Python**: 3.8 or higher
-- **Python Packages**: `python-dotenv` (for loading `.env` configuration)
+- **Python Packages**: `python-dotenv`
 - **GNS3 Server**: 2.2.x or higher
 - **Docker**: 20.10+ (for containerized network nodes)
 - **QEMU**: 4.2+ (for router/firewall emulation)
-- **MITRE Caldera**: (Optional) For attack emulation
-- **Memory**: Minimum 32GB RAM (64GB+ recommended for Bank-XL)
-- **Storage**: 100GB+ available disk space
+- **MITRE Caldera**: Required for attack emulation
+- **Memory**: Minimum 32 GB RAM (64 GB+ recommended for Bank-XL)
+- **Storage**: 100 GB+ available disk space
 
 ### Component Reduction (Table 1 from paper)
 
-| Topology  | Full Nodes | Minimal Twin | Reduction | Attack Fidelity |
-|-----------|-----------|--------------|-----------|----------------|
-| UK-Office | 45        | 12           | 73.3%     | 100%           |
-| Bank  | 88        | 13           | 85.0%     | 100%           |
-| Bank-XL  | 1,471     | 13          | **99.1%** | 100%           |
+| Topology | Full Nodes | Minimal Twin | Reduction | Attack Fidelity |
+|---|---|---|---|---|
+| UK-Office | 45 | 12 | 73.3% | 100% |
+| Bank | 88 | 13 | 85.0% | 100% |
+| Bank-XL | 1,471 | 13 | **99.1%** | 100% |
 
-
-### Attack Emulation Fidelity
-
-All attack scenarios successfully reproduced in minimal cyber twins with **100% fidelity** compared to full topology emulation, validating that SCyTAG preserves attack paths while reducing infrastructure.
+All attack scenarios successfully reproduced in minimal cyber twins with **100% fidelity** compared to full topology emulation.
 
 ---
 
 ## Attack Scenarios
 
-Attack scenarios have been tested for Bank and Bank-XL using the MITRE Caldera abilities and adversary profiles provided in the `Caldera/` directory.
+### Bank & Bank-XL
 
-### Bank & Bank-XL Scenarios
-1. **Banking Trojan**: Financial malware targeting transaction systems
-2. **Multi-Stage Attack**: Coordinated attack with lateral movement
-3. **Data Exfiltration**: Sensitive data extraction from critical systems
+1. **Bank-Adversary**: Three-ability chain targeting a camera/DVR system — steal password from a known file via SSH (T1552.001), transfer the Caldera agent to the target via sshpass/scp (T1105), and activate the agent (T1021).
+2. **Thief**: Post-compromise data exfiltration — discover sensitive files by extension (T1005), stage them (T1074.001), archive to a tarball (T1560.001), and exfiltrate over the C2 channel (T1041).
 
-### UK-Office Scenarios
-The UK-Office topology represents a real organizational network. Attack scenarios and emulation data for this topology are proprietary and not included in this repository.
+### UK-Office
+
+1. **UK-Intergalactic**: Multi-stage exploitation chain targeting a VPN gateway — exploits a web-UI vulnerability for RCE, extracts credentials from a user database, cracks the password offline, forges a VPN certificate, and performs lateral movement to a backup file server.
+2. **Thief**: Same post-compromise data exfiltration chain as Bank/Bank-XL (see above).
+
+Caldera abilities and adversary profile for the UK-Intergalactic scenario are proprietary and not included in this repository.
 
 ---
 
@@ -296,13 +435,13 @@ All experiments were conducted in isolated virtual environments. The UK-Office t
 
 Attack scenarios are based on publicly disclosed CTI reports and do not contain any novel exploitation techniques or zero-day vulnerabilities.
 
-**Proprietary Content**: Certain attack emulation data (UK-Office Caldera abilities/adversaries) and additional pipeline execution scripts are proprietary and not included in this public repository.
+**Proprietary Content**: The UK-Intergalactic Caldera abilities and adversary profile, and certain additional pipeline execution scripts, are proprietary and not included in this public repository.
 
 ---
 
 ## Contact
 
-For questions about this artifact or the SCyTAG framework, please contact:
+For questions about this artifact or the SCyTAG framework, please open an issue:
 
 - **GitHub Issues**: https://github.com/myuser5215/SCyTAG/issues
 
@@ -328,4 +467,4 @@ Special thanks to the GNS3 and MITRE Caldera communities for providing the netwo
 
 ---
 
-**Last Updated**: February 6, 2026
+**Last Updated**: August 19, 2026

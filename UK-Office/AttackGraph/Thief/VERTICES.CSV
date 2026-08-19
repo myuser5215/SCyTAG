@@ -1,0 +1,51 @@
+1,"thiefCampaign(attacker,'ADMIN',caldera)","OR",0
+2,"RULE 43 (Sensitive data successfully exfiltrated to attacker C2)","AND",0
+3,"dataExfiltrated(attacker,'ADMIN','staged.tar.gz',caldera)","OR",0
+4,"RULE 42 (Upload the compressed archive to the C2 Caldera server over HTTP)","AND",0
+5,"c2Server(caldera)","LEAF",1
+6,"netAccess(attacker,'ADMIN',caldera,tcp,'8888')","OR",0
+7,"RULE 37 (ACL-permitted network hop)","AND",0
+8,"hacl('uk-site-internet',caldera,tcp,'8888')","LEAF",1
+9,"netAccess(attacker,'ADMIN','uk-site-internet',tcp,'8888')","OR",0
+10,"RULE 37 (ACL-permitted network hop)","AND",0
+11,"hacl('MainRouter','uk-site-internet',tcp,'8888')","LEAF",1
+12,"netAccess(attacker,'ADMIN','MainRouter',tcp,'8888')","OR",0
+13,"RULE 37 (ACL-permitted network hop)","AND",0
+14,"hacl('Core-Switch','MainRouter',tcp,'8888')","LEAF",1
+15,"netAccess(attacker,'ADMIN','Core-Switch',tcp,'8888')","OR",0
+16,"RULE 36 (Compromised host reaches the next hop via a firewall/ACL-permitted egress path)","AND",0
+17,"malicious(attacker)","LEAF",1
+18,"hacl('ADMIN','Core-Switch',tcp,'8888')","LEAF",1
+19,"execCode(attacker,'ADMIN',root)","OR",0
+20,"RULE 38 (Attacker already has an established foothold - pre-installed Caldera agent)","AND",0
+21,"agentPresent('ADMIN',root)","LEAF",1
+22,"RULE 37 (ACL-permitted network hop)","AND",0
+23,"netAccess(attacker,'ADMIN','ADMIN',tcp,'8888')","OR",0
+24,"RULE 6 (Net access hop)","AND",0
+25,"dataFlow('Core-Switch','ADMIN',_,_)","LEAF",1
+26,"RULE 6 (Net access hop)","AND",0
+27,"dataFlow('Core-Switch','MainRouter',_,_)","LEAF",1
+28,"RULE 6 (Net access hop)","AND",0
+29,"dataFlow('MainRouter','uk-site-internet',_,_)","LEAF",1
+30,"dataArchived(attacker,'ADMIN','staged.tar.gz')","OR",0
+31,"RULE 41 (Compress the staging directory into a single archive using tar)","AND",0
+32,"fileStaged(attacker,'ADMIN','/root/photo.png',staged)","OR",0
+33,"RULE 40 (Copy discovered sensitive files into a local staging directory)","AND",0
+34,"fileFound(attacker,'ADMIN','/root/photo.png')","OR",0
+35,"RULE 39 (Locate files with a sensitive extension on a compromised host)","AND",0
+36,"sensitiveFileExtension(png)","LEAF",1
+37,"fileHasExtension('ADMIN','/root/photo.png',png)","LEAF",1
+38,"RULE 41 (Compress the staging directory into a single archive using tar)","AND",0
+39,"fileStaged(attacker,'ADMIN','/root/recording.wav',staged)","OR",0
+40,"RULE 40 (Copy discovered sensitive files into a local staging directory)","AND",0
+41,"fileFound(attacker,'ADMIN','/root/recording.wav')","OR",0
+42,"RULE 39 (Locate files with a sensitive extension on a compromised host)","AND",0
+43,"sensitiveFileExtension(wav)","LEAF",1
+44,"fileHasExtension('ADMIN','/root/recording.wav',wav)","LEAF",1
+45,"RULE 41 (Compress the staging directory into a single archive using tar)","AND",0
+46,"fileStaged(attacker,'ADMIN','/root/secrets.yml',staged)","OR",0
+47,"RULE 40 (Copy discovered sensitive files into a local staging directory)","AND",0
+48,"fileFound(attacker,'ADMIN','/root/secrets.yml')","OR",0
+49,"RULE 39 (Locate files with a sensitive extension on a compromised host)","AND",0
+50,"sensitiveFileExtension(yml)","LEAF",1
+51,"fileHasExtension('ADMIN','/root/secrets.yml',yml)","LEAF",1

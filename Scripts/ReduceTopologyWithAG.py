@@ -1,13 +1,8 @@
 # Reduce topology nodes according to the nodes that appear in the given AG
-import os
+# use case: python3 reduce_topology.py /home/azureuser/FRE/fre-acs-ai-security/tests/data/network_topologies/fullbank_thief_reduced
 import sys
 import csv
 import yaml
-from pathlib import Path
-from collections import defaultdict, deque
-from os.path import isfile
-import re
-from dotenv import load_dotenv
 from pathlib import Path
 from collections import defaultdict, deque
 
@@ -50,7 +45,13 @@ def findAgTopologyNodes(agVerticesFileName):
                     topologyNode1 = params[1].strip("'\"")  # Remove quotes
                     topologyNode2 = ''
                 case "hasAccess":
-                    topologyNode1 = params[2].strip("'\"")  # Remove quotes
+                    topologyNode1 = params[1].strip("'\"")  # source node
+                    topologyNode2 = params[2].strip("'\"") if len(params) > 2 else ''  # target node
+                case "agentPresent" | "fileHasExtension":
+                    topologyNode1 = params[0].strip("'\"")
+                    topologyNode2 = ''
+                case "execCode" | "fileFound" | "fileStaged" | "dataArchived" | "thiefCampaign" | "dataExfiltrated":
+                    topologyNode1 = params[1].strip("'\"") if len(params) > 1 else ''
                     topologyNode2 = ''
                 case "dataFlow" | "hacl":  # These predicates have two topology nodes
                     topologyNode1 = params[0].strip("'\"")  # Remove quotes
@@ -269,81 +270,7 @@ def reduceTopology(topologyFileName, configFileName, agNodes, reducedTopologyFil
     original_templates = topology.get("templates", [])
     required_templates = [t for t in original_templates if t.get("name") in required_template_names]
     
-    # Add standard templates
-    standard_templates = [
-        {
-            "adapters": 1,
-            "builtin": False,
-            "category": "guest",
-            "compute_id": "local",
-            "console_auto_start": False,
-            "console_http_path": "/",
-            "console_http_port": 80,
-            "console_resolution": "1024x768",
-            "console_type": "telnet",
-            "custom_adapters": [],
-            "default_name_format": "{name}-{0}",
-            "environment": "",
-            "extra_hosts": "",
-            "extra_volumes": [],
-            "image": "intergalactic-vpn:latest",
-            "mac_address": "",
-            "name": "intergalactic-vpn",
-            "start_command": "",
-            "symbol": ":/symbols/docker_guest.svg",
-            "template_type": "docker",
-            "usage": ""
-        },
-        {
-            "adapters": 1,
-            "builtin": False,
-            "category": "guest",
-            "compute_id": "local",
-            "console_auto_start": False,
-            "console_http_path": "/",
-            "console_http_port": 80,
-            "console_resolution": "1024x768",
-            "console_type": "telnet",
-            "custom_adapters": [],
-            "default_name_format": "{name}-{0}",
-            "environment": "",
-            "extra_hosts": "",
-            "extra_volumes": [],
-            "image": "storage-server:latest",
-            "mac_address": "",
-            "name": "storage-server",
-            "start_command": "",
-            "symbol": ":/symbols/docker_guest.svg",
-            "template_type": "docker",
-            "usage": ""
-        },
-        {
-            "adapters": 1,
-            "builtin": False,
-            "category": "guest",
-            "compute_id": "local",
-            "console_auto_start": False,
-            "console_http_path": "/",
-            "console_http_port": 80,
-            "console_resolution": "1024x768",
-            "console_type": "telnet",
-            "custom_adapters": [],
-            "default_name_format": "{name}-{0}",
-            "environment": "",
-            "extra_hosts": "",
-            "extra_volumes": [],
-            "image": "alpine-3.18-openvpn:latest",
-            "mac_address": "",
-            "name": "alpine-3.18-openvpn",
-            "start_command": "",
-            "symbol": ":/symbols/docker_guest.svg",
-            "template_type": "docker",
-            "usage": ""
-        }
-    ]
-    
-    # Combine templates (avoid duplicates)
-    all_templates = required_templates + standard_templates
+    all_templates = required_templates
     print(f"✓ Including {len(required_templates)} templates from original topology")
     
     # Create reduced topology
@@ -409,9 +336,8 @@ def reduceTopology(topologyFileName, configFileName, agNodes, reducedTopologyFil
 
 
 def main():
-    # Load environment variables from .env file
-    load_dotenv()
-    topology_dir = os.getenv('TOPOLOGY_DIR')
+    # Default paths - these will be overridden by command line arguments
+    topology_dir = "tests/data/network_topologies/slough"
     
     if len(sys.argv) > 1:
         topology_dir = sys.argv[1]
@@ -420,6 +346,7 @@ def main():
     topology_path = Path(topology_dir)
     topologyFileName = str(topology_path / "ve-topology.yaml")
     configFileName = str(topology_path / "ve-config.yaml")
+    # agVerticesFileName = str(topology_path / "VERTICES_w_storage_facts_changed_goal.CSV")
     agVerticesFileName = str(topology_path / "VERTICES.CSV")
     reducedTopologyFileName = str(topology_path / "ve-topology-reduced.yaml")
     reducedConfigFileName = str(topology_path / "ve-config-reduced.yaml")
@@ -441,7 +368,7 @@ def main():
     for node in sorted(topologyNodes):
         print(f"  - {node}")
     print()
-    
+
     # Reduce topology and config
     print("Reducing topology and configuration...")
     reduceTopology(topologyFileName, configFileName, topologyNodes, reducedTopologyFileName, reducedConfigFileName)
