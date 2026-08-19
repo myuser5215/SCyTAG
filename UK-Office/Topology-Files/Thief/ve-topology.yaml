@@ -1,0 +1,1810 @@
+drawings: []
+labels: []
+links:
+- link_name: link-1
+  link_nodes:
+  - node_name: MainRouter
+    port_name: Ethernet1
+  - node_name: uk-site-internet
+    port_name: cyber-twin0
+- link_name: link-2
+  link_nodes:
+  - node_name: MainRouter
+    port_name: Ethernet0
+  - node_name: Core-Switch
+    port_name: eth0
+- link_name: link-3
+  link_nodes:
+  - node_name: Core-Switch
+    port_name: eth1
+  - node_name: VoIP-Switch
+    port_name: eth0
+- link_name: link-4
+  link_nodes:
+  - node_name: intergalactic-vpn-gw-internet
+    port_name: cyber-twin0
+  - node_name: intergalactic-vpn
+    port_name: eth0
+- link_name: link-5
+  link_nodes:
+  - node_name: AP-Controller
+    port_name: Ethernet1
+  - node_name: VoIP-Switch
+    port_name: eth1
+- link_name: link-6
+  link_nodes:
+  - node_name: alpine-3.18-openvpn-1
+    port_name: eth0
+  - node_name: FLE4N
+    port_name: Ethernet0
+- link_name: link-7
+  link_nodes:
+  - node_name: FLE4N
+    port_name: Ethernet2
+  - node_name: storage-server-1
+    port_name: eth0
+- link_name: link-8
+  link_nodes:
+  - node_name: intergalactic-hacker-internet
+    port_name: cyber-twin0
+  - node_name: intergalactic-hacker
+    port_name: eth0
+- link_name: link-9
+  link_nodes:
+  - node_name: Core-Switch
+    port_name: eth2
+  - node_name: HP-2560A
+    port_name: eth0
+- link_name: link-10
+  link_nodes:
+  - node_name: HP-2560A
+    port_name: eth1
+  - node_name: HP-2650D1
+    port_name: eth0
+- link_name: link-11
+  link_nodes:
+  - node_name: HP-2650D1
+    port_name: eth1
+  - node_name: HP-2650D
+    port_name: eth0
+- link_name: link-12
+  link_nodes:
+  - node_name: PC1-3
+    port_name: eth0
+  - node_name: HP-2560A
+    port_name: eth2
+- link_name: link-13
+  link_nodes:
+  - node_name: PC1-4
+    port_name: eth0
+  - node_name: HP-2560A
+    port_name: eth3
+- link_name: link-14
+  link_nodes:
+  - node_name: PC1-6
+    port_name: eth0
+  - node_name: HP-2560A
+    port_name: eth4
+- link_name: link-15
+  link_nodes:
+  - node_name: PC1-1
+    port_name: eth0
+  - node_name: HP-2560A
+    port_name: eth5
+- link_name: link-16
+  link_nodes:
+  - node_name: PC1-2
+    port_name: eth0
+  - node_name: HP-2560A
+    port_name: eth6
+- link_name: link-17
+  link_nodes:
+  - node_name: PC1-5
+    port_name: eth0
+  - node_name: HP-2560A
+    port_name: eth7
+- link_name: link-18
+  link_nodes:
+  - node_name: PC2-4
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth2
+- link_name: link-19
+  link_nodes:
+  - node_name: PC2-3
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth3
+- link_name: link-20
+  link_nodes:
+  - node_name: PC2-2
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth4
+- link_name: link-21
+  link_nodes:
+  - node_name: PC2-6
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth5
+- link_name: link-22
+  link_nodes:
+  - node_name: PC2-1
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth6
+- link_name: link-23
+  link_nodes:
+  - node_name: PC2-5
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth7
+- link_name: link-24
+  link_nodes:
+  - node_name: PC3-6
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth1
+- link_name: link-25
+  link_nodes:
+  - node_name: PC3-3
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth2
+- link_name: link-26
+  link_nodes:
+  - node_name: PC3-5
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth3
+- link_name: link-27
+  link_nodes:
+  - node_name: PC3-4
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth4
+- link_name: link-28
+  link_nodes:
+  - node_name: PC3-2
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth5
+- link_name: link-29
+  link_nodes:
+  - node_name: PC3-1
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth6
+- link_name: link-30
+  link_nodes:
+  - node_name: ADMIN
+    port_name: eth0
+  - node_name: Core-Switch
+    port_name: eth3
+- link_name: link-31
+  link_nodes:
+  - node_name: PAXTON
+    port_name: eth0
+  - node_name: Core-Switch
+    port_name: eth4
+- link_name: link-32
+  link_nodes:
+  - node_name: AP-Controller
+    port_name: Ethernet0
+  - node_name: DEV3
+    port_name: Ethernet0
+- link_name: link-33
+  link_nodes:
+  - node_name: AP-Controller
+    port_name: Ethernet2
+  - node_name: FLE4N
+    port_name: Ethernet1
+- link_name: link-34
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth15
+- link_name: link-35
+  link_nodes:
+  - node_name: wordpress
+    port_name: eth0
+  - node_name: OpenvSwitch-Servers
+    port_name: eth15
+- link_name: link-36
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth14
+  - node_name: devStorage
+    port_name: eth0
+- link_name: link-37
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth1
+  - node_name: devPC1
+    port_name: eth0
+- link_name: link-38
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth2
+  - node_name: devPC2
+    port_name: eth0
+- link_name: link-39
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth3
+  - node_name: devPC3
+    port_name: eth0
+- link_name: link-40
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth4
+  - node_name: devPC4
+    port_name: eth0
+- link_name: link-41
+  link_nodes:
+  - node_name: OpenvSwitch-Servers
+    port_name: eth5
+  - node_name: devPC5
+    port_name: eth0
+- link_name: link-42
+  link_nodes:
+  - node_name: HP-2560A
+    port_name: eth8
+  - node_name: PC1-8
+    port_name: eth0
+- link_name: link-43
+  link_nodes:
+  - node_name: HP-2560A
+    port_name: eth9
+  - node_name: PC1-9
+    port_name: eth0
+- link_name: link-44
+  link_nodes:
+  - node_name: HP-2560A
+    port_name: eth10
+  - node_name: PC1-10
+    port_name: eth0
+- link_name: link-45
+  link_nodes:
+  - node_name: HP-2560A
+    port_name: eth11
+  - node_name: PC1-7
+    port_name: eth0
+- link_name: link-46
+  link_nodes:
+  - node_name: PC2-7
+    port_name: eth0
+  - node_name: HP-2650D1
+    port_name: eth11
+- link_name: link-47
+  link_nodes:
+  - node_name: HP-2650D1
+    port_name: eth8
+  - node_name: PC2-8
+    port_name: eth0
+- link_name: link-48
+  link_nodes:
+  - node_name: HP-2650D1
+    port_name: eth9
+  - node_name: PC2-9
+    port_name: eth0
+- link_name: link-49
+  link_nodes:
+  - node_name: HP-2650D1
+    port_name: eth10
+  - node_name: PC2-10
+    port_name: eth0
+- link_name: link-50
+  link_nodes:
+  - node_name: PC3-7
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth7
+- link_name: link-51
+  link_nodes:
+  - node_name: PC3-8
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth8
+- link_name: link-52
+  link_nodes:
+  - node_name: PC3-9
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth9
+- link_name: link-53
+  link_nodes:
+  - node_name: PC3-10
+    port_name: eth0
+  - node_name: HP-2650D
+    port_name: eth10
+nodes:
+- console_type: telnet
+  name: Core-Switch
+  properties:
+    adapters: 16
+    aux: 5020
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 236ce8648e097efb2ee4924f2bfa85fe4f1a338008914f9025fea5e5e68f673f
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:27:ef:5f:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: :/symbols/classic/multilayer_switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -11
+  y: 205
+- console_type: telnet
+  name: MainRouter
+  properties:
+    adapter_type: virtio-net-pci
+    adapters: 4
+    bios_image: ''
+    bios_image_md5sum: null
+    boot_priority: c
+    cdrom_image: ''
+    cdrom_image_md5sum: null
+    cpu_throttling: 0
+    cpus: 1
+    create_config_disk: false
+    hda_disk_image: openwrt-24.10.2-x86-64-combined-ext4.img
+    hda_disk_image_md5sum: 056ea0d720101edbc9d838796e301a0b
+    hda_disk_interface: ide
+    hdb_disk_image: ''
+    hdb_disk_image_md5sum: null
+    hdb_disk_interface: none
+    hdc_disk_image: ''
+    hdc_disk_image_md5sum: null
+    hdc_disk_interface: none
+    hdd_disk_image: ''
+    hdd_disk_image_md5sum: null
+    hdd_disk_interface: none
+    initrd: ''
+    initrd_md5sum: null
+    kernel_command_line: ''
+    kernel_image: ''
+    kernel_image_md5sum: null
+    legacy_networking: false
+    linked_clone: true
+    mac_address: 0c:51:fc:a8:00:00
+    on_close: power_off
+    options: ''
+    platform: x86_64
+    process_priority: normal
+    qemu_path: /usr/bin/qemu-system-x86_64
+    ram: 128
+    replicate_network_connection_state: true
+    tpm: false
+    uefi: false
+    usage: Ethernet0 is the LAN link, Ethernet1 the WAN link, Ethernet2 and Ethernet3
+      are optional links.
+  symbol: 204_router.7b208c1133.svg
+  template: OpenWrt 24.10.2
+  type: qemu
+  x: -25
+  y: -351
+- console_type: none
+  name: uk-site-internet
+  properties:
+    interfaces:
+    - name: cyber-twin0
+      special: false
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: cyber-twin0
+      name: cyber-twin0
+      port_number: 0
+      type: ethernet
+    remote_console_host: ''
+    remote_console_http_path: /
+    remote_console_port: 23
+    remote_console_type: none
+  symbol: kindpng_511574.png
+  template: ''
+  type: cloud
+  x: 147
+  y: -374
+- console_type: telnet
+  name: VoIP-Switch
+  properties:
+    adapters: 16
+    aux: 5025
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: f988b7a53b96c30ef1dc04b7e77215fccd18d43476e39c60049ab828c170c00d
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:fc:ee:16:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: voice-switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -413
+  y: -510
+- console_type: none
+  name: AP-Controller
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: wlan-controller.svg
+  template: Ethernet switch
+  type: ethernet_switch
+  x: -555
+  y: -359
+- console_type: none
+  name: FLE4N
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: wifi-svgrepo-com.svg
+  template: Ethernet switch
+  type: ethernet_switch
+  x: -440
+  y: -217
+- console_type: none
+  name: intergalactic-vpn-gw-internet
+  properties:
+    interfaces:
+    - name: cyber-twin0
+      special: false
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: cyber-twin0
+      name: cyber-twin0
+      port_number: 0
+      type: ethernet
+    remote_console_host: ''
+    remote_console_http_path: /
+    remote_console_port: 23
+    remote_console_type: none
+  symbol: kindpng_511574.png
+  template: Cloud
+  type: cloud
+  x: 131
+  y: -236
+- console_type: telnet
+  name: intergalactic-vpn
+  properties:
+    adapters: 1
+    aux: 5030
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: a0d60677455ccb4f522a98f67035a5134fb9bd76927c470b871e05a2f777afac
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: intergalactic-vpn:latest
+    mac_address: 02:42:f2:d3:6e:00
+    start_command: null
+    usage: ''
+  symbol: intergalactic-vpn.png
+  template: intergalactic-vpn
+  type: docker
+  x: 493
+  y: -236
+- console_type: none
+  name: intergalactic-hacker-internet
+  properties:
+    interfaces:
+    - name: cyber-twin0
+      special: false
+      type: ethernet
+    - name: eth0
+      special: false
+      type: ethernet
+    - name: lo
+      special: true
+      type: ethernet
+    ports_mapping:
+    - interface: cyber-twin0
+      name: cyber-twin0
+      port_number: 0
+      type: ethernet
+    remote_console_host: ''
+    remote_console_http_path: /
+    remote_console_port: 23
+    remote_console_type: none
+  symbol: kindpng_511574.png
+  template: Cloud
+  type: cloud
+  x: 137
+  y: -93
+- console_type: telnet
+  name: alpine-3.18-openvpn-1
+  properties:
+    adapters: 1
+    aux: 5033
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: c24356243f1c6fe33be8c22accb1d7f7d7e61d607aeacc352904fb806b94335f
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:18:7b:d2:00
+    start_command: null
+    usage: ''
+  symbol: New_Logo_Alpine_Linux.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -571
+  y: -139
+- console_type: telnet
+  name: storage-server-1
+  properties:
+    adapters: 1
+    aux: 5035
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 55d6dedb2901e878200a9756b491d8843d9ca3a22f82ac4aebff9cdacea2cdff
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: storage-server:latest
+    mac_address: 02:42:bb:ea:d3:00
+    start_command: null
+    usage: ''
+  symbol: pngwing.com.png
+  template: storage-server
+  type: docker
+  x: -295
+  y: -134
+- console_type: telnet
+  name: intergalactic-hacker
+  properties:
+    adapters: 1
+    aux: 5037
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 05e17dcce2a01c4e3b53207aa866a5a08aefec5925a08efa607e6cd1c63de19c
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: intergalactic-hacker:latest
+    mac_address: 02:42:a9:1b:25:00
+    start_command: null
+    usage: ''
+  symbol: icons8-hacker-50.png
+  template: intergalactic-hacker
+  type: docker
+  x: 505
+  y: -80
+- console_type: telnet
+  name: PC1-1
+  properties:
+    adapters: 1
+    aux: 5039
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 4ff08c7b7afa607e2d1f0eb4de31fb1ef2645465bdc7299b4b1e28cf8c19e445
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:2c:35:39:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 111
+  y: 384
+- console_type: telnet
+  name: PC1-4
+  properties:
+    adapters: 1
+    aux: 5041
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: fdf45b22c11ba181cf44bcd93d54d021a8aeac52261e0cd19a5f6d0a113d1a45
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:83:ba:10:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 417
+  y: 390
+- console_type: telnet
+  name: PC3-6
+  properties:
+    adapters: 1
+    aux: 5043
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: e94768533643495c28eddf29b0313578e8672129016ad8c52d1783c497acc53e
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:c6:30:52:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -828
+  y: 458
+- console_type: telnet
+  name: PC2-2
+  properties:
+    adapters: 1
+    aux: 5045
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 401de7bbbc08459928f5487a86a57aeddea54f20f8a3d96a8d1d97550349045f
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:ca:e0:81:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -402
+  y: 582
+- console_type: telnet
+  name: PC3-3
+  properties:
+    adapters: 1
+    aux: 5047
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: c7b23bf7a3ee5bcc8de481c72822e47273c42696d4cb30822d033c177b8deab5
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:12:cd:be:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -835
+  y: 358
+- console_type: telnet
+  name: PC1-5
+  properties:
+    adapters: 1
+    aux: 5049
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: fa252c5932e9e3583fec8fcd07da73f409f14fe11801759ef08100a11d6b5574
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:d0:41:84:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 93
+  y: 463
+- console_type: telnet
+  name: HP-2560A
+  properties:
+    adapters: 16
+    aux: 5051
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: fa3981b33ca25d31546c20ed7127465e6db6b0ac7a5b63a191d3bcc62177e74a
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:47:e9:ff:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -26
+  y: 375
+- console_type: telnet
+  name: HP-2650D1
+  properties:
+    adapters: 16
+    aux: 5053
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 511870c96ba8ba4651a22fe1b0c25c632352ece9d323b16fb0eda43e316a24aa
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:52:6a:20:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -265
+  y: 374
+- console_type: telnet
+  name: HP-2650D
+  properties:
+    adapters: 16
+    aux: 5055
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: e7e32c82dc27ea0ef08c35bd22fd1edc03626020438c6da0b81338963fc03719
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:af:d5:30:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -549
+  y: 376
+- console_type: telnet
+  name: PC1-3
+  properties:
+    adapters: 1
+    aux: 5057
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 687efebc66a5186db13daad48d89deb782bc77df31a11b0e927e5a17bb10c8fb
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:19:f9:b3:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 310
+  y: 378
+- console_type: telnet
+  name: PC3-1
+  properties:
+    adapters: 1
+    aux: 5059
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: e4202776c3b487d4d1030bcb1dfb72dd98db785a584d9b1ead7472ae956983ff
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:14:df:b8:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -681
+  y: 358
+- console_type: telnet
+  name: PC2-3
+  properties:
+    adapters: 1
+    aux: 5065
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: aec6b0ee337b4868bb93c974f649e03d3421ccfaf90a2d923f72e0951937948f
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:fb:c1:65:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -299
+  y: 576
+- console_type: telnet
+  name: PC1-6
+  properties:
+    adapters: 1
+    aux: 5061
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 843d6ef7e39dbc550a115d66bec4c05c841d5abebf913d0c74a9b0162e72c8d1
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:92:69:2f:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 196
+  y: 464
+- console_type: telnet
+  name: PC1-2
+  properties:
+    adapters: 1
+    aux: 5067
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 282c1da4b42a66f7306eee69458d37344cf870cbb1ace3500a7cace6279dddf8
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:0a:8b:0c:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 200
+  y: 384
+- console_type: telnet
+  name: PC3-2
+  properties:
+    adapters: 1
+    aux: 5063
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 6f71ed8510c785b5063c07fb54e848d8cde5896718a3741bb53deeee5cc489bc
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:8b:13:93:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -755
+  y: 364
+- console_type: telnet
+  name: PC3-5
+  properties:
+    adapters: 1
+    aux: 5069
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 9b15405992d91161cff5331ad18231f6342b396989d29403d9dc9c7198a0b94b
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:d8:48:33:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -757
+  y: 460
+- console_type: telnet
+  name: PC3-4
+  properties:
+    adapters: 1
+    aux: 5071
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: c16d7e0aab6325fc55a235e6a05b12dbdb5c91a738aa1c3bf4fcff28c3fe3209
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:75:96:3a:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -674
+  y: 458
+- console_type: telnet
+  name: PC2-5
+  properties:
+    adapters: 1
+    aux: 5073
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 73eb33780abc6b0130fe88cb1e66d892a006b4d1bc78f2aef83e2dd756a22891
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:8f:d5:88:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -109
+  y: 567
+- console_type: telnet
+  name: PC2-4
+  properties:
+    adapters: 1
+    aux: 5075
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 428c7720478bfe723110ec497953b54ae686bc72f4d3408fb076c94306ac52b0
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:60:02:06:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -205
+  y: 579
+- console_type: telnet
+  name: PC2-1
+  properties:
+    adapters: 1
+    aux: 5077
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 47b55ed7fa8f9ec8548b2c8e2c56d110a8f7b501f1b6d2f8f16d60e0df7b7e48
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:52:ad:29:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -498
+  y: 578
+- console_type: telnet
+  name: PC2-6
+  properties:
+    adapters: 1
+    aux: 5079
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 0432608858e85fe36a652b0f7f363ccebe0dd499855c8e24e09cbe23c53bcd96
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:e7:8f:04:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -489
+  y: 476
+- console_type: telnet
+  name: PAXTON
+  properties:
+    adapters: 1
+    aux: 5081
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: b754c1b18ac16cce94fa51d4c60c5f22feb862d6887170f08a5de62b466633f7
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:fe:c7:48:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 114
+  y: 282
+- console_type: telnet
+  name: ADMIN
+  properties:
+    adapters: 1
+    aux: 5083
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 426ca2de200873de1499d7ddb164dad4b67b9da6902fe36acaf4123c5347cd4c
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:2e:5f:d3:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: 110
+  y: 129
+- console_type: none
+  name: DEV3
+  properties:
+    ports_mapping:
+    - name: Ethernet0
+      port_number: 0
+      type: access
+      vlan: 1
+    - name: Ethernet1
+      port_number: 1
+      type: access
+      vlan: 1
+    - name: Ethernet2
+      port_number: 2
+      type: access
+      vlan: 1
+    - name: Ethernet3
+      port_number: 3
+      type: access
+      vlan: 1
+    - name: Ethernet4
+      port_number: 4
+      type: access
+      vlan: 1
+    - name: Ethernet5
+      port_number: 5
+      type: access
+      vlan: 1
+    - name: Ethernet6
+      port_number: 6
+      type: access
+      vlan: 1
+    - name: Ethernet7
+      port_number: 7
+      type: access
+      vlan: 1
+  symbol: wifi-svgrepo-com.svg
+  template: Ethernet switch
+  type: ethernet_switch
+  x: -706
+  y: -209
+- console_type: telnet
+  name: OpenvSwitch-Servers
+  properties:
+    adapters: 16
+    aux: 5005
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 5482dda3a32a31c812b66c6288756043b8c655466a2b0a35bef4adb4d90f72d0
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: gns3/openvswitch:latest
+    mac_address: 02:42:2f:1b:af:00
+    start_command: /etc/openvswitch/init.sh; bash
+    usage: By default all interfaces are connected to the br0
+  symbol: :/symbols/classic/multilayer_switch.svg
+  template: Open vSwitch
+  type: docker
+  x: -517
+  y: 160
+- console_type: telnet
+  name: wordpress
+  properties:
+    adapters: 1
+    aux: 5007
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: f9521b1b3fd791388ff8f1a88d4785917fddbe3e4e55950b023a0fb4c4ed854b
+    environment: 'WORDPRESS_DB_HOST=db
+
+      WORDPRESS_DB_USER=exampleuser
+
+      WORDPRESS_DB_PASSWORD=examplepass
+
+      WORDPRESS_DB_NAME=exampledb'
+    extra_hosts: ''
+    extra_volumes: []
+    image: wordpress:latest
+    mac_address: 02:42:5e:81:85:00
+    start_command: apache2 -D FOREGROUND
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: wordpress
+  type: docker
+  x: -749
+  y: 114
+- console_type: telnet
+  name: devPC1
+  properties:
+    adapters: 1
+    aux: 5009
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 736e73175758f9efac6b1c4bcf26a2d0a36dceb64c425ee27e3f17e647c45a29
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:36:f1:6c:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: -642
+  y: 44
+- console_type: telnet
+  name: devStorage
+  properties:
+    adapters: 1
+    aux: 5011
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: aaddf48525f7437cbe1085ee06f5127e585bb6edf0af0f113890fed05646d24e
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: storage-server:latest
+    mac_address: 02:42:9d:4a:2b:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: storage-server
+  type: docker
+  x: -631
+  y: 241
+- console_type: telnet
+  name: devPC2
+  properties:
+    adapters: 1
+    aux: 5013
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: e0e4a8ef4bd963a64e76e4dc3039a29b69d791afafcd25a4fad5a68b5308cfe9
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:a4:85:bb:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: -517
+  y: 39
+- console_type: telnet
+  name: devPC3
+  properties:
+    adapters: 1
+    aux: 5015
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 7eae5c509a87e0849f3c0dc1bd160a60cbbd7f61a6f0bb52af16d495c891a88c
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:c8:51:f0:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: -386
+  y: 37
+- console_type: telnet
+  name: devPC4
+  properties:
+    adapters: 1
+    aux: 5017
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: e7bd9f3468f7fb108a0b9effc8cb873dd661dc8aaaaa2fe4fa1d3a6ceeef8687
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:ce:89:04:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: -361
+  y: 139
+- console_type: telnet
+  name: devPC5
+  properties:
+    adapters: 1
+    aux: 5022
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 0ec313be786219f060274aaeeb2b6313bf4f954a620141fd46bbfa6bf95bc77d
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:89:e3:50:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: -396
+  y: 232
+- console_type: telnet
+  name: PC1-7
+  properties:
+    adapters: 1
+    aux: 5085
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 0f85a2dc5991d6f0740070672f9ac35e7486418bf50a086d1858c8af25942c26
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:ac:21:fa:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: 304
+  y: 454
+- console_type: telnet
+  name: PC1-8
+  properties:
+    adapters: 1
+    aux: 5087
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 62d742fcacd6d6f791e76309530ee48222551dce84c0272f5e545a8b19e387a6
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:8b:f7:55:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: 408
+  y: 467
+- console_type: telnet
+  name: PC1-10
+  properties:
+    adapters: 1
+    aux: 5089
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: bdc709b26554d738995aa609a511a0bf6fd56bbcc92c06f46e24afe0501d08c0
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:11:8a:0d:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: 200
+  y: 526
+- console_type: telnet
+  name: PC1-9
+  properties:
+    adapters: 1
+    aux: 5091
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 6531a0981daaf06b99ab3d4afc027078b73d0a8906446a7feeeed36cae1684f1
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: ubuntu:latest
+    mac_address: 02:42:be:7d:e4:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: ubuntu-docker
+  type: docker
+  x: 96
+  y: 522
+- console_type: telnet
+  name: PC2-7
+  properties:
+    adapters: 1
+    aux: 5093
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 9b20d495612688dcd33683546578376c030ce6105b530a104df0bd0f56125bd3
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:41:f9:8e:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -385
+  y: 478
+- console_type: telnet
+  name: PC2-9
+  properties:
+    adapters: 1
+    aux: 5097
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 602b4085f1a0710004c3a9c46344b5e9d72a55b4c1b3ee61319d94ae5e1cfda1
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:cb:28:d2:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -197
+  y: 476
+- console_type: telnet
+  name: PC2-8
+  properties:
+    adapters: 1
+    aux: 5095
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: fd734dfedc5f1a7b9823b6bb3b66754184549ece02dee3cd794127b70b951fb7
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:60:5a:7d:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -300
+  y: 474
+- console_type: telnet
+  name: PC2-10
+  properties:
+    adapters: 1
+    aux: 5099
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 65bcf43cc87ec34aa7134dd5395ec2a6841c69d902c062de4a060dfdd1485afc
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:e7:9e:8f:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -112
+  y: 478
+- console_type: telnet
+  name: PC3-7
+  properties:
+    adapters: 1
+    aux: 5101
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 79ea679e6ca6bf5416ac78f7121ca2a062cca1c2eee511b9bacfef939f7fed11
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:56:38:67:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -671
+  y: 532
+- console_type: telnet
+  name: PC3-10
+  properties:
+    adapters: 1
+    aux: 5107
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 5914260f8f100dd8e7efa6764bf1bcf375617fe0a4c888731a4e84fd0dc5d1be
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:fe:e0:06:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -676
+  y: 620
+- console_type: telnet
+  name: PC3-8
+  properties:
+    adapters: 1
+    aux: 5103
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 1ca64398dd6c19fd34e7ea795c728d68b4b49bef107c52cc6b2f48752a603239
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:84:c9:3d:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -763
+  y: 536
+- console_type: telnet
+  name: PC3-9
+  properties:
+    adapters: 1
+    aux: 5105
+    console_http_path: /
+    console_http_port: 80
+    console_resolution: 1024x768
+    container_id: 85b90a9277bc83e61f6126687affbe517615782725359524954975e59730f49b
+    environment: null
+    extra_hosts: null
+    extra_volumes: []
+    image: alpine-3.18-openvpn:latest
+    mac_address: 02:42:26:12:17:00
+    start_command: null
+    usage: ''
+  symbol: :/symbols/docker_guest.svg
+  template: alpine-3.18-openvpn
+  type: docker
+  x: -841
+  y: 540
+templates:
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: intergalactic-hacker:latest
+  mac_address: ''
+  name: intergalactic-hacker
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: intergalactic-vpn:latest
+  mac_address: ''
+  name: intergalactic-vpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: ubuntu:latest
+  mac_address: ''
+  name: ubuntu-docker
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapter_type: virtio-net-pci
+  adapters: 4
+  bios_image: ''
+  boot_priority: c
+  builtin: false
+  category: router
+  cdrom_image: ''
+  compute_id: local
+  console_auto_start: false
+  console_type: telnet
+  cpu_throttling: 0
+  cpus: 1
+  create_config_disk: false
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  first_port_name: ''
+  hda_disk_image: openwrt-24.10.2-x86-64-combined-ext4.img
+  hda_disk_interface: ide
+  hdb_disk_image: ''
+  hdb_disk_interface: none
+  hdc_disk_image: ''
+  hdc_disk_interface: none
+  hdd_disk_image: ''
+  hdd_disk_interface: none
+  initrd: ''
+  kernel_command_line: ''
+  kernel_image: ''
+  legacy_networking: false
+  linked_clone: true
+  mac_address: ''
+  name: OpenWrt 24.10.2
+  on_close: power_off
+  options: ''
+  platform: ''
+  port_name_format: Ethernet{0}
+  port_segment_size: 0
+  process_priority: normal
+  qemu_path: /usr/bin/qemu-system-x86_64
+  ram: 128
+  replicate_network_connection_state: true
+  symbol: :/symbols/classic/router.svg
+  template_type: qemu
+  tpm: false
+  uefi: false
+  usage: Ethernet0 is the LAN link, Ethernet1 the WAN link, Ethernet2 and Ethernet3
+    are optional links.
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: storage-server:latest
+  mac_address: ''
+  name: storage-server
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 16
+  builtin: false
+  category: switch
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: gns3/openvswitch:latest
+  mac_address: ''
+  name: Open vSwitch
+  start_command: ''
+  symbol: :/symbols/classic/multilayer_switch.svg
+  template_type: docker
+  usage: By default all interfaces are connected to the br0
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: ''
+  extra_hosts: ''
+  extra_volumes: []
+  image: alpine-3.18-openvpn:latest
+  mac_address: ''
+  name: alpine-3.18-openvpn
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
+- adapters: 1
+  builtin: false
+  category: guest
+  compute_id: local
+  console_auto_start: false
+  console_http_path: /
+  console_http_port: 80
+  console_resolution: 1024x768
+  console_type: telnet
+  custom_adapters: []
+  default_name_format: '{name}-{0}'
+  environment: 'WORDPRESS_DB_HOST=db
+
+    WORDPRESS_DB_USER=exampleuser
+
+    WORDPRESS_DB_PASSWORD=examplepass
+
+    WORDPRESS_DB_NAME=exampledb'
+  extra_hosts: ''
+  extra_volumes: []
+  image: wordpress:latest
+  mac_address: ''
+  name: wordpress
+  start_command: ''
+  symbol: :/symbols/docker_guest.svg
+  template_type: docker
+  usage: ''
