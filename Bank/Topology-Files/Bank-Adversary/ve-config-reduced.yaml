@@ -1108,7 +1108,7 @@ facts:
     protocol: Protocol
     dest_port: Port
   network_topology:
-  - name: FullBank topology
+  - name: Bank topology
     definition: 'isInSubnet(''WAN'', ''CoreRouterA'').
 
       isInSubnet(''core'', ''Floor4-FW'').
