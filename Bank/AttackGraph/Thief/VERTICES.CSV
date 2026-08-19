@@ -1,0 +1,41 @@
+1,"thiefCampaign(attacker,'DVR_ssh-1',caldera)","OR",0
+2,"RULE 31 (Sensitive data successfully exfiltrated to attacker C2)","AND",0
+3,"dataExfiltrated(attacker,'DVR_ssh-1','staged.tar.gz',caldera)","OR",0
+4,"RULE 30 (Upload the compressed archive to the C2 Caldera server over HTTP)","AND",0
+5,"c2Server(caldera)","LEAF",1
+6,"netAccess(attacker,'DVR_ssh-1',caldera,tcp,'8888')","OR",0
+7,"RULE 6 (Net direct access)","AND",0
+8,"hasAccess(attacker,'DVR_ssh-1',caldera,tcp,'8888')","LEAF",1
+9,"dataArchived(attacker,'DVR_ssh-1','staged.tar.gz')","OR",0
+10,"RULE 29 (Compress the staging directory into a single archive using tar)","AND",0
+11,"installed('DVR_ssh-1',tar)","LEAF",1
+12,"fileStaged(attacker,'DVR_ssh-1','/root/photo.png',staged)","OR",0
+13,"RULE 28 (Copy discovered sensitive files into a local staging directory)","AND",0
+14,"execCode(attacker,'DVR_ssh-1',root)","OR",0
+15,"RULE 26 (Attacker has an established foothold via an independently deployed Caldera agent)","AND",0
+16,"malicious(attacker)","LEAF",1
+17,"agentPresent('DVR_ssh-1',root)","LEAF",1
+18,"fileFound(attacker,'DVR_ssh-1','/root/photo.png')","OR",0
+19,"RULE 27 (Locate a discoverable file with a sensitive extension on a compromised host)","AND",0
+20,"sizeUnderLimit('DVR_ssh-1','/root/photo.png')","LEAF",1
+21,"pathVisible('DVR_ssh-1','/root/photo.png')","LEAF",1
+22,"sensitiveFileExtension(png)","LEAF",1
+23,"fileHasExtension('DVR_ssh-1','/root/photo.png',png)","LEAF",1
+24,"RULE 29 (Compress the staging directory into a single archive using tar)","AND",0
+25,"fileStaged(attacker,'DVR_ssh-1','/root/recording.wav',staged)","OR",0
+26,"RULE 28 (Copy discovered sensitive files into a local staging directory)","AND",0
+27,"fileFound(attacker,'DVR_ssh-1','/root/recording.wav')","OR",0
+28,"RULE 27 (Locate a discoverable file with a sensitive extension on a compromised host)","AND",0
+29,"sizeUnderLimit('DVR_ssh-1','/root/recording.wav')","LEAF",1
+30,"pathVisible('DVR_ssh-1','/root/recording.wav')","LEAF",1
+31,"sensitiveFileExtension(wav)","LEAF",1
+32,"fileHasExtension('DVR_ssh-1','/root/recording.wav',wav)","LEAF",1
+33,"RULE 29 (Compress the staging directory into a single archive using tar)","AND",0
+34,"fileStaged(attacker,'DVR_ssh-1','/root/secrets.yml',staged)","OR",0
+35,"RULE 28 (Copy discovered sensitive files into a local staging directory)","AND",0
+36,"fileFound(attacker,'DVR_ssh-1','/root/secrets.yml')","OR",0
+37,"RULE 27 (Locate a discoverable file with a sensitive extension on a compromised host)","AND",0
+38,"sizeUnderLimit('DVR_ssh-1','/root/secrets.yml')","LEAF",1
+39,"pathVisible('DVR_ssh-1','/root/secrets.yml')","LEAF",1
+40,"sensitiveFileExtension(yml)","LEAF",1
+41,"fileHasExtension('DVR_ssh-1','/root/secrets.yml',yml)","LEAF",1
