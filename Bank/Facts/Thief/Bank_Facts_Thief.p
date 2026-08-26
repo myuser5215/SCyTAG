@@ -1,7 +1,3 @@
-/* BGU Test Adversary scenario goal (inactive for this run — comment/uncomment as needed):
-attackGoal(fullCampaign('attacker', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'DVR_ssh-1')).
-*/
-
 dataFlow('Cloud1', 'internet', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'Floor4-L3SW', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'DVR_ssh-1', _FlowName, _Direction).
@@ -478,27 +474,6 @@ isNameResolver(_ImpersonatedHost, _FooledHost, _AttackerHost).
 vulE2EProtocol(_ImpersonatedHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
 isNameResolver(_ImpersonatedHost, _FooledHost, _NameResolver).
 
-
-/******************************************************/
-/****   Thief scenario facts (appended)           *****/
-/****   Post-compromise data theft on DVR_ssh-1.   *****/
-/****   Adapted from the validated UK-Office Thief  *****/
-/****   facts template, integrated with the real    *****/
-/****   Bank compromise chain — see fullbank_IR_thief.p */
-/******************************************************/
-
-/* --- Attacker foothold ---
-   CORRECTED: an earlier draft chained Thief's execCode through the
-   BGU Test Adversary's fullCampaign pivot (camera_A_ssh-1 ->
-   EternalBlue-class exploit onto DVR_ssh-1). That does not reflect
-   the real scenario — there is no EternalBlue exploit in the Thief
-   scenario on Bank, and the attacker never has any presence on
-   camera_A_ssh-1 at all. Thief is an independently-deployed Caldera
-   agent placed directly on DVR_ssh-1, exactly as modeled in the
-   UK-Office template (agentPresent/2), and is modeled the same way
-   here. hasAccount(attacker, 'DVR_ssh-1', root) and malicious(attacker)
-   are already declared above in this file and are reused as-is. */
-
 agentPresent('DVR_ssh-1', root).
 
 /* --- Sensitive files present on DVR_ssh-1 (matches planted files
@@ -512,10 +487,6 @@ sensitiveFileExtension(yml).
 sensitiveFileExtension(png).
 sensitiveFileExtension(wav).
 
-/* --- Discoverability gates: BOTH present for all 3 files pre-mitigation ---
-   Added after empirical validation, closing the discoverableFile
-   modeling gap. See fullbank_IR_thief.p for the gate definitions. */
-
 pathVisible('DVR_ssh-1', '/root/secrets.yml').
 pathVisible('DVR_ssh-1', '/root/photo.png').
 pathVisible('DVR_ssh-1', '/root/recording.wav').
@@ -526,28 +497,8 @@ sizeUnderLimit('DVR_ssh-1', '/root/recording.wav').
 
 installed('DVR_ssh-1', 'tar').
 
-/* --- C2 / Caldera server reachability ---
-   Bank's Caldera server is reached directly from any container via
-   the Docker default gateway (172.17.0.1:8888) — a single-hop path,
-   unlike UK-Office's multi-hop NAT chain through MainRouter. 'caldera'
-   is intentionally NOT a GNS3 topology node (external Docker service),
-   consistent with how the UK-Office model excludes it from AG-node
-   reduction.
-
-   CORRECTED: this was originally modeled as a hacl/4 fact. Bank's
-   IR_Bank_Topology.p never actually consumes hacl in any rule — its
-   netAccess/5 derives only via hasAccess/5 (direct) or a dataFlow/4
-   hop (see lines 117-126 of that file). A hacl fact here was
-   therefore inert and silently broke the whole derivation chain
-   (confirmed via graph_gen.sh: "No attack paths found"). Fixed to
-   hasAccess, which Bank's existing netAccess rule actually reads —
-   the same predicate the base file already uses for post-compromise
-   pivot access (e.g. hasAccess('attacker','camera_A_ssh-1',
-   'DVR_ssh-1','tcp','port')). */
-
 hasAccess('attacker', 'DVR_ssh-1', 'caldera', 'tcp', '8888').
 c2Server('caldera').
 
 /* --- Active attack goal for this run: Thief --- */
-
 attackGoal(thiefCampaign(attacker, 'DVR_ssh-1', 'caldera')).
