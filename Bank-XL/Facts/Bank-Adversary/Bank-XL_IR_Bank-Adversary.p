@@ -19,7 +19,6 @@ primitive(maliciousInteraction(_host, _user, _software)).
 primitive(isNameResolver(_host1, _host2, _resolver)).
 primitive(vulE2EProtocol(_fooled, _resolver, _dns_attack_type, _dns, _protocol, _exploitRange, _loseTypes)).
 
-
 derived(deviceCompromised(_attacker, _host, _account)).
 derived(canAccessHost(_user, _host)).
 derived(arpSpoofed(_victim, _host,_attacker)).
@@ -72,7 +71,6 @@ meta(attackGoal(_)).
 /******************************************************/
 /****         Interaction Rules                   *****/
 /******************************************************/
-
 
 /* Interaction Rules for T1557.002 - ARP Cache Poisoning */
 interaction_rule(
@@ -148,7 +146,7 @@ interaction_rule(
    (accessFile(User, Host, Account, Permission, Path) :-
      execCode(User, Host, Account),
      localFileProtection(Host, Path, Account, Permission)),
-   rule_desc('', 1.0)).
+   rule_desc('Access file via executed code', 1.0)).
 
 interaction_rule(
    (localFileProtection(Host, Path, Account, Permission) :-
@@ -194,7 +192,7 @@ interaction_rule(
      residesOn(Host, Software, Version),
      vulExists(CveId, Software, Version, RemoteNetwork, LoseTypes, 'critical'),
      maliciousInteraction(Host, User, Software)),
-    rule_desc('', 1.0)).
+    rule_desc('compromised host camera_A_ssh-1', 1.0)).
 
 /* Interaction Rules for T1105 - Ingress Tools */
 interaction_rule(
@@ -205,7 +203,7 @@ interaction_rule(
      networkService(Host, Software, Protocol, Port, Permission),
      hacl(SrcHost, Host, Protocol, Port),
      netAccess(User, SrcHost, Host, Protocol, Port)),
-    rule_desc('', 1.0)).
+    rule_desc('Transfer ingress tools via MITM', 1.0)).
 
 /* Interaction Rules for T1055 - Process Injection: */
 
@@ -215,13 +213,13 @@ interaction_rule(
      dataBind(Flow, SrcHost, Path1),
      dataFlow(SrcHost, DstHost, Flow, _Direction),
      dataBind(Flow, DstHost, Path2)),
-    rule_desc('', 1.0)).
+    rule_desc('Inject data into flow', 1.0)).
 
 interaction_rule(
    (dataInject(User, DstHost, Path1, Path2, Port) :-
      accessFile(User, DstHost, Account, Permission, Path1),
      netAccess(User, SrcHost, DstHost, Protocol, Port)),
-    rule_desc('', 1.0)).
+    rule_desc('Inject data into flow', 1.0)).
 
 
 /* T1071.004 - Application Layer Protocol DNS: */
@@ -260,7 +258,7 @@ interaction_rule(
      hasAccess(User, SrcHost, DstHost, Protocol, Port),
      networkService(DstHost, Software, Protocol, Port, Account),
      vulExists(CveId, Software, Version, RemoteNetwork, LoseTypes, 'critical')),
-    rule_desc('Exploit EternalBlue from cameraA to DVR', 1.0)).
+    rule_desc('Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1', 1.0)).
 
 /* Final IR */
 interaction_rule(
@@ -268,4 +266,4 @@ interaction_rule(
      credentialsAccessInFiles(Software, StartHost),
      ingressToolTransfer(Software, User, MiddleHost, Path, Port),
      execDelegatedCode(User, MiddleHost, EndHost, Account)),
-    rule_desc('', 1.0)).
+    rule_desc('Execute full attack campaign', 1.0)).
