@@ -1,6 +1,5 @@
 attackGoal(fullCampaign('attacker', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'DVR_ssh-1')).
 
-
 dataFlow('Server-Room-SW', 'Floor4-L3SW', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'DVR_ssh-1', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'FileServer', _FlowName, _Direction).
@@ -192,7 +191,6 @@ dataBind(Flow, 'adminPC1-ssh-1', Path1).
 dataBind(Flow, 'Server-Room-SW', Path1).
 dataBind(Flow, 'DVR_ssh-1', Path1).
 dataBind(Flow, 'FileServer', Path1).
-dataBind(Flow, 'ADServer', Path1).
 dataBind(Flow, 'Floor4-L3SW', Path1).
 dataBind(Flow, 'Floor4-Router', Path1).
 dataBind(Flow, 'CoreRouterC', Path1).
@@ -215,10 +213,7 @@ isInSubnet('floor4', 'Floor4-Router').
 isInSubnet('vlan100', 'Floor4-L3SW').
 isInSubnet('vlan100', 'SwitchX(PoE)').
 isInSubnet('vlan100', 'cameraB').
-isInSubnet('vlan100', 'cameraC').
-isInSubnet('vlan100', 'cameraD').
 isInSubnet('vlan100', 'camera_A_ssh-1').
-isInSubnet('vlan110', 'ADServer').
 isInSubnet('vlan110', 'DVR_ssh-1').
 isInSubnet('vlan110', 'FileServer').
 isInSubnet('vlan110', 'Floor4-L3SW').
@@ -232,7 +227,6 @@ isInSubnet('vlan120', 'adminPC4').
 isInSubnet('vlan120', 'adminPC5').
 isInSubnet('vlan120', 'adminPC6').
 
-networkService('ADServer', 'windowsUAC', 'tcp', Port, 'admin').
 networkService('DVR_ssh-1', 'arpd', 'tcp', Port, 'root').
 networkService('DVR_ssh-1', 'smbV1', 'tcp', '445', 'root').
 networkService('DVR_ssh-1', 'sshd', 'tcp', Port, 'root').
@@ -260,10 +254,6 @@ hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', Port).
 hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
 hacl('adminPC1-ssh-1', 'cameraB', 'arp', Port).
 hacl('adminPC1-ssh-1', 'cameraB', 'tcp', Port).
-hacl('adminPC1-ssh-1', 'cameraC', 'arp', Port).
-hacl('adminPC1-ssh-1', 'cameraC', 'tcp', Port).
-hacl('adminPC1-ssh-1', 'cameraD', 'arp', Port).
-hacl('adminPC1-ssh-1', 'cameraD', 'tcp', Port).
 hacl('vlan120', 'vlan100', 'http', Port).
 hacl('vlan120', 'vlan100', 'smbV1', Port).
 hacl('vlan120', 'vlan100', Protocol, Port).
@@ -280,10 +270,6 @@ hasAccess('attacker', 'camera_A_ssh-1', 'DVR_ssh-1', 'tcp', '445').
 hasAccess('root', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
 hasAccess(User, 'adminPC1-ssh-1', 'cameraB', 'arp', Port).
 hasAccess(User, 'adminPC1-ssh-1', 'cameraB', 'tcp', Port).
-hasAccess(User, 'adminPC1-ssh-1', 'cameraC', 'arp', Port).
-hasAccess(User, 'adminPC1-ssh-1', 'cameraC', 'tcp', Port).
-hasAccess(User, 'adminPC1-ssh-1', 'cameraD', 'arp', Port).
-hasAccess(User, 'adminPC1-ssh-1', 'cameraD', 'tcp', Port).
 hasAccess(User, 'adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', Port).
 hasAccess(User, 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
 fileOwner('DVR_ssh-1', Path, 'root').
@@ -392,7 +378,6 @@ residesOn('camera_A_ssh-1', 'sshd', 'ver1').
 residesOn('camera_A_ssh-1', 'arpd', 'ver1').
 residesOn('adminPC1-ssh-1', 'libtasn1_6', 'v4_16_0_2').
 residesOn('adminPC1-ssh-1', 'sshd', 'ver1').
-residesOn('ADServer', 'windowsUAC', 'ver1').
 residesOn('DVR_ssh-1', 'smbV1', 'ver1').
 residesOn('FileServer', 'sftpd', 'ver1').
 vulExists('arpSpoofVuln', 'arpd', 'ver1', 'network', caLoss, 'critical').
