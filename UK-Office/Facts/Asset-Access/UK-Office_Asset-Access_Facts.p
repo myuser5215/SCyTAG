@@ -1,5 +1,4 @@
 attackGoal(lateralMovementSSHTunnel('intergalactic-hacker', 'alpine-3.18-openvpn-1', 'storage-server-1')).
-
 dataFlow('Core-Switch', 'MainRouter', _FlowName, _Direction).
 dataFlow('Core-Switch', 'VoIP-Switch', _FlowName, _Direction).
 dataFlow('Core-Switch', 'HP-2560A', _FlowName, _Direction).
@@ -194,7 +193,6 @@ dataFlow('OpenvSwitch-Servers', 'devPC4', _FlowName, _Direction).
 dataFlow('OpenvSwitch-Servers', 'devPC5', _FlowName, _Direction).
 dataFlow('intergalactic-vpn', 'alpine-3.18-openvpn-1').
 dataFlow('alpine-3.18-openvpn-1', 'intergalactic-vpn').
-
 isInSubnet('outsideNet','intergalactic-vpn-gw-internet').
 isInSubnet('outsideNet','intergalactic-vpn').
 isInSubnet('vpn','intergalactic-vpn').
@@ -217,7 +215,6 @@ isInSubnet('vpn','alpine-3.18-openvpn-1').
 isInSubnet('labNet','storage-server-1').
 isInSubnet('insideNet','ADMIN').
 isInSubnet('insideNet','PAXTON').
-
 networkService('intergalactic-vpn', 'intergalactic-web-ui', 'http', '80', 'root').
 networkService('intergalactic-vpn', 'intergalactic-web-ui', 'udp', '1194', 'root').
 networkService('alpine-3.18-openvpn-1', _, 'open-ssh', '22', 'user-account').
@@ -352,7 +349,6 @@ deviceOnline('PC3-7', _Platform).
 deviceOnline('PC3-10', _Platform).
 deviceOnline('PC3-8', _Platform).
 deviceOnline('PC3-9', _Platform).
-
 residesOn('intergalactic-vpn', 'intergalactic-web-ui', '0.1.0rc0').
 residesOn('intergalactic-vpn', 'intergalactic-web-ui', '2.4.12').
 residesOn('intergalactic-hacker', 'intergalactic-web-ui', '0.1.0rc0').
