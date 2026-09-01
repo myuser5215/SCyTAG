@@ -166,7 +166,7 @@ interaction_rule(
 interaction_rule(
    (leakInfo(Host, Path) :-
      execCode(User, Host, Account),
-     accessFile(User, Host, Permission, Path),
+     accessFile(User, Host, Account, Permission, Path),
      localFileProtection(Host, Path, Account, Permission)),
    rule_desc('Credential dumping via access to sensitive files', 1.0)).
 
@@ -176,7 +176,7 @@ interaction_rule(
    (credentialsAccessInFiles(Software, Host) :-
      accessFile(User, Host, Account, Permission, Path),
      canAccessHost(User, Host)),
-    rule_desc('Device compromised after ARP spoofing', 1.0)).
+    rule_desc('Access credentials in files', 1.0)).
 
 /* Interaction Rules for T1059 - Command and Scripting Interpreter: */
 

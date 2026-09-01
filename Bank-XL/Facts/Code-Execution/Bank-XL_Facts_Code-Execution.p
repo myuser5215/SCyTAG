@@ -1,6 +1,5 @@
 attackGoal(fullCampaign('attacker', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'DVR_ssh-1')).
 
-
 dataFlow('Server-Room-SW', 'Floor4-L3SW', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'DVR_ssh-1', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'FileServer', _FlowName, _Direction).
