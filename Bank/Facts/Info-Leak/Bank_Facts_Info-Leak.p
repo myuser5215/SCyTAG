@@ -189,7 +189,6 @@ maliciousInteraction('DVR_ssh-1', 'attacker', 'arpd').
 maliciousInteraction('FileServer', 'attacker', _).
 maliciousInteraction('adminPC1-ssh-1', 'attacker', 'libtasn1_6').
 maliciousInteraction('DVR_ssh-1', 'attacker', 'sshd').
-
 dataBind('Flow', 'camera_A_ssh-1', 'Path1').
 dataBind('Flow', 'cameraB', 'Path1').
 dataBind('Flow', 'SwitchX(PoE)', 'Path1').
@@ -198,12 +197,10 @@ dataBind('Flow', 'adminPC1-ssh-1', 'Path1').
 dataBind('Flow', 'Server-Room-SW', 'Path1').
 dataBind('Flow', 'DVR_ssh-1', 'Path1').
 dataBind('Flow', 'FileServer', 'Path1').
-dataBind('Flow', 'ADServer', 'Path1').
 dataBind('Flow', 'Floor4-L3SW', 'Path1').
 dataBind('Flow', 'Floor4-Router', 'Path1').
 dataBind('Flow', 'CoreRouterC', 'Path1').
 dataBind('Flow', 'CoreRouterB', 'Path1').
-dataBind('Flow', 'fortigateWAN', 'Path1').
 dataBind('Flow', 'Cloud1', 'Path1').
 dataBind('Flow', 'CoreRouterA', 'Path1').
 dataBind('Flow', 'CoreRouterE', 'Path1').
@@ -309,7 +306,6 @@ networkService('adminPC1-ssh-1', 'sshd', 'tcp', '22', 'root').
 networkService('DVR_ssh-1', 'smbV1', 'tcp', 'port', 'root').
 networkService('DVR_ssh-1', 'sshd', 'tcp', '22', 'root').
 networkService('FileServer', 'sftpd', 'tcp', 'port', 'root').
-networkService('ADServer', 'windowsUAC', 'tcp', 'port', 'admin').
 hacl('camera_A_ssh-1', 'SwitchX(PoE)', 'tcp', 'port').
 hacl('SwitchX(PoE)', 'Floor4-L3SW', 'tcp', 'port').
 hacl('Server-Room-SW', 'DVR_ssh-1', 'tcp', 'port').
@@ -332,10 +328,6 @@ hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'arp', 'port').
 hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
 hacl('adminPC1-ssh-1', 'cameraB', 'arp', 'port').
 hacl('adminPC1-ssh-1', 'cameraB', 'tcp', '22').
-hacl('adminPC1-ssh-1', 'cameraC', 'arp', 'port').
-hacl('adminPC1-ssh-1', 'cameraC', 'tcp', '22').
-hacl('adminPC1-ssh-1', 'cameraD', 'arp', 'port').
-hacl('adminPC1-ssh-1', 'cameraD', 'tcp', '22').
 hacl('adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
 hacl('camera_A_ssh-1', 'DVR_ssh-1', 'tcp', '22').
 hasAccount('victim', 'DVR_ssh-1', 'user').
@@ -344,7 +336,6 @@ hasAccount('root', 'adminPC1-ssh-1', 'root').
 hasAccount('root', 'DVR_ssh-1', 'root').
 hasAccount('root', 'camera_A_ssh-1', 'root').
 hasAccount('root', 'FileServer', 'root').
-hasAccount('admin', 'ADServer', 'admin').
 hasAccount('attacker', 'camera_A_ssh-1', 'user').
 hasAccount('attacker', 'DVR_ssh-1', 'root').
 hasAccount('attacker', 'adminPC1-ssh-1', 'root').
@@ -356,10 +347,6 @@ hasAccess('', 'camera_A_ssh-1', 'DVR_ssh-1', 'arp', 'port').
 hasAccess('', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
 hasAccess('', 'adminPC1-ssh-1', 'cameraB', 'arp', 'port').
 hasAccess('', 'adminPC1-ssh-1', 'cameraB', 'tcp', '22').
-hasAccess('', 'adminPC1-ssh-1', 'cameraC', 'arp', 'port').
-hasAccess('', 'adminPC1-ssh-1', 'cameraC', 'tcp', '22').
-hasAccess('', 'adminPC1-ssh-1', 'cameraD', 'arp', 'port').
-hasAccess('', 'adminPC1-ssh-1', 'cameraD', 'tcp', '22').
 hasAccess('attacker', 'adminPC1-ssh-1', 'adminPC1-ssh-1', 'tcp', '22').
 deviceOnline('Server-Room-SW', _Platform).
 deviceOnline('Admin-SW', _Platform).
@@ -449,11 +436,9 @@ deviceOnline('adminPC5', _Platform).
 deviceOnline('adminPC6', _Platform).
 deviceOnline('FileServer', _Platform).
 deviceOnline('cameraB', _Platform).
-
 residesOn('camera_A_ssh-1', 'sshd', 'ver1').
 residesOn('camera_A_ssh-1', 'arpd', 'ver1').
 residesOn('adminPC1-ssh-1', 'libtasn1_6', 'v4_16_0_2').
-residesOn('ADServer', 'windowsUAC', 'ver1').
 residesOn('DVR_ssh-1', 'smbV1', 'ver1').
 residesOn('FileServer', 'sftpd', 'ver1').
 vulExists('arpSpoofVuln', 'arpd', 'ver1', 'network', 'caLoss', 'critical').
@@ -461,42 +446,31 @@ vulExists('cve_2021_46848', 'libtasn1_6', 'v4_16_0_2', 'network', 'caLoss', 'cri
 vulExists('cve_2022_2294', 'libtasn1_6', 'ver1', 'network', 'caLoss', 'critical').
 vulExists('cve_2017_0144', 'smbV1', 'ver1', 'network', 'caLoss', 'critical').
 vulExists('sshdSpoofVuln', 'sshd', 'ver1', 'network', 'caLoss', 'critical').
-
-
 fileOwner('adminPC1-ssh-1', '/etc/shadow', root).
 ownerAccessible('adminPC1-ssh-1', read, '/etc/shadow').
-
 attackerLocated('internet').
-
 isNameResolver(_FooledHost, _ImpersonatedHost, _AttackerHost).
 vulE2EProtocol(_FooledHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
 isNameResolver(_ImpersonatedHost, _FooledHost, _AttackerHost).
 vulE2EProtocol(_ImpersonatedHost, _AttackerHost, _DNSCachePoisoning, _DNS, _DNSProt, _RemoteExploit, _NameresolverCachePoisoned).
 isNameResolver(_ImpersonatedHost, _FooledHost, _NameResolver).
-
 agentPresent('DVR_ssh-1', root).
 
 /* --- Sensitive files present on DVR_ssh-1 (matches planted files
    used across the empirical baseline and mitigated Thief runs) --- */
-
 fileHasExtension('DVR_ssh-1', '/root/secrets.yml', yml).
 fileHasExtension('DVR_ssh-1', '/root/photo.png', png).
 fileHasExtension('DVR_ssh-1', '/root/recording.wav', wav).
-
 sensitiveFileExtension(yml).
 sensitiveFileExtension(png).
 sensitiveFileExtension(wav).
-
 pathVisible('DVR_ssh-1', '/root/secrets.yml').
 pathVisible('DVR_ssh-1', '/root/photo.png').
 pathVisible('DVR_ssh-1', '/root/recording.wav').
-
 sizeUnderLimit('DVR_ssh-1', '/root/secrets.yml').
 sizeUnderLimit('DVR_ssh-1', '/root/photo.png').
 sizeUnderLimit('DVR_ssh-1', '/root/recording.wav').
-
 installed('DVR_ssh-1', 'tar').
-
 hasAccess('attacker', 'DVR_ssh-1', 'caldera', 'tcp', '8888').
 c2Server('caldera').
 

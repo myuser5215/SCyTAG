@@ -1,8 +1,3 @@
-/* BGU Test Adversary goal (inactive for this run):
-attackGoal(fullCampaign('attacker', 'adminPC1-ssh-1', 'camera_A_ssh-1', 'DVR_ssh-1')).
-*/
-
-
 dataFlow('Server-Room-SW', 'Floor4-L3SW', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'DVR_ssh-1', _FlowName, _Direction).
 dataFlow('Server-Room-SW', 'FileServer', _FlowName, _Direction).
@@ -4697,7 +4692,6 @@ deviceOnline('radius', _Platform).
 deviceOnline('revproxy', _Platform).
 deviceOnline('vpn-gw', _Platform).
 deviceOnline('waf', _Platform).
-
 residesOn('camera_A_ssh-1', 'sshd', 'ver1').
 residesOn('camera_A_ssh-1', 'arpd', 'ver1').
 residesOn('adminPC1-ssh-1', 'libtasn1_6', 'v4_16_0_2').
@@ -4712,22 +4706,17 @@ vulExists('sshdSpoofVuln', 'sshd', 'ver1', 'network', caLoss, 'critical').
 
 /******************************************************/
 /****   Thief scenario facts (appended)           *****/
-/****   Post-compromise data theft on DVR_ssh-1.  *****/
-/****   Ported from fullbank_thief_facts_updated.p *****/
-/****   — topology bulk above is BankXL; Thief-    *****/
 /****   specific foothold/file/C2 facts below are  *****/
-/****   identical to the validated FullBank model. *****/
+/****   identical to the validated Bank model. *****/
 /******************************************************/
 
 /* --- Attacker foothold on DVR_ssh-1 ---
    Thief is an independently-deployed Caldera agent placed directly on
    DVR_ssh-1 — no EternalBlue exploit, no camera_A_ssh-1 involvement.
    malicious('attacker') is already declared above (line ~3124). */
-
 agentPresent('DVR_ssh-1', root).
 
 /* --- Sensitive files present on DVR_ssh-1 --- */
-
 fileHasExtension('DVR_ssh-1', '/root/secrets.yml', yml).
 fileHasExtension('DVR_ssh-1', '/root/photo.png', png).
 fileHasExtension('DVR_ssh-1', '/root/recording.wav', wav).
@@ -4739,7 +4728,6 @@ sensitiveFileExtension(wav).
 /* --- Discoverability gates: BOTH present for all 3 files pre-mitigation ---
    pathVisible: not under a hidden/dot-prefixed directory (defeated by Mitigation 1).
    sizeUnderLimit: under find's -size -500k filter (defeated by Mitigation 2). */
-
 pathVisible('DVR_ssh-1', '/root/secrets.yml').
 pathVisible('DVR_ssh-1', '/root/photo.png').
 pathVisible('DVR_ssh-1', '/root/recording.wav').
@@ -4749,18 +4737,9 @@ sizeUnderLimit('DVR_ssh-1', '/root/photo.png').
 sizeUnderLimit('DVR_ssh-1', '/root/recording.wav').
 
 installed('DVR_ssh-1', 'tar').
-
-/* --- C2 / Caldera server reachability ---
-   Bank's Caldera server is reached directly via the Docker default
-   gateway (172.17.0.1:8888) — single-hop, no NAT chain.
-   CORRECTED: modeled as hasAccess (not hacl) — Bank's netAccess/5
-   rules derive only via hasAccess or dataFlow, never hacl alone. */
-
 hasAccess('attacker', 'DVR_ssh-1', 'caldera', 'tcp', '8888').
 c2Server('caldera').
-
 attackerLocated('internet').
 
 /* --- Active attack goal for this run: Thief --- */
-
 attackGoal(thiefCampaign(attacker, 'DVR_ssh-1', 'caldera')).
