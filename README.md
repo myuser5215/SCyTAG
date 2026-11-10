@@ -155,8 +155,8 @@ SCyTAG/
     │   │   ├── UK-Office_Facts_Info-Leak.p
     │   │   └── UK-Office_IR_Info-Leak.p
     │   └── Asset-Access/
-    │       ├── UK-Office_Asset-Access_Facts.p
-    │       └── UK-Office_Asset-Access_IR.p
+    │       ├── UK-Office_Facts_Asset-Access.p
+    │       └── UK-Office_IR_Asset-Access.p
     ├── Images/
     │   ├── UK-Office.jpeg                              # Full topology diagram
     │   ├── UK-Office_Reduced_Info-Leak.jpeg                # Minimal cyber twin (Info-Leak scenario)
@@ -199,13 +199,13 @@ Files follow a consistent scheme throughout the repository. Understanding it mak
 | `Bank-XL` | `Code-Execution` | `Bank-XL_Facts_Code-Execution.p` | `Bank-XL_IR_Code-Execution.p` |
 | `Bank-XL` | `Info-Leak` | `Bank-XL_Facts_Info-Leak.p` | `Bank-XL_IR_Info-Leak.p` |
 | `UK-Office` | `Info-Leak` | `UK-Office_Facts_Info-Leak.p` | `UK-Office_IR_Info-Leak.p` |
-| `UK-Office` | `Asset-Access` | `UK-Office_Asset-Access_Facts.p` | `UK-Office_Asset-Access_IR.p` |
+| `UK-Office` | `Asset-Access` | `UK-Office_Facts_Asset-Access.p` | `UK-Office_IR_Asset-Access.p` |
 
 **Image files:**
 - Full topology: `{Topology}.{ext}`
 - Minimal cyber twin: `{Topology}_Reduced_{Scenario}.{ext}`
 
-**GNS3 setup script folders:** `setup_{Scenario}_{Topology}/`
+**GNS3 setup script folders:** `setup_{Adversary}_{Topology}/`
 - Adversary and topology names are lowercase with hyphens within each name.
 - Examples: `setup_thief_uk-office/`, `setup_bank-adversary_bank/`, `setup_uk-intergalactic_uk-office/`
 
@@ -346,11 +346,17 @@ All attack scenarios successfully reproduced in minimal cyber twins with **100% 
 ### Bank & Bank-XL
 
 1. **Code-Execution**: Three-ability chain targeting a camera/DVR system — steal password from a known file via SSH (T1552.001), transfer the Caldera agent to the target via sshpass/scp (T1105), and activate the agent (T1021).
+
+   The attack graph for this scenario contains several distinct vectors that reach the same goal (`fullCampaign`). In the final step (delegated code execution from `camera_A_ssh-1` to `DVR_ssh-1`), one vector exploits the Samba service on the DVR through **EternalRed (CVE-2017-7494, Samba 4.6.3)**; the others use the `arpd` and `sshd` services. The Caldera emulation implements the credential-based vector (stolen password, agent transfer, and agent activation over SSH) and does not run the Samba exploit. The attack graph keeps all vectors because it describes every way the goal can be reached in the modelled network, not only the one that was emulated.
 2. **Info-Leak**: Post-compromise data exfiltration — discover sensitive files by extension (T1005), stage them (T1074.001), archive to a tarball (T1560.001), and exfiltrate over the C2 channel (T1041).
 
 ### UK-Office
 
 1. **Asset-Access**: Multi-stage exploitation chain targeting a VPN gateway — exploits a web-UI vulnerability for RCE, extracts credentials from a user database, cracks the password offline, forges a VPN certificate, and performs lateral movement to a backup file server.
+
+   The VPN gateway (`intergalactic-vpn`) runs two separate components:
+   - **`intergalactic-web-ui` 0.1.0rc0** (HTTP/80): a purpose-built, fictional web UI that issues OpenVPN client certificates. It carries the exploited weakness, which re-creates CVE-2023-27524 (the Apache Superset default `SECRET_KEY` flaw), plus a fictional local privilege-escalation flaw (`cve-zero-day-web-ui-execute-code-1337`).
+   - **OpenVPN 2.4.12** (UDP/1194): the VPN daemon. It has no vulnerability attached and appears in the attack graph only as the network path into the VPN.
 2. **Info-Leak**: Same post-compromise data exfiltration chain as Bank/Bank-XL (see above).
 
 Caldera abilities and adversary profile for the Asset-Access scenario are proprietary and not included in this repository.
@@ -373,6 +379,45 @@ Two independent mitigations are applied, each targeting a different stage of the
 
 ---
 
+## November 2026 Revision
+
+This release updates the MulVAL inputs (facts and interaction rules) and the regenerated attack graphs, following the major revision of the paper.
+
+**What did not change.** For every scenario the change leaves the following as they were: the minimal cyber twins (`ve-topology-reduced.yaml`), the emulated attack paths, the Caldera adversary profiles, the operation results, and the mitigations.
+
+| Topology | Scenario | What changed | Attack graph | Minimal twin |
+|---|---|---|---|---|
+| UK-Office | Asset-Access | Corrected facts for the VPN gateway's components and CVE mapping (details below), plus one interaction-rule fix | Same attack path; 42 → 30 vertices after spurious branches were removed | Unchanged (12 nodes) |
+| Bank | Code-Execution | EternalBlue (CVE-2017-0144, SMBv1) replaced by EternalRed (CVE-2017-7494, Samba 4.6.3) on `DVR_ssh-1` | Same 48-vertex structure; only the vertex labels for that service and CVE changed | Unchanged |
+| Bank-XL | Code-Execution | Same change as Bank. An unused `device_online` block, which listed hosts that are not in the minimal twin, was also removed from `ve-config-reduced.yaml` | Identical to Bank (48 vertices) | Unchanged |
+| Bank | Info-Leak | Same Samba/EternalRed facts as Code-Execution, for a consistent network description | Unchanged (the exploited service is not on the Thief path) | Unchanged |
+| Bank-XL | Info-Leak | Same change as Bank | Unchanged | Unchanged |
+| UK-Office | Info-Leak | Network facts aligned with the corrected UK-Office facts; the same interaction-rule fix as Asset-Access | Unchanged (51 vertices) | Unchanged (4 nodes) |
+
+### UK-Office: VPN gateway components and CVE mapping (Asset-Access and Info-Leak)
+
+When the facts were first built, the scenario's OpenVPN daemon had been labelled `intergalactic-web-ui`. As a result, the web UI appeared with two versions (0.1.0rc0 and 2.4.12) and two services (HTTP/80 and UDP/1194), and CVE-2023-27524 was attached to version 2.4.12. The corrected facts:
+
+- model OpenVPN 2.4.12 (UDP/1194) as its own component, with no vulnerability;
+- attach CVE-2023-27524 to `intergalactic-web-ui` 0.1.0rc0, the version the Caldera emulation fingerprints, and label it a lab re-creation, because the real CVE applies to Apache Superset (≤ 2.0.1);
+- remove web-UI facts that had been copied onto the VPN clients (`intergalactic-hacker`, `alpine-3.18-openvpn-1`). These facts had produced a spurious branch in which the employee laptop acted as the attacker;
+- write every `networkService` fact as `(host, software, protocol, port, account)`, with `tcp` as the protocol for the TCP services;
+- fix `setuidProgram`/`installed` so they match their IR declarations, remove duplicate facts, and correct the cloud-node name `intergalactic-vpn-gw-internet`.
+
+In both UK-Office interaction-rule files, the `localFileProtection` rule head now matches its body (`'root'`, `'read'`). The UK-Office Info-Leak facts use the same corrected network facts. Its Thief-specific facts (`agentPresent`, the planted files, and the C2 path) are unchanged.
+
+### Bank and Bank-XL: EternalBlue replaced by EternalRed
+
+The Bank hosts are Linux (Ubuntu) containers, so the Windows-only EternalBlue exploit (CVE-2017-0144 against SMBv1) was replaced with its Linux counterpart, EternalRed (CVE-2017-7494). EternalRed is a remote code execution flaw in Samba that affects versions from 3.5.0 up to, but not including, 4.4.14, 4.5.10 and 4.6.4. The DVR is modelled as running Samba 4.6.3, which falls inside that range.
+
+The change touches four facts (the Samba service, its version, the vulnerability, and the VLAN ACL entry for the service) and the label of the delegated-code-execution rule, which is now `Execute Delegated Code`. The attack graph keeps the same structure. As described under [Attack Scenarios](#attack-scenarios), the Samba vector is one of several vectors in the graph, and the emulation uses the credential-based one.
+
+### Vulnerability facts
+
+Vulnerability facts are assigned manually. For a real product, a CVE is used only when the software matches the CVE's NVD entry and the stated version falls within the NVD affected range (for example, CVE-2017-7494 with Samba 4.6.3). A vulnerability placed in a purpose-built, fictional component has no NVD entry, so it is labelled a lab re-creation (for example, CVE-2023-27524 in `intergalactic-web-ui`).
+
+---
+
 ## Citation
 
 If you use this artifact in your research, please cite our work:
@@ -392,7 +437,7 @@ If you use this artifact in your research, please cite our work:
 
 All experiments were conducted in isolated virtual environments. The UK-Office topology represents a real network but has been sanitized to remove sensitive information. Bank and Bank-XL are entirely fictitious networks designed for research purposes.
 
-Attack scenarios are based on publicly disclosed CTI reports and do not contain any novel exploitation techniques or zero-day vulnerabilities.
+Attack scenarios are based on publicly disclosed CTI reports and do not contain any novel exploitation techniques or real zero-day vulnerabilities. The UK-Intergalactic (Asset-Access) scenario uses a purpose-built, fictional web UI in which a known weakness (CVE-2023-27524) is re-created for the lab, together with a fictional privilege-escalation flaw that exists only in that component.
 
 **Proprietary Content**: The UK-Intergalactic Caldera abilities and adversary profile, and certain additional pipeline execution scripts, are proprietary and not included in this public repository.
 
@@ -424,7 +469,8 @@ Special thanks to the GNS3 and MITRE Caldera communities for providing the netwo
 
 - **v1.0.0**: Initial public release with Bank, Bank-XL, and UK-Office topologies
 - **v1.1.0**: Expanded artifact coverage to include a second adversary scenario per topology, providing attack graphs, network facts and interaction rules, GNS3 topology configurations, and minimal cyber twins for all scenario–topology combinations. Each adversary scenario is accompanied by an empirically validated mitigation, demonstrated to hold in both the full topology and the minimal cyber twin.
+- **v1.2.0** (November 2026, major revision): Corrected network facts and interaction rules across all six scenario–topology combinations, and regenerated the attack graphs. The minimal cyber twins, the emulated attack paths, and the Caldera results are unchanged. See [November 2026 Revision](#november-2026-revision).
 
 ---
 
-**Last Updated**: August 19, 2026
+**Last Updated**: November 10, 2026
