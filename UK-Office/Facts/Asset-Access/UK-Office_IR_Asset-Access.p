@@ -153,11 +153,14 @@ interaction_rule(
      localFileProtection(Host, Account, Permission, Path)),
     rule_desc('Access file via executed code', 1.0)).
 
+
 interaction_rule(
-   (localFileProtection(Host, Account, Permission, Path) :-
+   (localFileProtection(Host, 'root', 'read', Path) :-
      fileOwner(Host, Path, 'root'),
      ownerAccessible(Host, 'read', Path)),
-    rule_desc('Valid file protection mechanism', 1.0)).    
+    rule_desc('Valid file protection mechanism', 1.0)).   
+
+    
 
 /* Interaction Rules for T1059 - Command and Scripting Interpreter: */
 interaction_rule(

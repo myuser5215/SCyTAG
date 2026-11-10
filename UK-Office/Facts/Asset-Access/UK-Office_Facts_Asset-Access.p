@@ -1,57 +1,4 @@
 attackGoal(lateralMovementSSHTunnel('intergalactic-hacker', 'alpine-3.18-openvpn-1', 'storage-server-1')).
-dataFlow('Core-Switch', 'MainRouter', _FlowName, _Direction).
-dataFlow('Core-Switch', 'VoIP-Switch', _FlowName, _Direction).
-dataFlow('Core-Switch', 'HP-2560A', _FlowName, _Direction).
-dataFlow('Core-Switch', 'ADMIN', _FlowName, _Direction).
-dataFlow('Core-Switch', 'PAXTON', _FlowName, _Direction).
-dataFlow('MainRouter', 'uk-site-internet', _FlowName, _Direction).
-dataFlow('VoIP-Switch', 'AP-Controller', _FlowName, _Direction).
-dataFlow('AP-Controller', 'DEV3', _FlowName, _Direction).
-dataFlow('AP-Controller', 'FLE4N', _FlowName, _Direction).
-dataFlow('FLE4N', 'alpine-3.18-openvpn-1', _FlowName, _Direction).
-dataFlow('FLE4N', 'storage-server-1', _FlowName, _Direction).
-dataFlow('intergalactic-vpn-gw-internet', 'intergalactic-vpn', _FlowName, _Direction).
-dataFlow('intergalactic-hacker-internet', 'intergalactic-hacker', _FlowName, _Direction).
-dataFlow('PC1-1', 'HP-2560A', _FlowName, _Direction).
-dataFlow('PC1-4', 'HP-2560A', _FlowName, _Direction).
-dataFlow('PC3-6', 'HP-2650D', _FlowName, _Direction).
-dataFlow('PC2-2', 'HP-2650D1', _FlowName, _Direction).
-dataFlow('PC3-3', 'HP-2650D', _FlowName, _Direction).
-dataFlow('PC1-5', 'HP-2560A', _FlowName, _Direction).
-dataFlow('HP-2560A', 'HP-2650D1', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-3', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-6', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-2', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-8', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-9', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-10', _FlowName, _Direction).
-dataFlow('HP-2560A', 'PC1-7', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'HP-2650D', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-4', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-3', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-6', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-1', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-5', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-7', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-8', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-9', _FlowName, _Direction).
-dataFlow('HP-2650D1', 'PC2-10', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-5', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-4', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-2', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-1', _FlowName, _Direction).
-dataFlow('HP-2650D', 'OpenvSwitch-Servers', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-7', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-8', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-9', _FlowName, _Direction).
-dataFlow('HP-2650D', 'PC3-10', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'wordpress', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'devStorage', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'devPC1', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'devPC2', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'devPC3', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'devPC4', _FlowName, _Direction).
-dataFlow('OpenvSwitch-Servers', 'devPC5', _FlowName, _Direction).
 isInSubnet('Core-Switch', 'MainRouter').
 isInSubnet('Core-Switch', 'VoIP-Switch').
 isInSubnet('VoIP-Switch', 'Core-Switch').
@@ -111,9 +58,10 @@ isInSubnet('OpenvSwitch-Servers', 'devPC3').
 isInSubnet('OpenvSwitch-Servers', 'devPC4').
 isInSubnet('OpenvSwitch-Servers', 'devPC5').
 malicious('attacker').
+malicious('hacker').
 dataBind(Flow, 'intergalactic-vpn', Path1).
 dataBind(Flow, 'intergalactic-hacker', Path1).
-dataBind(Flow, 'intergalactic-vpn-internet', Path1).
+dataBind(Flow, 'intergalactic-vpn-gw-internet', Path1).
 dataBind(Flow, 'intergalactic-hacker-internet', Path1).
 dataBind(Flow, 'uk-site-internet', Path1).
 dataBind(Flow, 'MainRouter', Path1).
@@ -191,8 +139,6 @@ dataFlow('OpenvSwitch-Servers', 'devPC2', _FlowName, _Direction).
 dataFlow('OpenvSwitch-Servers', 'devPC3', _FlowName, _Direction).
 dataFlow('OpenvSwitch-Servers', 'devPC4', _FlowName, _Direction).
 dataFlow('OpenvSwitch-Servers', 'devPC5', _FlowName, _Direction).
-dataFlow('intergalactic-vpn', 'alpine-3.18-openvpn-1').
-dataFlow('alpine-3.18-openvpn-1', 'intergalactic-vpn').
 isInSubnet('outsideNet','intergalactic-vpn-gw-internet').
 isInSubnet('outsideNet','intergalactic-vpn').
 isInSubnet('vpn','intergalactic-vpn').
@@ -216,26 +162,26 @@ isInSubnet('labNet','storage-server-1').
 isInSubnet('insideNet','ADMIN').
 isInSubnet('insideNet','PAXTON').
 networkService('intergalactic-vpn', 'intergalactic-web-ui', 'http', '80', 'root').
-networkService('intergalactic-vpn', 'intergalactic-web-ui', 'udp', '1194', 'root').
-networkService('alpine-3.18-openvpn-1', _, 'open-ssh', '22', 'user-account').
-networkService('storage-server-1', _, 'sftpd', '22', 'user-backup-account').
-networkService('intergalactic-vpn', _, 'open-ssh', '22', 'root').
-networkService('intergalactic-hacker', _, 'open-ssh', '22', 'hacker').
-networkService('intergalactic-hacker', 'intergalactic-web-ui', 'udp', '1194', 'hacker').
-networkService('alpine-3.18-openvpn-1', 'intergalactic-web-ui', 'udp', '1194', 'alice').
+networkService('intergalactic-vpn', 'openVPN', 'udp', '1194', 'root').
+networkService('alpine-3.18-openvpn-1','open-ssh','tcp','22','user-account').
+networkService('storage-server-1', 'sftpd', 'tcp', '22', 'user-backup-account'). 
+networkService('intergalactic-vpn','open-ssh','tcp','22','root').
+networkService('intergalactic-hacker','open-ssh','tcp','22','hacker').
+networkService('intergalactic-hacker', 'openVPN', 'udp', '1194', 'hacker').
+networkService('alpine-3.18-openvpn-1', 'openVPN', 'udp', '1194', 'alice').
 networkService('MainRouter', 'fwMgmtUI', 'tcp', '443', _).
-networkService('Core-Switch', _, 'open-ssh', '22', _).
-networkService('HP-2560A', _, 'open-ssh', '22', _).
-networkService('HP-2650D1', _, 'open-ssh', '22', 'hpAdmin').
-networkService('HP-2650D', _, 'open-ssh', '22', _).
-networkService('VoIP-Switch', _, 'open-ssh', '443', _).
-networkService('AP-Controller', _, 'open-ssh', '80', 'apcAdmin').
-networkService('AP-Controller', _, 'open-ssh', '443', 'apcAdmin').
-networkService('ADMIN', _, 'open-ssh', '22', 'localAdmin').
-networkService('PAXTON', _, 'open-ssh', '22', 'paxUser').
+networkService('Core-Switch', 'open-ssh', 'tcp', '22', _).
+networkService('HP-2560A', 'open-ssh', 'tcp', '22', _).
+networkService('HP-2650D1', 'open-ssh', 'tcp', '22', 'hpAdmin').
+networkService('HP-2650D', 'open-ssh', 'tcp', '22', _).
+networkService('VoIP-Switch', 'webMgmtUI', 'tcp', '443', _).
+networkService('AP-Controller', 'webMgmtUI', 'tcp', '80', 'apcAdmin').
+networkService('AP-Controller', 'webMgmtUI', 'tcp', '443', 'apcAdmin').
+networkService('ADMIN', 'open-ssh', 'tcp', '22', 'localAdmin').
+networkService('PAXTON', 'open-ssh', 'tcp', '22', 'paxUser').
 hacl('alpine-3.18-openvpn-1', 'intergalactic-vpn', 'udp', '1194').
 hacl('intergalactic-hacker', 'intergalactic-vpn', 'udp', '1194').
-hacl('intergalactic-hacker', 'intergalactic-vpn', 'open-ssh', '22').
+hacl('intergalactic-hacker', 'intergalactic-vpn', 'tcp', '22').
 hacl('MainRouter', 'uk-site-internet', 'http', '80').
 hasAccount('root', 'intergalactic-vpn', 'operating-system-administration-account').
 hasAccount('alice', 'alpine-3.18-openvpn-1', 'user-account').
@@ -244,7 +190,7 @@ hasAccount('hacker', 'intergalactic-hacker', 'user-account').
 hasAccess('hacker', 'intergalactic-hacker', 'intergalactic-vpn', 'udp', '1194').
 hasAccess('hacker', 'intergalactic-hacker', 'intergalactic-vpn', 'http', '80').
 hasAccess('alice', 'alpine-3.18-openvpn-1', 'intergalactic-vpn', 'udp', '1194').
-located('intergalactic-vpn-internet', 'outsideNet', 'External/WAN').
+located('intergalactic-vpn-gw-internet', 'outsideNet', 'External/WAN').
 located('intergalactic-hacker-internet', 'outsideNet', 'External/WAN').
 located('intergalactic-hacker', 'outsideNet', 'External/WAN').
 located('uk-site-internet', 'outsideNet', 'External/WAN').
@@ -267,7 +213,6 @@ fileOwner('intergalactic-vpn', 'intergalactic-web-ui', 'root').
 fileOwner('intergalactic-vpn', 'intergalactic-web-ui', 'hacker').
 fileOwner('intergalactic-vpn', './etc/shr', 'hacker').
 fileOwner('alpine-3.18-openvpn-1', './etc/shr', 'alice').
-fileOwner('alpine-3.18-openvpn-1', './etc/shr', 'alice-backup').
 fileOwner('AP-Controller', Path, 'root').
 fileOwner('ADMIN', Path, 'root').
 fileOwner('PAXTON', Path, 'root').
@@ -276,7 +221,6 @@ ownerAccessible('intergalactic-vpn', 'read', './etc/shr').
 ownerAccessible('intergalactic-vpn', 'write', './etc/shr').
 ownerAccessible('intergalactic-vpn', 'read', 'intergalactic-web-ui').
 ownerAccessible('intergalactic-vpn', 'write', 'intergalactic-web-ui').
-ownerAccessible('intergalactic-vpn', 'read', './etc/shr').
 ownerAccessible('alpine-3.18-openvpn-1', 'read', './etc/shr').
 ownerAccessible('alpine-3.18-openvpn-1', 'write', './etc/shr').
 ownerAccessible('AP-Controller', 'read', Path).
@@ -285,8 +229,12 @@ ownerAccessible('PAXTON', 'read', Path).
 ownerAccessible('storage-server-1', 'read', Path).
 allows('intergalactic-vpn', 'hacker', _, _, '200').
 allows('intergalactic-vpn', 'alice', _, _, '200').
-setUIDProgram('intergalactic-vpn', 'intergalactic-web-ui', 'Account').
-installed('intergalactic-vpn', 'intergalactic-web-ui', '2.4.12').
+setuidProgram('intergalactic-vpn', 'intergalactic-web-ui', Account).
+installed('intergalactic-vpn', 'intergalactic-web-ui').
+installed('intergalactic-vpn', 'openVPN'). 
+installed('alpine-3.18-openvpn-1', 'openVPN'). 
+installed('intergalactic-hacker', 'openVPN'). 
+installed('storage-server-1', 'openVPN').
 canInvoke('intergalactic-web-ui', 'Software2', 'keylogging').
 accessFile('root', 'intergalactic-vpn', 'write', Path).
 isNameResolver('NameResolver', 'intergalactic-vpn', 'intergalactic-hacker').
@@ -350,13 +298,14 @@ deviceOnline('PC3-10', _Platform).
 deviceOnline('PC3-8', _Platform).
 deviceOnline('PC3-9', _Platform).
 residesOn('intergalactic-vpn', 'intergalactic-web-ui', '0.1.0rc0').
-residesOn('intergalactic-vpn', 'intergalactic-web-ui', '2.4.12').
-residesOn('intergalactic-hacker', 'intergalactic-web-ui', '0.1.0rc0').
-residesOn('intergalactic-hacker', 'intergalactic-web-ui', '2.4.12').
 residesOn('intergalactic-vpn', 'open-ssh', 'v1.0').
-residesOn('alpine-3.18-openvpn-1', 'intergalactic-web-ui', '0.1.0rc0').
-residesOn('alpine-3.18-openvpn-1', 'intergalactic-web-ui', '2.4.12').
 residesOn('alpine-3.18-openvpn-1', 'open-ssh', 'v1.0').
 residesOn('storage-server-1', 'sftpd', 'v1.0').
-vulExists('cve-2023-27524', 'intergalactic-web-ui', '2.4.12', 'network', 'ca_loss', 'critical').
+residesOn('storage-server-1', 'open-ssh', 'v1.0').
+residesOn('intergalactic-hacker', 'open-ssh', 'v1.0').
+residesOn('intergalactic-vpn', 'openVPN', '2.4.12').
+residesOn('alpine-3.18-openvpn-1', 'openVPN', '2.4.12').
+residesOn('intergalactic-hacker', 'openVPN', '2.4.12').
+residesOn('storage-server-1', 'openVPN', '2.4.12').
+vulExists('cve-2023-27524', 'intergalactic-web-ui', '0.1.0rc0', 'network', 'ca_loss', 'critical').
 vulExists('cve-zero-day-web-ui-execute-code-1337', 'intergalactic-web-ui', '0.1.0rc0', 'local', 'privilege_escalation', 'critical').
