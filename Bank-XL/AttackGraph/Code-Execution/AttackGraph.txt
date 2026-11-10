@@ -1,10 +1,10 @@
 1,"fullCampaign(attacker,'adminPC1-ssh-1','camera_A_ssh-1','DVR_ssh-1')","OR",0
 2,"RULE 25 (Execute full attack campaign)","AND",0
 3,"execDelegatedCode(attacker,'camera_A_ssh-1','DVR_ssh-1',root)","OR",0
-4,"RULE 24 (Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1)","AND",0
-5,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
+4,"RULE 24 (Execute Delegated Code)","AND",0
+5,"vulExists('cve-2017-7494',samba,'4.6.3',network,caLoss,critical)","LEAF",1
 4,5,-1
-6,"networkService('DVR_ssh-1',arpd,tcp,'445',root)","LEAF",1
+6,"networkService('DVR_ssh-1',samba,tcp,'445',root)","LEAF",1
 4,6,-1
 7,"hasAccess(attacker,'camera_A_ssh-1','DVR_ssh-1',tcp,'445')","LEAF",1
 4,7,-1
@@ -12,33 +12,33 @@
 9,"RULE 16 (compromised host camera_A_ssh-1)","AND",0
 10,"maliciousInteraction('camera_A_ssh-1',attacker,arpd)","LEAF",1
 9,10,-1
-9,5,-1
-11,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
+11,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
 9,11,-1
-12,"deviceOnline('camera_A_ssh-1','Linux')","LEAF",1
+12,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
 9,12,-1
+13,"deviceOnline('camera_A_ssh-1','Linux')","LEAF",1
+9,13,-1
 8,9,-1
-13,"RULE 16 (compromised host camera_A_ssh-1)","AND",0
-14,"maliciousInteraction('camera_A_ssh-1',attacker,sshd)","LEAF",1
-13,14,-1
-15,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
-13,15,-1
-16,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
-13,16,-1
-13,12,-1
-8,13,-1
+14,"RULE 16 (compromised host camera_A_ssh-1)","AND",0
+15,"maliciousInteraction('camera_A_ssh-1',attacker,sshd)","LEAF",1
+14,15,-1
+16,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
+14,16,-1
+17,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
+14,17,-1
+14,13,-1
+8,14,-1
 4,8,-1
 3,4,-1
-17,"RULE 24 (Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1)","AND",0
-18,"vulExists(cve_2017_0144,smbV1,ver1,network,caLoss,critical)","LEAF",1
-17,18,-1
-19,"networkService('DVR_ssh-1',smbV1,tcp,'445',root)","LEAF",1
-17,19,-1
-17,7,-1
-17,8,-1
-3,17,-1
-20,"RULE 24 (Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1)","AND",0
-20,15,-1
+18,"RULE 24 (Execute Delegated Code)","AND",0
+18,11,-1
+19,"networkService('DVR_ssh-1',arpd,tcp,'445',root)","LEAF",1
+18,19,-1
+18,7,-1
+18,8,-1
+3,18,-1
+20,"RULE 24 (Execute Delegated Code)","AND",0
+20,16,-1
 21,"networkService('DVR_ssh-1',sshd,tcp,'445',root)","LEAF",1
 20,21,-1
 20,7,-1
@@ -80,13 +80,13 @@
 39,"RULE 9 (Privilege escalation using setuid program)","AND",0
 40,"malicious(attacker)","LEAF",1
 39,40,-1
-39,5,-1
+39,11,-1
 39,28,-1
 39,24,-1
 38,39,-1
 41,"RULE 9 (Privilege escalation using setuid program)","AND",0
 41,40,-1
-41,15,-1
+41,16,-1
 42,"networkService('camera_A_ssh-1',sshd,tcp,'22',root)","LEAF",1
 41,42,-1
 41,24,-1

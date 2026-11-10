@@ -3451,8 +3451,8 @@ facts:
       software: sshd
       version: ver1
     - host: DVR_ssh-1
-      software: smbV1
-      version: ver1
+      software: samba
+      version: 4.6.3
     - host: FileServer
       software: sftpd
       version: ver1
@@ -3479,9 +3479,9 @@ facts:
       loose_types: caLoss
       severity: critical
 
-    - cve_id: cve_2017_0144
-      software: smbV1
-      version: ver1
+    - cve_id: cve-2017-7494
+      software: samba
+      version: 4.6.3
       access_vector: network
       loose_types: caLoss
       severity: critical
@@ -3502,7 +3502,7 @@ facts:
       account: root
 
     - host: DVR_ssh-1
-      software: smbV1
+      software: samba
       protocol: tcp
       port: '445'
       account: root
@@ -3654,7 +3654,7 @@ facts:
 
     - src_host: vlan120
       dst_host: vlan100
-      protocol: smbV1
+      protocol: samba
       dest_port: Port
 
     - src_host: vlan120

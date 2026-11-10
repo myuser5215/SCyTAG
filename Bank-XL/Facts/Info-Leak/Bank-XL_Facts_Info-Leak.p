@@ -3164,7 +3164,7 @@ isInSubnet('vlan120', 'adminPC5').
 isInSubnet('vlan120', 'adminPC6').
 
 networkService('DVR_ssh-1', 'arpd', 'tcp', Port, 'root').
-networkService('DVR_ssh-1', 'smbV1', 'tcp', '445', 'root').
+networkService('DVR_ssh-1', 'samba', 'tcp', '445', 'root').
 networkService('DVR_ssh-1', 'sshd', 'tcp', Port, 'root').
 networkService('FileServer', 'sftpd', 'tcp', Port, 'root').
 networkService('camera_A_ssh-1', 'arpd', 'tcp', Port, 'root').
@@ -3191,7 +3191,7 @@ hacl('adminPC1-ssh-1', 'camera_A_ssh-1', 'tcp', '22').
 hacl('adminPC1-ssh-1', 'cameraB', 'arp', Port).
 hacl('adminPC1-ssh-1', 'cameraB', 'tcp', Port).
 hacl('vlan120', 'vlan100', 'http', Port).
-hacl('vlan120', 'vlan100', 'smbV1', Port).
+hacl('vlan120', 'vlan100', 'samba', Port).
 hacl('vlan120', 'vlan100', Protocol, Port).
 hacl('vlan120', 'vlan110', 'http', Port).
 hacl('vlan120', 'vlan110', 'sftpd', Port).
@@ -4696,12 +4696,12 @@ residesOn('camera_A_ssh-1', 'sshd', 'ver1').
 residesOn('camera_A_ssh-1', 'arpd', 'ver1').
 residesOn('adminPC1-ssh-1', 'libtasn1_6', 'v4_16_0_2').
 residesOn('adminPC1-ssh-1', 'sshd', 'ver1').
-residesOn('DVR_ssh-1', 'smbV1', 'ver1').
+residesOn('DVR_ssh-1', 'samba', '4.6.3').
 residesOn('FileServer', 'sftpd', 'ver1').
 vulExists('arpSpoofVuln', 'arpd', 'ver1', 'network', caLoss, 'critical').
 vulExists('cve_2021_46848', 'libtasn1_6', 'v4_16_0_2', 'network', caLoss, 'critical').
 vulExists('cve_2022_2294', 'libtasn1_6', 'ver1', 'network', caLoss, 'critical').
-vulExists('cve_2017_0144', 'smbV1', 'ver1', 'network', caLoss, 'critical').
+vulExists('cve-2017-7494', 'samba', '4.6.3', 'network', caLoss, 'critical').
 vulExists('sshdSpoofVuln', 'sshd', 'ver1', 'network', caLoss, 'critical').
 
 /******************************************************/

@@ -258,7 +258,7 @@ interaction_rule(
      hasAccess(User, SrcHost, DstHost, Protocol, Port),
      networkService(DstHost, Software, Protocol, Port, Account),
      vulExists(CveId, Software, Version, RemoteNetwork, LoseTypes, 'critical')),
-    rule_desc('Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1', 1.0)).
+    rule_desc('Execute Delegated Code', 1.0)).
 
 /* Final IR */
 interaction_rule(

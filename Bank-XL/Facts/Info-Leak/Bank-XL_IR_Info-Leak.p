@@ -260,7 +260,7 @@ interaction_rule(
      hasAccess(User, SrcHost, DstHost, Protocol, Port),
      networkService(DstHost, Software, Protocol, Port, Account),
      vulExists(CveId, Software, Version, RemoteNetwork, LoseTypes, 'critical')),
-    rule_desc('Exploit EternalBlue from cameraA to DVR', 1.0)).
+    rule_desc('Execute Delegated Code', 1.0)).
 
 /* Final IR */
 interaction_rule(
@@ -269,24 +269,23 @@ interaction_rule(
      ingressToolTransfer(Software, User, MiddleHost, Path, Port),
      execDelegatedCode(User, MiddleHost, EndHost, Account)),
     rule_desc('', 1.0)).
+
 /******************************************************/
 /****   Thief scenario Interaction Rules (appended) *****/
 /****   Post-compromise data theft / exfiltration on  *****/
 /****   DVR_ssh-1. Adapted from the validated UK-Office*****/
 /****   Thief IR template (IRs_UK-Office_Thief_Final_2.p)****/
 /****                                                    *****/
-/****   CORRECTED: an earlier draft of this file chained  *****/
-/****   Thief's execCode through execDelegatedCode (the     *****/
-/****   BGU Test Adversary's camera_A pivot / EternalBlue     *****/
-/****   exploit against DVR_ssh-1's smbV1 service, rule_desc   *****/
-/****   'Exploit EternalBlue from cameraA to DVR' above). That  *****/
-/****   is factually wrong for this scenario: the real Thief     *****/
-/****   deployment involves no EternalBlue exploit and no         *****/
-/****   attacker presence on camera_A_ssh-1 whatsoever — it is     *****/
-/****   an independently-deployed Caldera agent placed directly     *****/
-/****   on DVR_ssh-1, fully unrelated to the BGU chain. Thief's       *****/
-/****   foothold is modeled below via agentPresent/2, exactly as       *****/
-/****   in the UK-Office template, NOT via execDelegatedCode.            *****/
+/****   NOTE: Thief's execCode is NOT chained through     *****/
+/****   execDelegatedCode (the BGU Test Adversary's      *****/
+/****   camera_A_ssh-1 -> DVR_ssh-1 pivot). The real      *****/
+/****   Thief deployment involves no exploit and no       *****/
+/****   attacker presence on camera_A_ssh-1 — it is an     *****/
+/****   independently-deployed Caldera agent placed       *****/
+/****   directly on DVR_ssh-1, unrelated to the BGU chain.*****/
+/****   Thief's foothold is modeled below via            *****/
+/****   agentPresent/2, exactly as in the UK-Office       *****/
+/****   template, NOT via execDelegatedCode.              *****/
 /******************************************************/
 
 /* --- New predicate declarations (Thief-specific only) ---
@@ -341,7 +340,7 @@ derived(thiefCampaign(_user, _host, _c2Server)).
 
 /* Bridging rule: execCode on DVR_ssh-1 derived from an independently
    established Caldera agent, NOT from the BGU compromise chain. No
-   EternalBlue exploit, no camera_A_ssh-1 involvement, no pivot — this
+   exploit, no camera_A_ssh-1 involvement, no pivot — this
    matches the real Thief deployment exactly. */
 interaction_rule(
    (execCode(User, Host, Account) :-

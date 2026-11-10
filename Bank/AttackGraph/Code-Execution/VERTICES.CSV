@@ -1,23 +1,23 @@
 1,"fullCampaign(attacker,'adminPC1-ssh-1','camera_A_ssh-1','DVR_ssh-1')","OR",0
 2,"RULE 25 (Execute full attack campaign)","AND",0
 3,"execDelegatedCode(attacker,'camera_A_ssh-1','DVR_ssh-1',root)","OR",0
-4,"RULE 24 (Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1)","AND",0
-5,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
-6,"networkService('DVR_ssh-1',arpd,tcp,'445',root)","LEAF",1
+4,"RULE 24 (Execute Delegated Code)","AND",0
+5,"vulExists('cve-2017-7494',samba,'4.6.3',network,caLoss,critical)","LEAF",1
+6,"networkService('DVR_ssh-1',samba,tcp,'445',root)","LEAF",1
 7,"hasAccess(attacker,'camera_A_ssh-1','DVR_ssh-1',tcp,'445')","LEAF",1
 8,"compromised('camera_A_ssh-1')","OR",0
 9,"RULE 16 (compromised host camera_A_ssh-1)","AND",0
 10,"maliciousInteraction('camera_A_ssh-1',attacker,arpd)","LEAF",1
-11,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
-12,"deviceOnline('camera_A_ssh-1','Linux')","LEAF",1
-13,"RULE 16 (compromised host camera_A_ssh-1)","AND",0
-14,"maliciousInteraction('camera_A_ssh-1',attacker,sshd)","LEAF",1
-15,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
-16,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
-17,"RULE 24 (Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1)","AND",0
-18,"vulExists(cve_2017_0144,smbV1,ver1,network,caLoss,critical)","LEAF",1
-19,"networkService('DVR_ssh-1',smbV1,tcp,'445',root)","LEAF",1
-20,"RULE 24 (Exploit EternalBlue from camera_A_ssh-1 to DVR_ssh-1)","AND",0
+11,"vulExists(arpSpoofVuln,arpd,ver1,network,caLoss,critical)","LEAF",1
+12,"residesOn('camera_A_ssh-1',arpd,ver1)","LEAF",1
+13,"deviceOnline('camera_A_ssh-1','Linux')","LEAF",1
+14,"RULE 16 (compromised host camera_A_ssh-1)","AND",0
+15,"maliciousInteraction('camera_A_ssh-1',attacker,sshd)","LEAF",1
+16,"vulExists(sshdSpoofVuln,sshd,ver1,network,caLoss,critical)","LEAF",1
+17,"residesOn('camera_A_ssh-1',sshd,ver1)","LEAF",1
+18,"RULE 24 (Execute Delegated Code)","AND",0
+19,"networkService('DVR_ssh-1',arpd,tcp,'445',root)","LEAF",1
+20,"RULE 24 (Execute Delegated Code)","AND",0
 21,"networkService('DVR_ssh-1',sshd,tcp,'445',root)","LEAF",1
 22,"ingressToolTransfer(arpd,attacker,'camera_A_ssh-1',_,'22')","OR",0
 23,"RULE 17 (Transfer ingress tools via MITM)","AND",0
