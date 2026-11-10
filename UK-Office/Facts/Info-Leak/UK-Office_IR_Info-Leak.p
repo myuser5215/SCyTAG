@@ -191,7 +191,7 @@ interaction_rule(
 
 /* updated */
 interaction_rule(
-   (localFileProtection(Host, Account, Permission, Path) :-
+   (localFileProtection(Host, 'root', 'read', Path) :-
      fileOwner(Host, Path, 'root'),
      ownerAccessible(Host, 'read', Path)),
     rule_desc('Valid file protection mechanism', 1.0)).    
