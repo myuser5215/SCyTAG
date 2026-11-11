@@ -30,6 +30,19 @@ Takes a full GNS3 topology YAML and an attack graph, and produces the minimal cy
 
 Parses and compares Caldera operation debrief JSON reports (baseline vs. mitigated), summarizing per-ability outcomes, fact propagation, and status codes. Takes all arguments from the command line; no environment configuration required.
 
+### `BuildVulPredicates.py`
+
+Matches the binaries in a system inventory against known CVEs in the NVD and writes them as MulVAL `vulExists` facts.
+
+```bash
+python3 BuildVulPredicates.py [binaries.csv] [output.p]
+```
+Arguments are optional and default to `BinariesList.csv` and `vulBin.p`.
+
+- **Input:** CSV with one `product,version` pair per line. A version of `*` matches only NVD entries whose CPE version is also `*`.
+- **Output:** one fact per matched CVE, appended to the output file:
+  `vulExists('<CVE-ID>', <software>, '<accessVector>', '<CIA impact>', '<severity>').`
+- **Data:** NVD CVE JSON 1.1 yearly feeds, placed in `nvd_json_files/` in the working directory. The feeds are not included in this repository.
 ---
 
 ## GNS3 Setup and Mitigation Scripts
